@@ -46,6 +46,7 @@ android {
 }
 
 dependencies {
+    implementation(project(Dependencies.Project.coreCompose))
 
     implementation(Dependencies.Android.coreKtx)
     implementation(Dependencies.Compose.ui)
