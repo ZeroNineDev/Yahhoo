@@ -31,8 +31,14 @@ android {
 
 dependencies {
 
+    implementation(Dependencies.Compose.ui)
+    implementation(Dependencies.Compose.material)
+    implementation(Dependencies.Compose.preview)
+
     implementation(Dependencies.Android.coreKtx)
     testImplementation(Dependencies.Test.jUnit)
     androidTestImplementation(Dependencies.Test.androidJUnit)
     androidTestImplementation(Dependencies.Test.espresso)
+
+    debugImplementation(Dependencies.Compose.composeUITooling)
 }
