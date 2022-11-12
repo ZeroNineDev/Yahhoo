@@ -28,7 +28,18 @@ object Dependencies {
         const val espresso = "androidx.test.espresso:espresso-core:3.4.0"
     }
 
+    object Accompanist {
+
+        private const val version = "0.23.1"
+        const val systemUi = "com.google.accompanist:accompanist-systemuicontroller:$version"
+    }
+
     object Project {
         const val coreCompose = ":core-compose"
+    }
+
+    object Coil {
+        private const val version = "2.2.2"
+        const val coil = "io.coil-kt:coil-compose:$version"
     }
 }

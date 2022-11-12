@@ -33,37 +33,44 @@ val Monserrat = FontFamily(
 val yahhooTypography = Typography(
     h2 = TextStyle(
         fontFamily = Monserrat,
-        fontWeight = FontWeight.W600,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Normal,
         fontSize = 48.sp
     ),
     h3 = TextStyle(
         fontFamily = Monserrat,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Normal,
         fontSize = 36.sp
     ),
     h4 = TextStyle(
         fontFamily = Monserrat,
-        fontWeight = FontWeight.W600,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Normal,
         fontSize = 30.sp
     ),
     h5 = TextStyle(
         fontFamily = Monserrat,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Normal,
         fontSize = 24.sp
     ),
     h6 = TextStyle(
         fontFamily = Monserrat,
-        fontWeight = FontWeight.W600,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Normal,
         fontSize = 20.sp
     ),
     subtitle1 = TextStyle(
         fontFamily = Monserrat,
-        fontWeight = FontWeight.W500,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Normal,
         fontSize = 16.sp
     ),
     subtitle2 = TextStyle(
         fontFamily = Monserrat,
-        fontWeight = FontWeight.W500,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Normal,
         fontSize = 14.sp
     ),
     body1 = TextStyle(
@@ -91,6 +98,5 @@ val yahhooTypography = Typography(
         fontFamily = Monserrat,
         fontWeight = FontWeight.W500,
         fontSize = 12.sp
-
     )
 )
