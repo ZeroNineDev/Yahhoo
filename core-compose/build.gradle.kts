@@ -24,16 +24,24 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Dependencies.Compose.version
+    }
     kotlinOptions {
         jvmTarget = Config.jvmTarget
     }
 }
 
 dependencies {
+    implementation(Dependencies.Coil.coil)
 
     implementation(Dependencies.Compose.ui)
     implementation(Dependencies.Compose.material)
     implementation(Dependencies.Compose.preview)
+    implementation(Dependencies.Accompanist.systemUi)
 
     implementation(Dependencies.Android.coreKtx)
     testImplementation(Dependencies.Test.jUnit)
