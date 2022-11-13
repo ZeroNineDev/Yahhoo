@@ -32,10 +32,12 @@ object Dependencies {
 
         private const val version = "0.23.1"
         const val systemUi = "com.google.accompanist:accompanist-systemuicontroller:$version"
+        const val navigation = "com.google.accompanist:accompanist-navigation-animation:$version"
     }
 
     object Project {
         const val coreCompose = ":core-compose"
+        const val navigation = ":navigation"
     }
 
     object Coil {

@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "Yahhoo"
 include(":app")
 include(":core-compose")
+include(":navigation")

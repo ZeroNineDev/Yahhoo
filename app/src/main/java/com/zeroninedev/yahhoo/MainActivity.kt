@@ -11,6 +11,7 @@ import com.zeroninedev.core_compose.components.drawer.NavigationDrawer
 import com.zeroninedev.core_compose.components.toolbar.TopToolbar
 import com.zeroninedev.core_compose.ui.theme.YahhooTheme
 import kotlinx.coroutines.launch
+import ru.zeroninedev.navigation.destination.navigationItemDrawerList
 
 class MainActivity : ComponentActivity() {
 
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     },
                     scaffoldState = scaffoldState,
                     drawerContent = {
-                        NavigationDrawer {
+                        NavigationDrawer(itemsList = navigationItemDrawerList()) {
                             scope.launch {
                                 scaffoldState.drawerState.close()
                             }

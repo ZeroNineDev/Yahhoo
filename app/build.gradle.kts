@@ -47,6 +47,7 @@ android {
 
 dependencies {
     implementation(project(Dependencies.Project.coreCompose))
+    implementation(project(Dependencies.Project.navigation))
 
     implementation(Dependencies.Android.coreKtx)
     implementation(Dependencies.Compose.ui)
