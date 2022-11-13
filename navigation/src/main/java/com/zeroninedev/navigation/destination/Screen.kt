@@ -1,4 +1,4 @@
-package ru.zeroninedev.navigation.destination
+package com.zeroninedev.navigation.destination
 
 
 /**

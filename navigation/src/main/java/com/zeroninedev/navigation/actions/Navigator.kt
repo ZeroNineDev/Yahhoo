@@ -1,6 +1,6 @@
-package ru.zeroninedev.navigation.actions
+package com.zeroninedev.navigation.actions
 
-import ru.zeroninedev.navigation.destination.Screen
+import com.zeroninedev.navigation.destination.Screen
 
 interface Navigator {
 

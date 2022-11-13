@@ -1,7 +1,7 @@
-package ru.zeroninedev.navigation.destination
+package com.zeroninedev.navigation.destination
 
 import androidx.annotation.StringRes
-import ru.zeroninedev.navigation.R
+import com.zeroninedev.navigation.R
 
 sealed class NavigationItemDrawerScreen(var route: String, var icon: Int, @StringRes var title: Int) {
 

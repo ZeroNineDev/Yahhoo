@@ -1,8 +1,8 @@
-package ru.zeroninedev.navigation.actions
+package com.zeroninedev.navigation.actions
 
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import ru.zeroninedev.navigation.destination.Screen
+import com.zeroninedev.navigation.destination.Screen
 
 class NavigatorImpl(private val navController: NavController) : Navigator {
 

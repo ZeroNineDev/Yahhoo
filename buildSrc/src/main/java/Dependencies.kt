@@ -19,6 +19,7 @@ object Dependencies {
 
         const val activityCompose = "androidx.activity:activity-compose:1.4.0"
         const val lifecycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+        const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
     }
 
     object Test {
@@ -38,6 +39,18 @@ object Dependencies {
     object Project {
         const val coreCompose = ":core-compose"
         const val navigation = ":navigation"
+    }
+
+    object Retrofit {
+        const val version = "2.9.0"
+        const val core = "com.squareup.retrofit2:retrofit:$version"
+        const val gsonConverter = "com.squareup.retrofit2:converter-gson:$version"
+    }
+
+    object Dagger {
+        const val version = "2.41"
+        const val core = "com.google.dagger:dagger:$version"
+        const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 
     object Coil {
