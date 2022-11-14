@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation(project(Dependencies.Project.navigation))
     implementation(project(Dependencies.Project.coreCompose))
+    implementation(project(Dependencies.Project.common))
 
     implementation(Dependencies.Accompanist.navigation)
 

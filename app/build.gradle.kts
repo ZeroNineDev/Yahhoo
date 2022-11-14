@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
 }
 
 android {
@@ -49,6 +50,7 @@ dependencies {
     implementation(project(Dependencies.Project.coreCompose))
     implementation(project(Dependencies.Project.navigation))
     implementation(project(Dependencies.Project.manga))
+    implementation(project(Dependencies.Project.common))
 
     implementation(Dependencies.Android.coreKtx)
 
@@ -66,4 +68,7 @@ dependencies {
     androidTestImplementation(Dependencies.Test.espresso)
     androidTestImplementation(Dependencies.Compose.composeJUnit)
     debugImplementation(Dependencies.Compose.composeUITooling)
+
+    implementation(Dependencies.Dagger.core)
+    kapt(Dependencies.Dagger.compiler)
 }
