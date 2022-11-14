@@ -39,6 +39,7 @@ object Dependencies {
     object Project {
         const val coreCompose = ":core-compose"
         const val navigation = ":navigation"
+        const val manga = ":manga"
     }
 
     object Retrofit {

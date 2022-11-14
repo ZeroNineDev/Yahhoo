@@ -27,19 +27,20 @@ import com.zeroninedev.core_compose.ui.theme.MediumSize
 import com.zeroninedev.core_compose.ui.theme.NormalMediumSize
 import com.zeroninedev.core_compose.ui.theme.SmallSize
 import com.zeroninedev.core_compose.ui.theme.yahhooTypography
-import ru.zeroninedev.navigation.destination.NavigationItemDrawerScreen
+import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
 
 /**
  * Drawer to show navigation to main screens.
  *
  * @param modifier entered modifier from other scope
+ * @param itemsList list of main routs
  * @param onDestinationClicked callback on destination which user click
  */
 @Composable
 fun NavigationDrawer(
     modifier: Modifier = Modifier,
     itemsList: List<NavigationItemDrawerScreen>,
-    onDestinationClicked: () -> Unit
+    onDestinationClicked: (NavigationItemDrawerScreen) -> Unit
 ) {
     Column(
         modifier
@@ -53,7 +54,7 @@ fun NavigationDrawer(
 
         Spacer(modifier = Modifier.height(MediumSize))
         Text(
-            text = stringResource(id = ru.zeroninedev.navigation.R.string.manga_drawer_title),
+            text = stringResource(id = com.zeroninedev.navigation.R.string.manga_drawer_title),
             style = yahhooTypography.h5,
             color = MaterialTheme.colors.primaryVariant,
             modifier = Modifier.padding(start = NormalMediumSize)
@@ -67,7 +68,7 @@ fun NavigationDrawer(
             Row(horizontalArrangement = Arrangement.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onDestinationClicked() }) {
+                    .clickable { onDestinationClicked(item) }) {
                 Spacer(modifier = Modifier.width(MediumSize))
                 Icon(
                     painter = painterResource(id = item.icon),

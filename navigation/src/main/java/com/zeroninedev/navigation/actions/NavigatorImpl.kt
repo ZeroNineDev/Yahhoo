@@ -14,6 +14,12 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
         navController.navigate(path)
     }
 
+    override fun navigateAndReplaceStartRoute(newHomeRoute: String) {
+        navController.navigate(newHomeRoute) {
+            popUpTo(0)
+        }
+    }
+
     override fun navigateToNextWithClearCurrentScreen(current: Screen, next: Screen) {
         navController.navigate(
             next.route,
