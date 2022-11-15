@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import com.zeroninedev.core_compose.components.image.MangaPreviewImageWithTitle
 import com.zeroninedev.manga.presentation.viewmodel.LastUpdatedMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
+import com.zeroninedev.navigation.destination.Screen
 
 @Composable
 internal fun LastUpdatedMangaScreen(
@@ -19,7 +20,7 @@ internal fun LastUpdatedMangaScreen(
     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
         items(items = screen) { item ->
             MangaPreviewImageWithTitle(title = item.title, imageUrl = item.imageUrl, imageDescription = item.title) {
-
+                internalNavigation.navigate("${Screen.MangaDetailScreen.ROUTE}/${item.id}")
             }
         }
     }

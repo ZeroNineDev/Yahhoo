@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.zeroninedev.core_compose.ui.theme.MediumSize
 import com.zeroninedev.core_compose.ui.theme.TinySize
 import com.zeroninedev.core_compose.ui.theme.ZeroSize
@@ -39,7 +40,7 @@ fun TopToolbar(
         contentPadding = WindowInsets.systemBars
             .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
             .asPaddingValues(),
-        backgroundColor = MaterialTheme.colors.background,
+        backgroundColor = Color.Transparent,
         modifier = modifier
     ) {
         IconButton(onClick = onMenuIconClick) {

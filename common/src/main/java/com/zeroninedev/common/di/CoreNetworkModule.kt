@@ -10,6 +10,7 @@ import okhttp3.Request
 import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 @Module
 class CoreNetworkModule {
@@ -18,7 +19,7 @@ class CoreNetworkModule {
     fun interceptor(): Interceptor = Interceptor{ chain ->
         val original: Request = chain.request()
         val response: Response = chain.proceed(original)
-        Log.d(LOGGER_TAG, response.message())
+        Log.d(LOGGER_TAG, response.toString())
         return@Interceptor response
     }
 
@@ -31,6 +32,8 @@ class CoreNetworkModule {
 
     @Provides
     fun client(interceptor: Interceptor) = OkHttpClient().newBuilder()
+        .connectTimeout(120, TimeUnit.SECONDS)
+        .readTimeout(120, TimeUnit.SECONDS)
         .addInterceptor(interceptor)
         .build()
 

@@ -4,16 +4,16 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zeroninedev.common.constants.Constants
+import com.zeroninedev.manga.domain.NetworkRepository
 import com.zeroninedev.manga.domain.models.UpdatedManga
-import com.zeroninedev.manga.domain.usecase.GetLastUpdatedMangaUseCase
+import com.zeroninedev.manga.domain.usecase.GetPopularMangaUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-
 import javax.inject.Inject
 
-internal class LastUpdatedMangaViewModel @Inject constructor(
-    private val getLastUpdatedMangaUseCase: GetLastUpdatedMangaUseCase
+internal class PopularMangaViewModel @Inject constructor(
+    private val getPopularMangaUseCase: GetPopularMangaUseCase
 ) : ViewModel() {
 
     private val _screenState = MutableStateFlow<List<UpdatedManga>>(listOf())
@@ -25,7 +25,7 @@ internal class LastUpdatedMangaViewModel @Inject constructor(
 
     private fun loadMangas() {
         viewModelScope.launch {
-            runCatching { getLastUpdatedMangaUseCase() }
+            runCatching { getPopularMangaUseCase() }
                 .onSuccess { _screenState.value = it }
                 .onFailure { Log.d(Constants.ERROR_LOG, it.message.toString()) }
         }
