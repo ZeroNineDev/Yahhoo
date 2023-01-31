@@ -1,17 +1,16 @@
-package com.zeroninedev.manga.data.repository
+package com.zeroninedev.common.data.repository
 
 import com.zeroninedev.common.di.IoDispatcher
-import com.zeroninedev.manga.data.api.MangaApi
-import com.zeroninedev.manga.data.models.MangaDto
-import com.zeroninedev.manga.domain.NetworkRepository
-import com.zeroninedev.manga.domain.models.Manga
-import com.zeroninedev.manga.domain.models.UpdatedManga
-import com.zeroninedev.manga.domain.models.toDomain
+import com.zeroninedev.common.data.api.MangaApi
+import com.zeroninedev.common.domain.NetworkRepository
+import com.zeroninedev.common.domain.models.Manga
+import com.zeroninedev.common.domain.models.UpdatedManga
+import com.zeroninedev.common.domain.models.toDomain
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-internal class NetworkRepositoryImpl @Inject constructor(
+class NetworkRepositoryImpl @Inject constructor(
     private val api: MangaApi,
     @IoDispatcher
     private val dispatcher: CoroutineDispatcher
@@ -27,5 +26,9 @@ internal class NetworkRepositoryImpl @Inject constructor(
 
     override suspend fun mangaDetail(mangaId: String): Manga = withContext(dispatcher){
         api.mangaDetail(mangaId).toDomain()
+    }
+
+    override suspend fun mangaChapter(mangaId: String, chapterId: String): List<String> = withContext(dispatcher){
+        api.mangaPages(mangaId, chapterId)
     }
 }

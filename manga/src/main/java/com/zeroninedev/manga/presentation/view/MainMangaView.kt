@@ -22,7 +22,6 @@ internal fun MainMangaView(
     scaffoldState: ScaffoldState,
     startScreen: NavigationItemDrawerScreen,
     navigationController: NavHostController,
-    internalNavigator: Navigator,
     navigator: Navigator,
     component: FeatureMangaComponent,
     onMenuPress: () -> Unit,
@@ -44,6 +43,11 @@ internal fun MainMangaView(
             }
         }
     ) {
-        MainScreenNavigations(navigationController, internalNavigator, navigator, startScreen.route, component)
+        MainScreenNavigations(
+            navigationController = navigationController,
+            outerNavigator = navigator,
+            startDestinationRoute = startScreen.route,
+            component = component
+        )
     }
 }

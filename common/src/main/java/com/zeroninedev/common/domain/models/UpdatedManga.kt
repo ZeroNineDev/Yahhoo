@@ -1,8 +1,8 @@
-package com.zeroninedev.manga.domain.models
+package com.zeroninedev.common.domain.models
 
-import com.zeroninedev.manga.data.models.UpdatedMangaDto
+import com.zeroninedev.common.data.models.UpdatedMangaDto
 
-internal data class UpdatedManga(
+data class UpdatedManga(
     val id: String,
     val title: String,
     val imageUrl: String,

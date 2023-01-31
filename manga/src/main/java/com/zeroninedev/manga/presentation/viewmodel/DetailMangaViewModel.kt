@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zeroninedev.common.constants.Constants
-import com.zeroninedev.manga.domain.models.Manga
+import com.zeroninedev.common.domain.models.Manga
 import com.zeroninedev.manga.domain.usecase.GetDetailMangaUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

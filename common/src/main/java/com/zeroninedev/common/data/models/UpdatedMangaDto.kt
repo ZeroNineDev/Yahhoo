@@ -1,6 +1,6 @@
-package com.zeroninedev.manga.data.models
+package com.zeroninedev.common.data.models
 
-internal data class UpdatedMangaDto(
+data class UpdatedMangaDto(
     val id: String,
     val title: String,
     val imageUrl: String,

@@ -5,6 +5,6 @@ import com.zeroninedev.core_compose.components.text.ScreenTitleTextView
 import com.zeroninedev.navigation.actions.Navigator
 
 @Composable
-fun SearchMangaScreen(internalNavigation: Navigator, mainNavigation: Navigator) {
+fun SearchMangaScreen(mainNavigation: Navigator) {
     ScreenTitleTextView(text = "SEARCH")
 }

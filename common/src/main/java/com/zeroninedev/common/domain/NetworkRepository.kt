@@ -1,9 +1,9 @@
-package com.zeroninedev.manga.domain
+package com.zeroninedev.common.domain
 
-import com.zeroninedev.manga.domain.models.Manga
-import com.zeroninedev.manga.domain.models.UpdatedManga
+import com.zeroninedev.common.domain.models.Manga
+import com.zeroninedev.common.domain.models.UpdatedManga
 
-internal interface NetworkRepository {
+interface NetworkRepository {
 
     /**
      * Get last updated manga
@@ -19,4 +19,9 @@ internal interface NetworkRepository {
      * Get manga with detail information
      */
     suspend fun mangaDetail(mangaId: String) : Manga
+
+    /**
+     * Get manga chapter
+     */
+    suspend fun mangaChapter(mangaId: String, chapterId: String) : List<String>
 }

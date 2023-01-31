@@ -1,10 +1,10 @@
-package com.zeroninedev.manga.domain.models
+package com.zeroninedev.common.domain.models
 
-import com.zeroninedev.manga.data.models.CategoryDto
-import com.zeroninedev.manga.data.models.ChapterDto
-import com.zeroninedev.manga.data.models.MangaDto
+import com.zeroninedev.common.data.models.CategoryDto
+import com.zeroninedev.common.data.models.ChapterDto
+import com.zeroninedev.common.data.models.MangaDto
 
-internal data class Manga(
+data class Manga(
     val id: String? = null,
     val title: String? = null,
     val image: String? = null,

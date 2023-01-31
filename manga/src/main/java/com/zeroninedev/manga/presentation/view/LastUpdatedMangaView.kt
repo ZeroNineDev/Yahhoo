@@ -8,7 +8,7 @@ import com.zeroninedev.common.domain.models.UpdatedManga
 import com.zeroninedev.core_compose.components.image.MangaPreviewImageWithTitle
 
 @Composable
-internal fun PopularMangaView(
+internal fun LastUpdatedMangaView(
     items: List<UpdatedManga>,
     onMangaClick: (UpdatedManga) -> Unit,
 ) {

@@ -1,7 +1,7 @@
 package com.zeroninedev.manga.domain.usecase
 
-import com.zeroninedev.manga.domain.NetworkRepository
-import com.zeroninedev.manga.domain.models.Manga
+import com.zeroninedev.common.domain.NetworkRepository
+import com.zeroninedev.common.domain.models.Manga
 import javax.inject.Inject
 
 internal class GetDetailMangaUseCase @Inject constructor(private val repository: NetworkRepository) {

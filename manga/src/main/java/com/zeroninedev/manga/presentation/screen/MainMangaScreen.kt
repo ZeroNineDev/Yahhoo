@@ -25,7 +25,6 @@ internal fun MainMangaScreen(navigator: Navigator, component: FeatureMangaCompon
         scaffoldState,
         startScreen,
         navigationController,
-        internalNavigator,
         navigator,
         component,
         onMenuPress = {
