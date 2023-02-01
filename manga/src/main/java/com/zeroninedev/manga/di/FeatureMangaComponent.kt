@@ -6,6 +6,7 @@ import com.zeroninedev.common.di.FeatureMangaModule
 import com.zeroninedev.common.domain.NetworkRepository
 import com.zeroninedev.manga.presentation.viewmodelfactory.DetailMangaFactory
 import com.zeroninedev.manga.presentation.viewmodelfactory.LastUpdatedMangaFactory
+import com.zeroninedev.manga.presentation.viewmodelfactory.MangaChapterFactory
 import com.zeroninedev.manga.presentation.viewmodelfactory.PopularMangaFactory
 import dagger.Component
 
@@ -31,4 +32,6 @@ internal interface FeatureMangaComponent {
     fun providePopularMangaFactory(): PopularMangaFactory
 
     fun provideDetailMangaFactory(): DetailMangaFactory
+
+    fun provideMangaChapterFactory(): MangaChapterFactory
 }

@@ -66,7 +66,7 @@ internal fun DetailMangaView(
         item { Spacer(modifier = Modifier.height(BigSize)) }
         item { manga.description?.let { DescriptionText(it) } }
 
-        item { SubTitleText(text = "Главы:") }
+        item { SubTitleText(text = if (manga.chapters.isEmpty()) "Глав нет(" else "Главы:") }
         items(manga.chapters) { MangaChapterTitle(chapterTitle = it.title.orEmpty()) { onChapterClick(it.id.orEmpty()) } }
 
         item { Spacer(modifier = Modifier.height(80.dp)) }
