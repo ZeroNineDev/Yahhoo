@@ -2,8 +2,6 @@ package com.zeroninedev.core_compose.components.image
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -19,10 +17,9 @@ import coil.size.Size
  */
 @Composable
 fun MangaPageView(url: String) {
-    val scrollableState = rememberScrollState()
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
-            .data(url)
+            .data(url.drop(1).dropLast(1))
             .allowHardware(true)
             .size(Size.ORIGINAL)
             .build()
@@ -30,7 +27,6 @@ fun MangaPageView(url: String) {
 
     Image(
         modifier = Modifier
-            .verticalScroll(scrollableState)
             .fillMaxSize(),
         contentScale = ContentScale.FillWidth,
         painter = painter,

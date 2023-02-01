@@ -32,4 +32,16 @@ sealed class Screen(val route: String) {
         }
     }
 
+    /**
+     * Screen with detail about manga
+     */
+    class MangaChapterScreen : Screen(ROUTE) {
+        companion object {
+            /**
+             * View route
+             */
+            const val ROUTE = "chapter_screen"
+        }
+    }
+
 }

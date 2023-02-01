@@ -4,6 +4,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.zeroninedev.navigation.destination.Screen
 
+/**
+ * Implementation of [Navigator]
+ *
+ * @property navController navigation manager
+ */
 class NavigatorImpl(private val navController: NavController) : Navigator {
 
     override fun navigate(screen: Screen) {
