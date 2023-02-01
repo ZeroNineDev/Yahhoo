@@ -20,6 +20,10 @@ class NetworkRepositoryImpl @Inject constructor(
         api.lastUpdatedMangas().map { it.toDomain() }
     }
 
+    override suspend fun searchMangaByName(mangaName: String): List<UpdatedManga> = withContext(dispatcher){
+        api.searchMangaByName(mangaName).map { it.toDomain() }
+    }
+
     override suspend fun popularManga(): List<UpdatedManga> = withContext(dispatcher){
         api.popularMangas(1).mangas.map { it.toDomain() }
     }

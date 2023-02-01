@@ -6,11 +6,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.zeroninedev.manga.di.DaggerFeatureMangaComponent
-import com.zeroninedev.manga.presentation.screen.DetailMangaScreen
-import com.zeroninedev.manga.presentation.screen.MainMangaScreen
-import com.zeroninedev.manga.presentation.screen.MangaChapterScreen
-import com.zeroninedev.manga.presentation.viewmodel.DetailMangaViewModel
-import com.zeroninedev.manga.presentation.viewmodel.MangaChapterViewModel
+import com.zeroninedev.manga.presentation.detail.screen.DetailMangaScreen
+import com.zeroninedev.manga.presentation.main.screen.MainMangaScreen
+import com.zeroninedev.manga.presentation.mangachapter.screen.MangaChapterScreen
+import com.zeroninedev.manga.presentation.detail.viewmodel.DetailMangaViewModel
+import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen
 

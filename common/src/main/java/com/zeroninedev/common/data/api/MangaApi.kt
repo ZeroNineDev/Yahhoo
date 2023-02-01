@@ -5,6 +5,7 @@ import com.zeroninedev.common.data.models.SearchResponseDto
 import com.zeroninedev.common.data.models.UpdatedMangaDto
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MangaApi {
 
@@ -13,6 +14,14 @@ interface MangaApi {
      */
     @GET(LAST_UPDATED_MANGA)
     suspend fun lastUpdatedMangas() : List<UpdatedMangaDto>
+
+    /**
+     * Get manga by search parameter
+     *
+     * @param mangaName query manga
+     */
+    @GET(SEARCH_MANGA)
+    suspend fun searchMangaByName(@Query("name") mangaName: String) : List<UpdatedMangaDto>
 
     /**
      * Get pages with popular mangas
@@ -36,6 +45,7 @@ interface MangaApi {
     private companion object {
 
         const val LAST_UPDATED_MANGA = "/"
+        const val SEARCH_MANGA = "/search"
         const val POPULAR_MANGA = "/mangas/{page}"
         const val MANGA_DETAIL = "/manga/{mangaId}"
         const val MANGA_PAGES = "/manga/{mangaId}/{chapterId}"

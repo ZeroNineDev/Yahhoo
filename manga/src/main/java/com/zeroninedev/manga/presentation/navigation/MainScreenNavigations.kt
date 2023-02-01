@@ -6,11 +6,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.zeroninedev.manga.di.FeatureMangaComponent
-import com.zeroninedev.manga.presentation.screen.LastUpdatedMangaScreen
-import com.zeroninedev.manga.presentation.screen.PopularMangaScreen
-import com.zeroninedev.manga.presentation.screen.SearchMangaScreen
-import com.zeroninedev.manga.presentation.viewmodel.LastUpdatedMangaViewModel
-import com.zeroninedev.manga.presentation.viewmodel.PopularMangaViewModel
+import com.zeroninedev.manga.presentation.lastupdated.screen.LastUpdatedMangaScreen
+import com.zeroninedev.manga.presentation.popular.screen.PopularMangaScreen
+import com.zeroninedev.manga.presentation.search.screen.SearchMangaScreen
+import com.zeroninedev.manga.presentation.lastupdated.viewmodel.LastUpdatedMangaViewModel
+import com.zeroninedev.manga.presentation.popular.viewmodel.PopularMangaViewModel
+import com.zeroninedev.manga.presentation.search.viewmodel.SearchMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
 
@@ -22,6 +23,7 @@ internal fun MainScreenNavigations(
     component: FeatureMangaComponent,
 ) {
     val lastViewModel: LastUpdatedMangaViewModel = viewModel(factory = component.provideLastUpdatedMangaFactory())
+    val searchViewModel: SearchMangaViewModel = viewModel(factory = component.provideSearchMangaFactory())
     val popularViewModel: PopularMangaViewModel = viewModel(factory = component.providePopularMangaFactory())
 
     NavHost(
@@ -34,7 +36,7 @@ internal fun MainScreenNavigations(
         }
 
         composable(NavigationItemDrawerScreen.SearchScreen.ROUTE) {
-            SearchMangaScreen(outerNavigator)
+            SearchMangaScreen(outerNavigator, searchViewModel)
         }
 
         composable(NavigationItemDrawerScreen.LastUpdatedScreen.ROUTE) {
