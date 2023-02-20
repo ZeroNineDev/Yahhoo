@@ -1,5 +1,6 @@
 package com.zeroninedev.manga.presentation.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -14,6 +15,7 @@ import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterVie
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen
 
+@ExperimentalAnimationApi
 fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator) {
 
     val component = DaggerFeatureMangaComponent.builder().build()

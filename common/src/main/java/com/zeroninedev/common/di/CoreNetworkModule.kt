@@ -9,6 +9,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -28,6 +29,10 @@ class CoreNetworkModule {
         return@Interceptor response
     }
 
+    private fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().also {
+        it.level = HttpLoggingInterceptor.Level.BODY
+    }
+
     @Provides
     fun retrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -36,10 +41,13 @@ class CoreNetworkModule {
         .build()
 
     @Provides
-    fun client(interceptor: Interceptor) = OkHttpClient().newBuilder()
+    fun client(
+        interceptor: Interceptor
+    ) = OkHttpClient().newBuilder()
         .connectTimeout(120, TimeUnit.SECONDS)
         .readTimeout(120, TimeUnit.SECONDS)
         .addInterceptor(interceptor)
+        .addInterceptor(provideLoggingInterceptor())
         .build()
 
     companion object {

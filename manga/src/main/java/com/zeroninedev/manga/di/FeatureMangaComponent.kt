@@ -10,14 +10,17 @@ import com.zeroninedev.manga.presentation.mangachapter.viewmodelfactory.MangaCha
 import com.zeroninedev.manga.presentation.popular.viewmodelfactory.PopularMangaFactory
 import com.zeroninedev.manga.presentation.search.viewmodelfactory.SearchMangaFactory
 import dagger.Component
+import javax.inject.Singleton
 
 @Component(
     modules = [
         FeatureMangaModule::class,
         CoreNetworkModule::class,
         CoroutineModule::class,
+        MangaModule::class
     ]
 )
+@Singleton
 internal interface FeatureMangaComponent {
 
     @Component.Builder

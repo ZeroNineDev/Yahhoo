@@ -4,7 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -20,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest.Builder
 import coil.size.Size
+import com.zeroninedev.core_compose.ui.theme.ExtraSize
 import com.zeroninedev.core_compose.ui.theme.SmallSize
 import com.zeroninedev.core_compose.ui.theme.YahhooShapes
 import com.zeroninedev.core_compose.ui.theme.yahhooTypography
@@ -52,15 +55,16 @@ fun MangaPreviewImageWithTitle(
 
     Box(
         modifier = modifier
+            .height(ExtraSize)
             .padding(SmallSize)
             .clip(YahhooShapes.medium)
             .clickable { onClick() },
         contentAlignment = Alignment.BottomCenter
     ) {
         Image(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxSize(),
             contentDescription = imageDescription,
-            contentScale = ContentScale.FillWidth,
+            contentScale = ContentScale.Crop,
             painter = painter
         )
         Text(

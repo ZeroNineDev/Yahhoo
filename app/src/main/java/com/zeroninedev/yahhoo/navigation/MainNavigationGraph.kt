@@ -1,5 +1,6 @@
 package com.zeroninedev.yahhoo.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
@@ -8,6 +9,7 @@ import com.zeroninedev.manga.presentation.navigation.mainMangaNavigation
 import com.zeroninedev.navigation.actions.NavigatorImpl
 import com.zeroninedev.navigation.destination.Screen
 
+@ExperimentalAnimationApi
 @Composable
 fun MainNavigationGraph() {
     val navigationController = rememberNavController()

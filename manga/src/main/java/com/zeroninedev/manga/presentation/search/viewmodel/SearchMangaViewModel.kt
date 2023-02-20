@@ -44,6 +44,6 @@ internal class SearchMangaViewModel @Inject constructor(
 
     private companion object {
 
-        const val TIME_DEBOUNCE_JOB = 500L
+        const val TIME_DEBOUNCE_JOB = 1000L
     }
 }
