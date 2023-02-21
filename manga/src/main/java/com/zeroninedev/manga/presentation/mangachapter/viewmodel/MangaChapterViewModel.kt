@@ -26,6 +26,7 @@ internal class MangaChapterViewModel @Inject constructor(
     private var mangaId: String? = null
 
     suspend fun loadMangaChapter(mangaId: String, chapterId: String) {
+        _screenState.value = MangaScreenState.Loading
         this.chapterId = chapterId
         this.mangaId = mangaId
         runCatching { getMangaChapterUseCase(mangaId, chapterId) }

@@ -2,6 +2,7 @@ package com.zeroninedev.manga.presentation.main.screen
 
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.rememberNavController
@@ -12,6 +13,7 @@ import com.zeroninedev.navigation.actions.NavigatorImpl
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
 import kotlinx.coroutines.launch
 
+@ExperimentalComposeApi
 @Composable
 internal fun MainMangaScreen(navigator: Navigator, component: FeatureMangaComponent) {
     val scaffoldState = rememberScaffoldState()

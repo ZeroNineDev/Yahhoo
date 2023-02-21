@@ -47,6 +47,8 @@ dependencies {
     implementation(Dependencies.Retrofit.core)
     implementation(Dependencies.Retrofit.gsonConverter)
 
+    implementation(Dependencies.Paging.compose)
+
     implementation(Dependencies.Dagger.core)
     kapt(Dependencies.Dagger.compiler)
 

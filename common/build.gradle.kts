@@ -31,6 +31,8 @@ dependencies {
     implementation(Dependencies.Retrofit.gsonConverter)
     implementation(Dependencies.Retrofit.httpInterceptor)
 
+    implementation(Dependencies.Paging.runtime)
+
     implementation(Dependencies.Lifecycle.viewModelCompose)
 
     implementation(Dependencies.Dagger.core)
