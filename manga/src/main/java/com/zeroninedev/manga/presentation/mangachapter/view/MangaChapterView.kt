@@ -23,7 +23,8 @@ import com.zeroninedev.core_compose.components.text.ChapterPagesTextView
 internal fun MangaChapterView(
     chapterPage: List<String>,
     prevPart: () -> Unit,
-    nextPart: () -> Unit
+    nextPart: () -> Unit,
+    onErrorAction: (String?) -> Unit
 ) {
     var page by remember { mutableStateOf(0) }
 
@@ -34,7 +35,7 @@ internal fun MangaChapterView(
     ) {
         MangaPageView(
             url = chapterPage[page],
-            onErrorResult = {},
+            onErrorResult = { onErrorAction(it) },
             onSuccessResult = {}
         )
         Column {

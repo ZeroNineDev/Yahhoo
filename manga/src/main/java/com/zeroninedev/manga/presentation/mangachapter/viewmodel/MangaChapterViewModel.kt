@@ -31,7 +31,17 @@ internal class MangaChapterViewModel @Inject constructor(
         this.mangaId = mangaId
         runCatching { getMangaChapterUseCase(mangaId, chapterId) }
             .onSuccess { _screenState.value = MangaScreenState.Success(it) }
-            .onFailure { _screenState.value = MangaScreenState.Error(it) }
+            .onFailure { _screenState.value = MangaScreenState.Error(it.message.orEmpty()) }
+    }
+
+    fun updateRequest() {
+        viewModelScope.launch {
+            loadMangaChapter(mangaId.orEmpty(), chapterId.orEmpty())
+        }
+    }
+
+    fun sendImageError(text: String?) {
+        _screenState.value = MangaScreenState.Error(text.orEmpty())
     }
 
     fun loadNextChapter() {

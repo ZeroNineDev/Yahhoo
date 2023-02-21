@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zeroninedev.common.constants.Constants
-import com.zeroninedev.common.domain.models.UpdatedManga
 import com.zeroninedev.manga.domain.usecase.GetSearchedMangaUseCase
+import com.zeroninedev.manga.presentation.search.screen.SearchScreenState
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -18,27 +18,34 @@ internal class SearchMangaViewModel @Inject constructor(
     private val getSearchedMangaUseCase: GetSearchedMangaUseCase
 ) : ViewModel() {
 
-    private val _screenState = MutableStateFlow<List<UpdatedManga>>(listOf())
+    private val _screenState = MutableStateFlow<SearchScreenState>(SearchScreenState.Empty)
     val screenState = _screenState.asStateFlow()
 
     private var debounceJob: Job? = null
 
+    private var query: String? = null
+
     fun launchSearch(query: String) {
+        this.query = query
         if(query.isEmpty()) clearQuery()
         else runQuery(query)
     }
 
+    fun relaunch() {
+        runQuery(query.orEmpty())
+    }
+
     fun clearQuery() {
-        _screenState.value = listOf()
+        _screenState.value = SearchScreenState.Empty
     }
 
     private fun runQuery(query: String) {
         debounceJob?.cancel()
         debounceJob = viewModelScope.launch {
             delay(TIME_DEBOUNCE_JOB)
-            try { _screenState.value = getSearchedMangaUseCase(query) }
+            try { _screenState.value = SearchScreenState.Success(getSearchedMangaUseCase(query)) }
             catch (e: CancellationException){ Log.d(Constants.ERROR_LOG, e.message.toString()) }
-            catch (e: Exception) { Log.d(Constants.ERROR_LOG, e.message.toString()) }
+            catch (e: Exception) { SearchScreenState.Error(e.message.orEmpty()) }
         }
     }
 
