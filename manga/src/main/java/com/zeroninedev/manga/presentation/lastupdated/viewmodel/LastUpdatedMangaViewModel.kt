@@ -1,22 +1,19 @@
 package com.zeroninedev.manga.presentation.lastupdated.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zeroninedev.common.constants.Constants
-import com.zeroninedev.common.domain.models.UpdatedManga
 import com.zeroninedev.manga.domain.usecase.GetLastUpdatedMangaUseCase
+import com.zeroninedev.manga.presentation.lastupdated.screen.LastUpdatedScreenState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-
 import javax.inject.Inject
 
 internal class LastUpdatedMangaViewModel @Inject constructor(
     private val getLastUpdatedMangaUseCase: GetLastUpdatedMangaUseCase
 ) : ViewModel() {
 
-    private val _screenState = MutableStateFlow<List<UpdatedManga>>(listOf())
+    private val _screenState = MutableStateFlow<LastUpdatedScreenState>(LastUpdatedScreenState.Loading)
     val screenState = _screenState.asStateFlow()
 
     init {
@@ -26,8 +23,12 @@ internal class LastUpdatedMangaViewModel @Inject constructor(
     private fun loadMangas() {
         viewModelScope.launch {
             runCatching { getLastUpdatedMangaUseCase() }
-                .onSuccess { _screenState.value = it }
-                .onFailure { Log.d(Constants.ERROR_LOG, it.message.toString()) }
+                .onSuccess { _screenState.value = LastUpdatedScreenState.Success(it) }
+                .onFailure { LastUpdatedScreenState.Error(it.message.orEmpty()) }
         }
+    }
+
+    fun updateRequest() {
+        loadMangas()
     }
 }

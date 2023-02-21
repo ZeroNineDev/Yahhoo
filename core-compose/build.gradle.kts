@@ -45,6 +45,8 @@ dependencies {
     implementation(Dependencies.Compose.preview)
     implementation(Dependencies.Accompanist.systemUi)
 
+    implementation(Dependencies.Paging.compose)
+
     implementation(Dependencies.Android.coreKtx)
     testImplementation(Dependencies.Test.jUnit)
     androidTestImplementation(Dependencies.Test.androidJUnit)
