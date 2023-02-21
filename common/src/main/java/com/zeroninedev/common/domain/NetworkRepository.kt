@@ -1,7 +1,9 @@
 package com.zeroninedev.common.domain
 
+import androidx.paging.PagingData
 import com.zeroninedev.common.domain.models.Manga
 import com.zeroninedev.common.domain.models.UpdatedManga
+import kotlinx.coroutines.flow.Flow
 
 interface NetworkRepository {
 
@@ -20,7 +22,7 @@ interface NetworkRepository {
     /**
      * Get popular manga
      */
-    suspend fun popularManga(): List<UpdatedManga>
+    fun popularManga(): Flow<PagingData<UpdatedManga>>
 
     /**
      * Get manga with detail information

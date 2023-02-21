@@ -3,6 +3,7 @@ package com.zeroninedev.manga.presentation.main.view
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,6 +18,7 @@ import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
 import com.zeroninedev.navigation.destination.navigationItemDrawerList
 
+@ExperimentalComposeApi
 @Composable
 internal fun MainMangaView(
     scaffoldState: ScaffoldState,

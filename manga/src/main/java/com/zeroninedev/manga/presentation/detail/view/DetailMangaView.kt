@@ -1,5 +1,6 @@
 package com.zeroninedev.manga.presentation.detail.view
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,16 +18,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.zeroninedev.common.domain.models.Manga
+import com.zeroninedev.core_compose.components.chip.CategorySimpleChip
 import com.zeroninedev.core_compose.components.image.BackgroundImageView
+import com.zeroninedev.core_compose.components.layout.RowWithWrap
 import com.zeroninedev.core_compose.components.text.DescriptionText
+import com.zeroninedev.core_compose.components.text.ExpandableTextView
 import com.zeroninedev.core_compose.components.text.GenreWithDescriptionText
 import com.zeroninedev.core_compose.components.text.MangaChapterTitle
-import com.zeroninedev.core_compose.components.text.ScreenTitleTextView
 import com.zeroninedev.core_compose.components.text.SubTitleText
 import com.zeroninedev.core_compose.ui.theme.BigSize
+import com.zeroninedev.core_compose.ui.theme.ExtraSize
+import com.zeroninedev.core_compose.ui.theme.MediumSize
+import com.zeroninedev.core_compose.ui.theme.TinySize
 import com.zeroninedev.core_compose.ui.theme.TransparentColor
 import com.zeroninedev.core_compose.ui.theme.YahhooShapes
 
+@ExperimentalAnimationApi
 @Composable
 internal fun DetailMangaView(
     manga: Manga,
@@ -41,7 +49,9 @@ internal fun DetailMangaView(
     ) {
         manga.image?.let {
             BackgroundImageView(
-                modifier = Modifier.height(220.dp),
+                modifier = Modifier
+                    .size(width = 200.dp, height = ExtraSize)
+                    .clip(YahhooShapes.medium),
                 imageUrl = it
             )
         }
@@ -55,7 +65,7 @@ internal fun DetailMangaView(
             .background(MaterialTheme.colors.background)
     ) {
         item { Spacer(modifier = Modifier.height(BigSize)) }
-        item { manga.title?.let { ScreenTitleTextView(text = it) } }
+        item { manga.title?.let { ExpandableTextView(text = it) } }
         item { manga.status?.let { GenreWithDescriptionText(genre = "Статус", description = it) } }
         item { manga.genre?.let { GenreWithDescriptionText(genre = "Жанр", description = it) } }
         item { manga.anotherTitle?.let { GenreWithDescriptionText(genre = "Другие названия", description = it) } }
@@ -63,7 +73,21 @@ internal fun DetailMangaView(
         item { manga.drawer?.let { GenreWithDescriptionText(genre = "Художник", description = it) } }
         item { manga.views?.let { GenreWithDescriptionText(genre = "Просмотры", description = it) } }
         item { manga.translator?.let { GenreWithDescriptionText(genre = "Переводчик", description = it) } }
-        item { Spacer(modifier = Modifier.height(BigSize)) }
+
+        item { SubTitleText(text = "Категории:") }
+
+        item {
+            RowWithWrap(
+                modifier = Modifier.padding(horizontal = MediumSize),
+                verticalSpacer = TinySize,
+                horizontalSpacer = TinySize
+            ) {
+                manga.category.forEach { category -> category.name?.let { CategorySimpleChip(it) } }
+            }
+        }
+
+        item { SubTitleText(text = "Описание:") }
+
         item { manga.description?.let { DescriptionText(it) } }
 
         item { SubTitleText(text = if (manga.chapters.isEmpty()) "Глав нет(" else "Главы:") }

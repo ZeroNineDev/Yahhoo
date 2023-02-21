@@ -47,6 +47,7 @@ object Dependencies {
         const val version = "2.9.0"
         const val core = "com.squareup.retrofit2:retrofit:$version"
         const val gsonConverter = "com.squareup.retrofit2:converter-gson:$version"
+        const val httpInterceptor = "com.squareup.okhttp3:logging-interceptor:4.10.0"
     }
 
     object Dagger {
@@ -58,5 +59,10 @@ object Dependencies {
     object Coil {
         private const val version = "2.2.2"
         const val coil = "io.coil-kt:coil-compose:$version"
+    }
+
+    object Paging {
+        const val runtime = "androidx.paging:paging-runtime:3.1.0"
+        const val compose = "androidx.paging:paging-compose:1.0.0-alpha13"
     }
 }

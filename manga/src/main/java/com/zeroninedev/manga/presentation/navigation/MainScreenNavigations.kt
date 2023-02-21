@@ -1,6 +1,7 @@
 package com.zeroninedev.manga.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -15,6 +16,7 @@ import com.zeroninedev.manga.presentation.search.viewmodel.SearchMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
 
+@ExperimentalComposeApi
 @Composable
 internal fun MainScreenNavigations(
     navigationController: NavHostController,

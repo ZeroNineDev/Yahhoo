@@ -29,6 +29,9 @@ dependencies {
     implementation(Dependencies.Android.coreKtx)
     implementation(Dependencies.Retrofit.core)
     implementation(Dependencies.Retrofit.gsonConverter)
+    implementation(Dependencies.Retrofit.httpInterceptor)
+
+    implementation(Dependencies.Paging.runtime)
 
     implementation(Dependencies.Lifecycle.viewModelCompose)
 
