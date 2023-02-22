@@ -5,6 +5,10 @@ import com.zeroninedev.common.domain.models.Manga
 import com.zeroninedev.common.domain.models.UpdatedManga
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Interface of repository for request in manga service
+ *
+ */
 interface NetworkRepository {
 
     /**
@@ -26,11 +30,16 @@ interface NetworkRepository {
 
     /**
      * Get manga with detail information
+     *
+     * @param mangaId manga id
      */
     suspend fun mangaDetail(mangaId: String): Manga
 
     /**
      * Get manga chapter
+     *
+     * @param mangaId manga id
+     * @param chapterId chapter id
      */
     suspend fun mangaChapter(mangaId: String, chapterId: String): List<String>
 }

@@ -6,15 +6,21 @@ import androidx.paging.PagingData
 import com.zeroninedev.common.di.IoDispatcher
 import com.zeroninedev.common.data.api.MangaApi
 import com.zeroninedev.common.data.api.PagingDataSource
+import com.zeroninedev.common.data.models.toDomain
 import com.zeroninedev.common.domain.NetworkRepository
 import com.zeroninedev.common.domain.models.Manga
 import com.zeroninedev.common.domain.models.UpdatedManga
-import com.zeroninedev.common.domain.models.toDomain
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Realization of [NetworkRepository] for request
+ *
+ * @property api interface for service request of manga
+ * @property dispatcher dispatcher for io  flow
+ */
 class NetworkRepositoryImpl @Inject constructor(
     private val api: MangaApi,
     @IoDispatcher
