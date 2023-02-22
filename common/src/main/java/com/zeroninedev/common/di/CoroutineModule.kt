@@ -5,6 +5,10 @@ import dagger.Provides
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
+/**
+ * Base module for all flow
+ *
+ */
 @Module
 class CoroutineModule {
 

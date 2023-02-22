@@ -9,6 +9,12 @@ import com.zeroninedev.common.domain.models.UpdatedManga
 import com.zeroninedev.core_compose.components.image.MangaPreviewImageWithTitle
 import com.zeroninedev.core_compose.components.layout.items
 
+/**
+ * Popular mangas view
+ *
+ * @param items mangas list
+ * @param onMangaClick callback on manga click
+ */
 @Composable
 @ExperimentalComposeApi
 internal fun PopularMangaView(

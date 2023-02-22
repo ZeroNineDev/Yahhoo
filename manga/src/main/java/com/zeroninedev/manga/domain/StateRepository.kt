@@ -1,8 +1,13 @@
 package com.zeroninedev.manga.domain
 
+/**
+ * Interface for storage of process state
+ *
+ */
 internal interface StateRepository {
 
-    fun saveChapters(chapters: List<String>)
-
-    fun getChapters(): List<String>
+    /**
+     * Chapters list of current manga
+     */
+    var chapters: List<String>
 }

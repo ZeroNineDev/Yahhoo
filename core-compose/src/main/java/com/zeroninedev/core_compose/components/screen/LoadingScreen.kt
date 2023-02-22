@@ -8,10 +8,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
+/**
+ * Simple loading screen for first version
+ * which show progress indicator
+ *
+ * @param modifier entered modifier from other scope
+ */
 @Composable
-fun LoadingScreen() {
+fun LoadingScreen(
+    modifier: Modifier = Modifier
+) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(

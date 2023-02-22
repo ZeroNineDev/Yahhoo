@@ -19,6 +19,14 @@ import androidx.compose.ui.unit.dp
 import com.zeroninedev.core_compose.components.image.MangaPageView
 import com.zeroninedev.core_compose.components.text.ChapterPagesTextView
 
+/**
+ * Reader manga chapter view
+ *
+ * @param chapterPage list of chapter pages
+ * @param prevPart callback on load prev chapter
+ * @param nextPart callback on load next chapter
+ * @param onErrorAction callback when image was loaded with error
+ */
 @Composable
 internal fun MangaChapterView(
     chapterPage: List<String>,

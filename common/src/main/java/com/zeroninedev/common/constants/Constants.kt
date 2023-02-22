@@ -6,5 +6,7 @@ object Constants {
 
     const val ERROR_LOG = "NetworkErrorLog"
 
+    const val PAGING_LOG = "PagingDataSource"
+
     const val LOG = "YahhoAppLog"
 }

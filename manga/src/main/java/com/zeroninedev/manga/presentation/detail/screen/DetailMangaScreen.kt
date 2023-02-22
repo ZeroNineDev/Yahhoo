@@ -10,6 +10,12 @@ import com.zeroninedev.manga.presentation.detail.viewmodel.DetailMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen.MangaChapterScreen
 
+/**
+ * Detail manga screen
+ *
+ * @param navigator main navigator
+ * @param viewModel ViewModel for current screen
+ */
 @ExperimentalAnimationApi
 @Composable
 internal fun DetailMangaScreen(
@@ -18,7 +24,7 @@ internal fun DetailMangaScreen(
 ) {
     when (val result = viewModel.screenState.collectAsState().value) {
         is DetailScreenState.Error -> {
-            ErrorScreen(result.exception) { viewModel.updateRequest() }
+            ErrorScreen(errorMessage = result.exception) { viewModel.updateRequest() }
         }
         is DetailScreenState.Loading -> {
             LoadingScreen()
@@ -30,7 +36,6 @@ internal fun DetailMangaScreen(
                     navigator.navigate("${MangaChapterScreen.ROUTE}/${result.data.id}/${chapterId}")
                 }
             }
-
         }
     }
 }

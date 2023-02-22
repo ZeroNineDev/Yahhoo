@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="status_genre_text">Статус</string>
+    <string name="genre_text">Жанр</string>
+    <string name="another_names_text">Другие названия</string>
+    <string name="author_text">Автор</string>
+    <string name="views_text">Просмотры</string>
+    <string name="drawer_text">Художник</string>
+    <string name="translator_text">Переводчик</string>
+    <string name="category_subtitle">Категории:</string>
+    <string name="description_subtitle">Описание:</string>
+    <string name="empty_chapters_text">Глав нет(</string>
+    <string name="chapters_text">Главы:</string>
+</resources>

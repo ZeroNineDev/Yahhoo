@@ -10,6 +10,11 @@ import com.zeroninedev.manga.presentation.navigation.mainMangaNavigation
 import com.zeroninedev.navigation.actions.NavigatorImpl
 import com.zeroninedev.navigation.destination.Screen
 
+/**
+ * Main navigation graph.
+ * The place where to add the module navigation.
+ *
+ */
 @ExperimentalAnimationApi
 @ExperimentalComposeApi
 @Composable

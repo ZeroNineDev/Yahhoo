@@ -7,6 +7,12 @@ import androidx.compose.runtime.Composable
 import com.zeroninedev.common.domain.models.UpdatedManga
 import com.zeroninedev.core_compose.components.image.MangaPreviewImageWithTitle
 
+/**
+ * Detail manga view
+ *
+ * @param items list of mangas
+ * @param onMangaClick callback on manga click
+ */
 @Composable
 internal fun LastUpdatedMangaView(
     items: List<UpdatedManga>,

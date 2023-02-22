@@ -24,8 +24,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import com.zeroninedev.core_compose.R
 
+/**
+ * Input text for search with icon
+ *
+ * @param modifier entered modifier from other scope
+ * @param showClearIcon state to show icon for clear search input
+ * @param onQueryTextChange callback on text change
+ * @param onClearClick callback on clear input text click
+ */
 @Composable
 fun SearchInputText(
+    modifier: Modifier = Modifier,
     showClearIcon: Boolean,
     onQueryTextChange: (String) -> Unit,
     onClearClick: () -> Unit
@@ -42,7 +51,7 @@ fun SearchInputText(
             Icon(
                 imageVector = Icons.Rounded.Search,
                 tint = MaterialTheme.colors.onBackground,
-                contentDescription = "Search icon"
+                contentDescription = stringResource(id = R.string.search_icon_content_description)
             )
         },
         trailingIcon = {
@@ -54,19 +63,21 @@ fun SearchInputText(
                     Icon(
                         imageVector = Icons.Rounded.Clear,
                         tint = MaterialTheme.colors.onBackground,
-                        contentDescription = "Clear icon"
+                        contentDescription = stringResource(id = R.string.clear_icon_content_description)
                     )
                 }
             }
         },
-        maxLines = 1,
+        maxLines = MAX_LINES_FOR_SEARCH,
         colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.Transparent),
         placeholder = { Text(text = stringResource(R.string.hint_search_query)) },
         textStyle = MaterialTheme.typography.subtitle1,
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(color = MaterialTheme.colors.background, shape = RectangleShape)
     )
 }
+
+private const val MAX_LINES_FOR_SEARCH = 1

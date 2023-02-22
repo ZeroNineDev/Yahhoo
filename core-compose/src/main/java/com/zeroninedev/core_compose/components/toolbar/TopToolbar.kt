@@ -16,6 +16,8 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import com.zeroninedev.core_compose.R
 import com.zeroninedev.core_compose.ui.theme.MediumSize
 import com.zeroninedev.core_compose.ui.theme.TinySize
 import com.zeroninedev.core_compose.ui.theme.ZeroSize
@@ -44,14 +46,20 @@ fun TopToolbar(
         modifier = modifier
     ) {
         IconButton(onClick = onMenuIconClick) {
-            Icon(Icons.Filled.Menu, contentDescription = "Menu", tint = MaterialTheme.colors.primaryVariant)
+            Icon(
+                Icons.Filled.Menu,
+                contentDescription = stringResource(id = R.string.menu_description),
+                tint = MaterialTheme.colors.primaryVariant
+            )
         }
         Text(
             text = screenTitle,
             style = yahhooTypography.h6,
             color = MaterialTheme.colors.primaryVariant,
             modifier = Modifier.padding(horizontal = MediumSize, vertical = TinySize),
-            maxLines = 1
+            maxLines = MAX_LINES_IN_TOOLBAR
         )
     }
 }
+
+private const val MAX_LINES_IN_TOOLBAR = 1

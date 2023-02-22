@@ -5,6 +5,10 @@ import com.zeroninedev.common.domain.NetworkRepository
 import dagger.Binds
 import dagger.Module
 
+/**
+ * Module which provide manga repository
+ *
+ */
 @Module
 interface FeatureMangaModule {
 

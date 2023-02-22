@@ -14,6 +14,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * View Model for reader chapter screen
+ *
+ * @property getMangaChapterUseCase use case for load pages of chapter
+ * @property getNextChapterUseCase use case for get next page
+ */
 internal class MangaChapterViewModel @Inject constructor(
     private val getMangaChapterUseCase: GetMangaChapterUseCase,
     private val getNextChapterUseCase: GetNextChapterUseCase
@@ -25,6 +31,12 @@ internal class MangaChapterViewModel @Inject constructor(
     private var chapterId: String? = null
     private var mangaId: String? = null
 
+    /**
+     * Load pages of chapter
+     *
+     * @param mangaId manga id
+     * @param chapterId chapter Id
+     */
     suspend fun loadMangaChapter(mangaId: String, chapterId: String) {
         _screenState.value = MangaScreenState.Loading
         this.chapterId = chapterId
@@ -34,16 +46,27 @@ internal class MangaChapterViewModel @Inject constructor(
             .onFailure { _screenState.value = MangaScreenState.Error(it.message.orEmpty()) }
     }
 
+    /**
+     * Reload info about pages when error
+     */
     fun updateRequest() {
         viewModelScope.launch {
             loadMangaChapter(mangaId.orEmpty(), chapterId.orEmpty())
         }
     }
 
+    /**
+     * Update screen state when image not loaded
+     *
+     * @param text error text
+     */
     fun sendImageError(text: String?) {
         _screenState.value = MangaScreenState.Error(text.orEmpty())
     }
 
+    /**
+     * Load next chapter if consist
+     */
     fun loadNextChapter() {
         viewModelScope.launch {
             try {
@@ -55,6 +78,10 @@ internal class MangaChapterViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Load prev chapter if consist
+     *
+     */
     fun loadPrevChapter() {
         viewModelScope.launch {
             try {

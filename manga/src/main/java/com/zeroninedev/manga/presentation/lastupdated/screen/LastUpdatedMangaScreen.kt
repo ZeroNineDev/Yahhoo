@@ -9,6 +9,13 @@ import com.zeroninedev.manga.presentation.lastupdated.viewmodel.LastUpdatedManga
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen.MangaDetailScreen
 
+
+/**
+ * Detail manga screen
+ *
+ * @param mainNavigation main navigator
+ * @param viewModel ViewModel for current screen
+ */
 @Composable
 internal fun LastUpdatedMangaScreen(
     mainNavigation: Navigator,
@@ -16,7 +23,7 @@ internal fun LastUpdatedMangaScreen(
 ) {
     when (val result = viewModel.screenState.collectAsState().value) {
         is LastUpdatedScreenState.Error -> {
-            ErrorScreen(result.exception) { viewModel.updateRequest() }
+            ErrorScreen(errorMessage = result.exception) { viewModel.updateRequest() }
         }
         is LastUpdatedScreenState.Loading -> {
             LoadingScreen()

@@ -30,6 +30,7 @@ import coil.size.Size
 /**
  * View to show manga page
  *
+ * @param modifier entered modifier from other scope
  * @param url manga page url
  * @param onErrorResult message when image loaded with error
  * @param onSuccessResult return drawable
@@ -60,7 +61,6 @@ fun MangaPageView(
         )
     }
 
-
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
             .data(url.drop(1).dropLast(1))
@@ -70,9 +70,9 @@ fun MangaPageView(
             .build()
     )
 
-    var scale by remember { mutableStateOf(1f) }
-    var translationX by remember { mutableStateOf(0f) }
-    var translationY by remember { mutableStateOf(0f) }
+    var scale by remember { mutableStateOf(START_SCALE) }
+    var translationX by remember { mutableStateOf(START_TRANSLATION_COORDINATION) }
+    var translationY by remember { mutableStateOf(START_TRANSLATION_COORDINATION) }
 
     Box(
         modifier = modifier
@@ -88,9 +88,13 @@ fun MangaPageView(
             .pointerInput(Unit) {
                 detectTapGestures(
                     onDoubleTap = {
-                        scale = if (scale == 1f) 3f else 1f
-                        translationX = if (translationX == 0f) -(it.x - size.width / 3f) else 0f
-                        translationY = if (translationY == 0f) -(it.y - size.height / 3f) else 0f
+                        scale = if (scale == START_SCALE) DOUBLE_TAP_SCALE else START_SCALE
+
+                        translationX = if (translationX == START_TRANSLATION_COORDINATION) -(it.x - size.width / 3f)
+                        else START_TRANSLATION_COORDINATION
+
+                        translationY = if (translationY == START_TRANSLATION_COORDINATION) -(it.y - size.height / 3f)
+                        else START_TRANSLATION_COORDINATION
                     }
                 )
             }
@@ -112,3 +116,7 @@ fun MangaPageView(
         )
     }
 }
+
+private const val START_TRANSLATION_COORDINATION = 0F
+private const val START_SCALE = 1F
+private const val DOUBLE_TAP_SCALE = 3F

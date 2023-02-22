@@ -12,6 +12,10 @@ import com.zeroninedev.manga.presentation.search.viewmodelfactory.SearchMangaFac
 import dagger.Component
 import javax.inject.Singleton
 
+/**
+ * Base manga component
+ *
+ */
 @Component(
     modules = [
         FeatureMangaModule::class,

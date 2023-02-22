@@ -16,6 +16,11 @@ import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterVie
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen
 
+/**
+ * Main manga navigation destination grph
+ *
+ * @param navigator main navigator
+ */
 @ExperimentalComposeApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator) {

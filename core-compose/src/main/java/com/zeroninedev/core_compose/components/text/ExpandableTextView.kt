@@ -26,15 +26,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntSize
+import com.zeroninedev.core_compose.R
 import com.zeroninedev.core_compose.R.drawable
 import com.zeroninedev.core_compose.ui.theme.MediumSize
 import com.zeroninedev.core_compose.ui.theme.TinySize
 import com.zeroninedev.core_compose.ui.theme.yahhooTypography
 
-private const val DOWN = false
-private const val DURATION_ANIMATION = 300
-
+/**
+ * Squashed text with icon which expand text
+ *
+ * @param modifier entered modifier from other scope
+ * @param text text
+ */
 @ExperimentalAnimationApi
 @Composable
 fun ExpandableTextView(
@@ -43,17 +48,14 @@ fun ExpandableTextView(
 ) {
     var expandState by remember { mutableStateOf(false) }
 
-    val transition = updateTransition(expandState, label = "")
+    val transition = updateTransition(expandState, label = String())
 
     val rotateValue by transition.animateFloat(
         transitionSpec = { tween(durationMillis = DURATION_ANIMATION) },
-        label = "",
+        label = String(),
     ) { screenState ->
-        if (screenState == DOWN) {
-            0f
-        } else {
-            180f
-        }
+        if (screenState == DOWN) START_ARROW_POSITION
+        else END_ARROW_POSITION
     }
 
     Box(
@@ -63,20 +65,19 @@ fun ExpandableTextView(
         AnimatedContent(
             targetState = expandState,
             transitionSpec = {
-                fadeIn(animationSpec = tween(durationMillis = 150)) with
-                        fadeOut(animationSpec = tween(durationMillis = 150)) using
+                fadeIn(animationSpec = tween(durationMillis = DURATION_ANIMATION)) with
+                        fadeOut(animationSpec = tween(durationMillis = DURATION_ANIMATION)) using
                         SizeTransform { initialSize, targetSize ->
-                            if (targetState == DOWN) {
+                            if (targetState == DOWN)
                                 keyframes {
-                                    IntSize(initialSize.width, initialSize.height) at 150
+                                    IntSize(initialSize.width, initialSize.height) at DURATION_ANIMATION
                                     durationMillis = DURATION_ANIMATION
                                 }
-                            } else {
+                            else
                                 keyframes {
-                                    IntSize(targetSize.width, targetSize.height) at 150
+                                    IntSize(targetSize.width, targetSize.height) at DURATION_ANIMATION
                                     durationMillis = DURATION_ANIMATION
                                 }
-                            }
                         }
             }
         ) { targetExpanded ->
@@ -85,7 +86,7 @@ fun ExpandableTextView(
                     text = text,
                     style = yahhooTypography.h4,
                     color = MaterialTheme.colors.primaryVariant,
-                    maxLines = 2,
+                    maxLines = MAX_LINES_WHEN_SQUASHED,
                     modifier = modifier.padding(horizontal = MediumSize, vertical = TinySize)
                 )
             } else {
@@ -105,7 +106,13 @@ fun ExpandableTextView(
                 .clickable { expandState = !expandState },
             painter = painterResource(drawable.arrow_down_24),
             tint = MaterialTheme.colors.primaryVariant,
-            contentDescription = ""
+            contentDescription = stringResource(id = R.string.arrow_down_icon_content_description)
         )
     }
 }
+
+private const val START_ARROW_POSITION = 0F
+private const val END_ARROW_POSITION = 180F
+private const val MAX_LINES_WHEN_SQUASHED = 2
+private const val DOWN = false
+private const val DURATION_ANIMATION = 300

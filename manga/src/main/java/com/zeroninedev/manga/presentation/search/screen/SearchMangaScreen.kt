@@ -3,28 +3,35 @@ package com.zeroninedev.manga.presentation.search.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import com.zeroninedev.core_compose.components.input.SearchInputText
 import com.zeroninedev.core_compose.components.screen.ErrorScreen
 import com.zeroninedev.core_compose.components.screen.LoadingScreen
-import com.zeroninedev.manga.presentation.search.view.SearchMangaView
 import com.zeroninedev.manga.presentation.search.view.SearchMangaViewList
 import com.zeroninedev.manga.presentation.search.viewmodel.SearchMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen.MangaDetailScreen
 
+/**
+ * Search manga screen
+ *
+ * @param mainNavigation main navigator
+ * @param viewModel ViewModel for current screen
+ */
 @Composable
 internal fun SearchMangaScreen(
     mainNavigation: Navigator,
     viewModel: SearchMangaViewModel
 ) {
     Column() {
-        SearchMangaView(
+        SearchInputText(
+            showClearIcon = true,
             onQueryTextChange = { viewModel.launchSearch(it) },
-            onClearQueryClick = { viewModel.clearQuery() }
+            onClearClick = { viewModel.clearQuery() }
         )
 
         when (val result = viewModel.screenState.collectAsState().value) {
             is SearchScreenState.Error -> {
-                ErrorScreen(result.exception) { viewModel.relaunch() }
+                ErrorScreen(errorMessage = result.exception) { viewModel.relaunch() }
             }
             is SearchScreenState.Loading -> {
                 LoadingScreen()
