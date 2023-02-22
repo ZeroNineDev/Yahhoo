@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_text">Search</string>
+    <string name="popular_text">Popular</string>
+    <string name="updated_text">Last updated</string>
+    <string name="manga_drawer_title">Manga</string>
+</resources>

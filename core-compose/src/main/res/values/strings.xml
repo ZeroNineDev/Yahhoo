@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hint_search_query">Manga name</string>
+    <string name="update_button">Update</string>
+    <string name="menu_description">Menu</string>
+    <string name="search_icon_content_description">Search icon</string>
+    <string name="clear_icon_content_description">Clear icon</string>
+    <string name="arrow_down_icon_content_description">Expand text</string>
+</resources>
