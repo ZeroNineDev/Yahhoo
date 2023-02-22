@@ -6,20 +6,13 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import com.zeroninedev.common.domain.models.UpdatedManga
 import com.zeroninedev.core_compose.components.image.MangaPreviewImageWithTitle
-import com.zeroninedev.core_compose.components.input.SearchInputText
 
-@Composable
-internal fun SearchMangaView(
-    onQueryTextChange: (String) -> Unit,
-    onClearQueryClick: () -> Unit
-) {
-    SearchInputText(
-        showClearIcon = true,
-        onQueryTextChange = onQueryTextChange,
-        onClearClick = onClearQueryClick
-    )
-}
-
+/**
+ * Search mangas view
+ *
+ * @param items mangas list
+ * @param onMangaClick callback on manga click
+ */
 @Composable
 internal fun SearchMangaViewList(
     items: List<UpdatedManga>,

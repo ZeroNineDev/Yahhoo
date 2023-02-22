@@ -10,6 +10,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * View Model for detail screen
+ *
+ * @property getDetailMangaUseCase use case for load detail about manga
+ * @property saveChaptersUseCase use case for save all chapters in current manga
+ */
 internal class DetailMangaViewModel @Inject constructor(
     private val getDetailMangaUseCase: GetDetailMangaUseCase,
     private val saveChaptersUseCase: SaveChaptersUseCase
@@ -20,6 +26,11 @@ internal class DetailMangaViewModel @Inject constructor(
 
     private var mangaId: String? = null
 
+    /**
+     * Load detailed info about manga
+     *
+     * @param mangaId manga id
+     */
     suspend fun loadMangaDetails(mangaId: String) {
         this.mangaId = mangaId
         runCatching { getDetailMangaUseCase(mangaId) }
@@ -27,12 +38,20 @@ internal class DetailMangaViewModel @Inject constructor(
             .onFailure { DetailScreenState.Error(it.message.orEmpty()) }
     }
 
+    /**
+     * Reload info about manga when error
+     */
     fun updateRequest() {
         viewModelScope.launch {
             loadMangaDetails(mangaId.orEmpty())
         }
     }
 
+    /**
+     * Save all chapters in this manga
+     *
+     * @param chapterId list of chapters
+     */
     fun saveChapters(chapterId: List<String>) {
         saveChaptersUseCase(chapterId)
     }

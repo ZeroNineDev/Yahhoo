@@ -6,6 +6,10 @@ import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
 
+/**
+ * Manga component provider
+ *
+ */
 @Module
 internal interface MangaModule {
 

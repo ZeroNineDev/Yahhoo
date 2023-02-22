@@ -13,6 +13,12 @@ import com.zeroninedev.navigation.actions.NavigatorImpl
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
 import kotlinx.coroutines.launch
 
+/**
+ * Main manga screen with drawer
+ *
+ * @param navigator main navigation
+ * @param component component provider
+ */
 @ExperimentalComposeApi
 @Composable
 internal fun MainMangaScreen(navigator: Navigator, component: FeatureMangaComponent) {

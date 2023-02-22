@@ -14,6 +14,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * View Model for search manga screen
+ *
+ * @property getSearchedMangaUseCase use case for search manga
+ */
 internal class SearchMangaViewModel @Inject constructor(
     private val getSearchedMangaUseCase: GetSearchedMangaUseCase
 ) : ViewModel() {
@@ -25,16 +30,27 @@ internal class SearchMangaViewModel @Inject constructor(
 
     private var query: String? = null
 
+    /**
+     * Start search by query
+     *
+     * @param query text for search
+     */
     fun launchSearch(query: String) {
         this.query = query
         if(query.isEmpty()) clearQuery()
         else runQuery(query)
     }
 
+    /**
+     * Reload info about manga when error
+     */
     fun relaunch() {
         runQuery(query.orEmpty())
     }
 
+    /**
+     * Clear query for search
+     */
     fun clearQuery() {
         _screenState.value = SearchScreenState.Empty
     }

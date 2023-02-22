@@ -11,6 +11,12 @@ import com.zeroninedev.manga.presentation.popular.viewmodel.PopularMangaViewMode
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen.MangaDetailScreen
 
+/**
+ * Popular manga screen
+ *
+ * @param mainNavigation main navigator
+ * @param viewModel ViewModel for current screen
+ */
 @ExperimentalComposeApi
 @Composable
 internal fun PopularMangaScreen(
@@ -19,7 +25,7 @@ internal fun PopularMangaScreen(
 ) {
     when (val result = viewModel.screenState.collectAsState().value) {
         is PopularScreenState.Error -> {
-            ErrorScreen(result.exception) { viewModel.updateRequest() }
+            ErrorScreen(errorMessage = result.exception) { viewModel.updateRequest() }
         }
         is PopularScreenState.Loading -> {
             LoadingScreen()

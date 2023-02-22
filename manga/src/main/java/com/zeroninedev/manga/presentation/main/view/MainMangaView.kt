@@ -18,6 +18,17 @@ import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
 import com.zeroninedev.navigation.destination.navigationItemDrawerList
 
+/**
+ * Main manga view
+ *
+ * @param scaffoldState remember scaffold state
+ * @param startScreen started screen
+ * @param navigationController internal navigation controller
+ * @param navigator main navigation controller
+ * @param component component provider
+ * @param onMenuPress callback on menu press
+ * @param onNavigationDrawer callback on select item in drawer
+ */
 @ExperimentalComposeApi
 @Composable
 internal fun MainMangaView(

@@ -10,6 +10,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * View Model for popular manga screen
+ *
+ * @property getPopularMangaUseCase use case for load popular mangas
+ */
 internal class PopularMangaViewModel @Inject constructor(
     private val getPopularMangaUseCase: GetPopularMangaUseCase
 ) : ViewModel() {
@@ -21,15 +26,21 @@ internal class PopularMangaViewModel @Inject constructor(
         loadMangas()
     }
 
+    /**
+     * Reload info about manga when error
+     */
+    fun updateRequest() {
+        loadMangas()
+    }
+
+    /**
+     * Load list of popular mangas
+     */
     private fun loadMangas() {
         viewModelScope.launch {
             runCatching { getPopularMangaUseCase().cachedIn(viewModelScope) }
                 .onSuccess { _screenState.value = PopularScreenState.Success(it) }
                 .onFailure { _screenState.value = PopularScreenState.Error(it.message.orEmpty()) }
         }
-    }
-
-    fun updateRequest() {
-        loadMangas()
     }
 }

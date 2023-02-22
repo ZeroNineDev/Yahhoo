@@ -16,6 +16,14 @@ import com.zeroninedev.manga.presentation.search.viewmodel.SearchMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
 
+/**
+ * Navigation for graph in main screen with toolbar
+ *
+ * @param navigationController inner navigation controller
+ * @param outerNavigator main navigation vontroller
+ * @param startDestinationRoute start route
+ * @param component component provider
+ */
 @ExperimentalComposeApi
 @Composable
 internal fun MainScreenNavigations(

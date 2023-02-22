@@ -9,6 +9,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * View Model for last updated screen
+ *
+ * @property getLastUpdatedMangaUseCase use case for load last updated manga
+ */
 internal class LastUpdatedMangaViewModel @Inject constructor(
     private val getLastUpdatedMangaUseCase: GetLastUpdatedMangaUseCase
 ) : ViewModel() {
@@ -20,15 +25,18 @@ internal class LastUpdatedMangaViewModel @Inject constructor(
         loadMangas()
     }
 
+    /**
+     * Reload info about manga when error
+     */
+    fun updateRequest() {
+        loadMangas()
+    }
+
     private fun loadMangas() {
         viewModelScope.launch {
             runCatching { getLastUpdatedMangaUseCase() }
                 .onSuccess { _screenState.value = LastUpdatedScreenState.Success(it) }
                 .onFailure { LastUpdatedScreenState.Error(it.message.orEmpty()) }
         }
-    }
-
-    fun updateRequest() {
-        loadMangas()
     }
 }

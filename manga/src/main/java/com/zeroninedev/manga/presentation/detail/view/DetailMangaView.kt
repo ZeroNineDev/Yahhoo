@@ -16,6 +16,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.zeroninedev.common.domain.models.Manga
 import com.zeroninedev.core_compose.components.chip.CategorySimpleChip
@@ -32,7 +33,14 @@ import com.zeroninedev.core_compose.ui.theme.MediumSize
 import com.zeroninedev.core_compose.ui.theme.TinySize
 import com.zeroninedev.core_compose.ui.theme.TransparentColor
 import com.zeroninedev.core_compose.ui.theme.YahhooShapes
+import com.zeroninedev.manga.R.string
 
+/**
+ * Detail manga view
+ *
+ * @param manga manga info
+ * @param onChapterClick callback on chapter click
+ */
 @ExperimentalAnimationApi
 @Composable
 internal fun DetailMangaView(
@@ -66,15 +74,64 @@ internal fun DetailMangaView(
     ) {
         item { Spacer(modifier = Modifier.height(BigSize)) }
         item { manga.title?.let { ExpandableTextView(text = it) } }
-        item { manga.status?.let { GenreWithDescriptionText(genre = "Статус", description = it) } }
-        item { manga.genre?.let { GenreWithDescriptionText(genre = "Жанр", description = it) } }
-        item { manga.anotherTitle?.let { GenreWithDescriptionText(genre = "Другие названия", description = it) } }
-        item { manga.author?.let { GenreWithDescriptionText(genre = "Автор", description = it) } }
-        item { manga.drawer?.let { GenreWithDescriptionText(genre = "Художник", description = it) } }
-        item { manga.views?.let { GenreWithDescriptionText(genre = "Просмотры", description = it) } }
-        item { manga.translator?.let { GenreWithDescriptionText(genre = "Переводчик", description = it) } }
+        item {
+            manga.status?.let {
+                GenreWithDescriptionText(
+                    genre = stringResource(string.status_genre_text),
+                    description = it
+                )
+            }
+        }
+        item {
+            manga.genre?.let {
+                GenreWithDescriptionText(
+                    genre = stringResource(string.genre_text),
+                    description = it
+                )
+            }
+        }
+        item {
+            manga.anotherTitle?.let {
+                GenreWithDescriptionText(
+                    genre = stringResource(string.another_names_text),
+                    description = it
+                )
+            }
+        }
+        item {
+            manga.author?.let {
+                GenreWithDescriptionText(
+                    genre = stringResource(string.author_text),
+                    description = it
+                )
+            }
+        }
+        item {
+            manga.drawer?.let {
+                GenreWithDescriptionText(
+                    genre = stringResource(string.drawer_text),
+                    description = it
+                )
+            }
+        }
+        item {
+            manga.views?.let {
+                GenreWithDescriptionText(
+                    genre = stringResource(string.views_text),
+                    description = it
+                )
+            }
+        }
+        item {
+            manga.translator?.let {
+                GenreWithDescriptionText(
+                    genre = stringResource(string.translator_text),
+                    description = it
+                )
+            }
+        }
 
-        item { SubTitleText(text = "Категории:") }
+        item { SubTitleText(text = stringResource(string.category_subtitle)) }
 
         item {
             RowWithWrap(
@@ -82,15 +139,22 @@ internal fun DetailMangaView(
                 verticalSpacer = TinySize,
                 horizontalSpacer = TinySize
             ) {
-                manga.category.forEach { category -> category.name?.let { CategorySimpleChip(it) } }
+                manga.category.forEach { category -> category.name?.let { CategorySimpleChip(text = it) } }
             }
         }
 
-        item { SubTitleText(text = "Описание:") }
+        item { SubTitleText(text = stringResource(string.description_subtitle)) }
 
-        item { manga.description?.let { DescriptionText(it) } }
+        item { manga.description?.let { DescriptionText(text = it) } }
 
-        item { SubTitleText(text = if (manga.chapters.isEmpty()) "Глав нет(" else "Главы:") }
+        item {
+            SubTitleText(
+                text = stringResource(
+                    if (manga.chapters.isEmpty()) string.empty_chapters_text else
+                        string.chapters_text
+                )
+            )
+        }
         items(manga.chapters) { MangaChapterTitle(chapterTitle = it.title.orEmpty()) { onChapterClick(it.id.orEmpty()) } }
 
         item { Spacer(modifier = Modifier.height(80.dp)) }
