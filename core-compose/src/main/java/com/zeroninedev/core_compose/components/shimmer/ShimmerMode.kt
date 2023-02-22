@@ -17,6 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.IntSize
 
+/**
+ * Modifier for add shimmer effect to item
+ * Will use in second version
+ *
+ * @return modifier
+ */
 fun Modifier.shimmerEffect(): Modifier = composed {
     var size by remember {
         mutableStateOf(IntSize.Zero)

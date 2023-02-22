@@ -11,8 +11,15 @@ import com.zeroninedev.core_compose.ui.theme.MediumSize
 import com.zeroninedev.core_compose.ui.theme.TinySize
 import com.zeroninedev.core_compose.ui.theme.yahhooTypography
 
+/**
+ * Text view to represent chapter page
+ *
+ * @param modifier entered modifier from other scope
+ * @param text chapter page text
+ */
 @Composable
 fun ChapterPagesTextView(
+    modifier: Modifier = Modifier,
     text: String
 ) {
     Text(
@@ -20,6 +27,6 @@ fun ChapterPagesTextView(
         style = yahhooTypography.body1,
         color = MaterialTheme.colors.primaryVariant,
         textAlign = TextAlign.Center,
-        modifier = Modifier.fillMaxWidth().padding(horizontal = MediumSize, vertical = TinySize)
+        modifier = modifier.fillMaxWidth().padding(horizontal = MediumSize, vertical = TinySize)
     )
 }

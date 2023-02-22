@@ -13,13 +13,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.zeroninedev.core_compose.ui.theme.MediumSize
+import com.zeroninedev.core_compose.ui.theme.OneSize
 import com.zeroninedev.core_compose.ui.theme.SmallSize
 import com.zeroninedev.core_compose.ui.theme.TinySize
 import com.zeroninedev.core_compose.ui.theme.YahhooShapes
 import com.zeroninedev.core_compose.ui.theme.yahhooTypography
 
+/**
+ * Title with border corner and background for represent manga chapter
+ *
+ * @param modifier entered modifier from other scope
+ * @param isWatched state manga already watched
+ * @param chapterTitle title of manga
+ * @param onChapterClick callback on manga chapter click
+ */
 @Composable
 fun MangaChapterTitle(
     modifier: Modifier = Modifier,
@@ -35,7 +43,7 @@ fun MangaChapterTitle(
             .clip(YahhooShapes.small)
             .border(
                 border = BorderStroke(
-                    width = 1.dp,
+                    width = OneSize,
                     color = MaterialTheme.colors.primaryVariant
                 )
             )

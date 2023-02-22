@@ -11,13 +11,23 @@ import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import com.zeroninedev.core_compose.ui.theme.ZeroSize
 
+/**
+ * Layout for represent item in row
+ * But when items borrow all space in line,
+ * next item will represent in next line
+ *
+ * @param modifier entered modifier from other scope
+ * @param verticalSpacer margin in vertical orientation
+ * @param horizontalSpacer margin in  horizontal orientation
+ * @param content composable content to represent
+ */
 @Composable
 inline fun RowWithWrap(
     modifier: Modifier = Modifier,
-    verticalSpacer: Dp = 0.dp,
-    horizontalSpacer: Dp = 0.dp,
+    verticalSpacer: Dp = ZeroSize,
+    horizontalSpacer: Dp = ZeroSize,
     content: @Composable () -> Unit
 ) {
     Box(modifier) {
@@ -30,8 +40,8 @@ inline fun RowWithWrap(
 
 @Composable
 fun rowWithWrapMesaurePolicy(
-    verticalSpacer: Dp = 0.dp,
-    horizontalSpacer: Dp = 0.dp
+    verticalSpacer: Dp = ZeroSize,
+    horizontalSpacer: Dp = ZeroSize
 ): MeasurePolicy = remember(verticalSpacer, horizontalSpacer) {
     MeasurePolicy { measurables: List<Measurable>, constraints: Constraints ->
         val positions = rowWithWrapRelativePositions(constraints, measurables, verticalSpacer, horizontalSpacer)

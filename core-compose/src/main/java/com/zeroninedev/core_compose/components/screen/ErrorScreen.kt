@@ -11,15 +11,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import com.zeroninedev.core_compose.ui.theme.BigSize
 
+/**
+ * Simple error screen for first version
+ *
+ * @param modifier entered modifier from other scope
+ * @param errorMessage error message to represent
+ * @param onButtonClick callback on click update request
+ */
 @Composable
 fun ErrorScreen(
-    errorMessage: String?,
+    modifier: Modifier = Modifier,
+    errorMessage: String,
     onButtonClick: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -28,18 +36,20 @@ fun ErrorScreen(
             contentDescription = stringResource(coil.compose.base.R.string.default_error_message),
             tint = MaterialTheme.colors.primary
         )
-        Spacer(modifier = Modifier.height(20.dp))
-        if (errorMessage != null) {
-            Text(
-                text = errorMessage,
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp),
-                style = typography.body1,
-                color = MaterialTheme.colors.primaryVariant
-            )
-        }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(BigSize))
+
+        Text(
+            text = errorMessage,
+            modifier = Modifier.padding(start = BigSize, end = BigSize),
+            style = typography.body1,
+            color = MaterialTheme.colors.primaryVariant
+        )
+
+        Spacer(modifier = Modifier.height(BigSize))
+
         OutlinedButton(
-            onClick = { onButtonClick.invoke() }) {
+            onClick = onButtonClick
+        ) {
             Text(
                 text = stringResource(id = com.zeroninedev.core_compose.R.string.update_button),
                 color = MaterialTheme.colors.primary

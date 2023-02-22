@@ -12,6 +12,7 @@ import coil.size.Size
 /**
  * View to show background image
  *
+ * @param modifier entered modifier from other scope
  * @param imageUrl image url
  */
 @Composable

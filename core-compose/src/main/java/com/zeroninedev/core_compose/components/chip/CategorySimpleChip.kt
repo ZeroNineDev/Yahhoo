@@ -10,19 +10,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import com.zeroninedev.core_compose.ui.theme.OneSize
+import com.zeroninedev.core_compose.ui.theme.SmallSize
 
+/**
+ * Chip with rounded bordered corner,
+ * transparent background and text
+ *
+ * @param modifier entered modifier from other scope
+ * @param text text in chip
+ */
 @Composable
 fun CategorySimpleChip(
-    text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    text: String
 ) {
     Surface(
         color = Color.Transparent,
         contentColor = MaterialTheme.colors.primaryVariant,
         shape = CircleShape,
         border = BorderStroke(
-            width = 1.dp,
+            width = OneSize,
             color = MaterialTheme.colors.primaryVariant
         ),
         modifier = modifier
@@ -32,7 +40,7 @@ fun CategorySimpleChip(
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.body1,
             color = MaterialTheme.colors.primaryVariant,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(SmallSize)
         )
     }
 }

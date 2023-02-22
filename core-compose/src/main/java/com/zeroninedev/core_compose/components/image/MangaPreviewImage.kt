@@ -72,7 +72,7 @@ fun MangaPreviewImageWithTitle(
             style = yahhooTypography.subtitle1,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colors.background,
-            maxLines = 2,
+            maxLines = MAX_LINES_IN_TITLE,
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
@@ -86,3 +86,5 @@ fun MangaPreviewImageWithTitle(
         )
     }
 }
+
+private const val MAX_LINES_IN_TITLE = 2

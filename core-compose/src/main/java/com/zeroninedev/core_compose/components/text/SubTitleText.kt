@@ -9,6 +9,12 @@ import com.zeroninedev.core_compose.ui.theme.MediumSize
 import com.zeroninedev.core_compose.ui.theme.SmallSize
 import com.zeroninedev.core_compose.ui.theme.yahhooTypography
 
+/**
+ * Text View for sub title of screen
+ *
+ * @param modifier entered modifier from other scope
+ * @param text text to show
+ */
 @Composable
 fun SubTitleText(
     modifier: Modifier = Modifier,
