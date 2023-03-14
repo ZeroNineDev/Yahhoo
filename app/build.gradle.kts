@@ -25,6 +25,17 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+
+        applicationVariants.all {
+            val variant = this
+            outputs
+                .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+                .forEach { output ->
+                    val outputFileName = "Yahhoo - ${variant.baseName} - ${variant.versionName} ${variant.versionCode}.apk"
+                    println("OutputFileName: $outputFileName")
+                    output.outputFileName = outputFileName
+                }
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
