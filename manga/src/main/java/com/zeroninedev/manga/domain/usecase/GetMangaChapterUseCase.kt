@@ -1,6 +1,6 @@
 package com.zeroninedev.manga.domain.usecase
 
-import com.zeroninedev.common.domain.NetworkRepository
+import com.zeroninedev.common.domain.MangaRepository
 import javax.inject.Inject
 
 /**
@@ -8,7 +8,7 @@ import javax.inject.Inject
  *
  * @property repository interface for request in manga service
  */
-internal class GetMangaChapterUseCase @Inject constructor(private val repository: NetworkRepository) {
+internal class GetMangaChapterUseCase @Inject constructor(private val repository: MangaRepository) {
 
     /**
      * @param mangaId manga id

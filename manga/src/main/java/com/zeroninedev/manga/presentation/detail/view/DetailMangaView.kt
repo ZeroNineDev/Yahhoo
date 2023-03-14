@@ -3,6 +3,7 @@ package com.zeroninedev.manga.presentation.detail.view
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.zeroninedev.common.domain.models.Manga
+import com.zeroninedev.core_compose.components.button.RoundedIconButton
 import com.zeroninedev.core_compose.components.chip.CategorySimpleChip
 import com.zeroninedev.core_compose.components.image.BackgroundImageView
 import com.zeroninedev.core_compose.components.layout.RowWithWrap
@@ -27,6 +29,9 @@ import com.zeroninedev.core_compose.components.text.ExpandableTextView
 import com.zeroninedev.core_compose.components.text.GenreWithDescriptionText
 import com.zeroninedev.core_compose.components.text.MangaChapterTitle
 import com.zeroninedev.core_compose.components.text.SubTitleText
+import com.zeroninedev.core_compose.model.toBackgroundColor
+import com.zeroninedev.core_compose.model.toColor
+import com.zeroninedev.core_compose.model.toDrawable
 import com.zeroninedev.core_compose.ui.theme.BigSize
 import com.zeroninedev.core_compose.ui.theme.ExtraSize
 import com.zeroninedev.core_compose.ui.theme.MediumSize
@@ -34,6 +39,7 @@ import com.zeroninedev.core_compose.ui.theme.TinySize
 import com.zeroninedev.core_compose.ui.theme.TransparentColor
 import com.zeroninedev.core_compose.ui.theme.YahhooShapes
 import com.zeroninedev.manga.R.string
+import com.zeroninedev.manga.domain.model.toUiStatus
 
 /**
  * Detail manga view
@@ -45,10 +51,11 @@ import com.zeroninedev.manga.R.string
 @Composable
 internal fun DetailMangaView(
     manga: Manga,
-    onChapterClick: (String) -> Unit
+    onChapterClick: (String) -> Unit,
+    onChangeStatus: () -> Unit
 ) {
     Box { manga.image?.let { BackgroundImageView(modifier = Modifier.fillMaxWidth(), imageUrl = it) } }
-    Box(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(color = TransparentColor)
@@ -63,6 +70,12 @@ internal fun DetailMangaView(
                 imageUrl = it
             )
         }
+        RoundedIconButton(
+            icon = manga.mangaStatus.toUiStatus().toDrawable(),
+            tint = manga.mangaStatus.toUiStatus().toColor(),
+            backgroundColor = manga.mangaStatus.toUiStatus().toBackgroundColor(),
+            onClick = onChangeStatus
+        )
     }
 
     LazyColumn(

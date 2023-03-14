@@ -9,3 +9,10 @@ val YahhooShapes = Shapes(
     medium = RoundedCornerShape(8.dp),
     large = RoundedCornerShape(26.dp)
 )
+
+val RoundedCornerForBottomSheet = RoundedCornerShape(
+    topStart = 30.dp,
+    topEnd = 30.dp,
+    bottomStart = 0.dp,
+    bottomEnd = 0.dp
+)

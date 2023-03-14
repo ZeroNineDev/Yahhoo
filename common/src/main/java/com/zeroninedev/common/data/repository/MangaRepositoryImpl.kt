@@ -5,27 +5,35 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.zeroninedev.common.di.IoDispatcher
 import com.zeroninedev.common.data.api.MangaApi
+import com.zeroninedev.common.data.api.MangaDatabase
 import com.zeroninedev.common.data.api.PagingDataSource
+import com.zeroninedev.common.data.dbmodels.ChaptersModel
 import com.zeroninedev.common.data.models.toDomain
-import com.zeroninedev.common.domain.NetworkRepository
+import com.zeroninedev.common.domain.MangaRepository
 import com.zeroninedev.common.domain.models.Manga
 import com.zeroninedev.common.domain.models.UpdatedManga
+import com.zeroninedev.common.domain.models.enrichDbData
+import com.zeroninedev.common.domain.models.toDatabaseModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * Realization of [NetworkRepository] for request
+ * Realization of [MangaRepository] for request
  *
+ * @param database database
  * @property api interface for service request of manga
  * @property dispatcher dispatcher for io  flow
  */
-class NetworkRepositoryImpl @Inject constructor(
+class MangaRepositoryImpl @Inject constructor(
+    database: MangaDatabase,
     private val api: MangaApi,
     @IoDispatcher
     private val dispatcher: CoroutineDispatcher
-) : NetworkRepository {
+) : MangaRepository {
+
+    private val dao = database.mangaDao()
 
     override suspend fun lastUpdatedMangas(): List<UpdatedManga> = withContext(dispatcher) {
         api.lastUpdatedMangas().map { it.toDomain() }
@@ -38,15 +46,38 @@ class NetworkRepositoryImpl @Inject constructor(
     override fun popularManga(): Flow<PagingData<UpdatedManga>> = paging()
 
     override suspend fun mangaDetail(mangaId: String): Manga = withContext(dispatcher) {
-        api.mangaDetail(mangaId).toDomain()
+        val dbData = dao.getManga(mangaId)
+        val chapters = dao.getChapters(mangaId)
+
+        val apiData = api.mangaDetail(mangaId).toDomain()
+
+        if (dbData != null && chapters != null) apiData.enrichDbData(dbData, chapters)
+        else apiData
     }
 
     override suspend fun mangaChapter(mangaId: String, chapterId: String): List<String> = withContext(dispatcher) {
         api.mangaPages(mangaId, chapterId)
     }
 
+    override suspend fun updateMangaStatus(manga: Manga) = withContext(dispatcher) {
+        dao.putManga(manga.toDatabaseModel())
+    }
+
+    override suspend fun saveWasReadPage(mangaId: String, chapterId: String) = withContext(dispatcher) {
+        dao.putChapter(
+            ChaptersModel(
+                id = compareMangaIdAndChapterIdToKey(mangaId, chapterId),
+                mangaKey = mangaId,
+                idWithoutMangaName = chapterId,
+                wasRead = true
+            )
+        )
+    }
+
     private fun paging() = Pager(
         config = PagingConfig(100),
         pagingSourceFactory = { PagingDataSource(api = api) }
     ).flow
+
+    private fun compareMangaIdAndChapterIdToKey(mangaId: String, chapterId: String) = "${mangaId}_${chapterId}"
 }

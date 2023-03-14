@@ -1,9 +1,11 @@
 package com.zeroninedev.manga.presentation.navigation
 
+import android.content.Context
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -21,11 +23,12 @@ import com.zeroninedev.navigation.destination.Screen
  *
  * @param navigator main navigator
  */
+@ExperimentalComposeUiApi
 @ExperimentalComposeApi
 @ExperimentalAnimationApi
-fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator) {
+fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator, appContext: Context) {
 
-    val component = DaggerFeatureMangaComponent.builder().build()
+    val component = DaggerFeatureMangaComponent.builder().context(appContext).build()
 
     composable(Screen.MainScreen.ROUTE) {
         MainMangaScreen(navigator, component)

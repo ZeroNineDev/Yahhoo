@@ -1,7 +1,7 @@
 package com.zeroninedev.common.di
 
-import com.zeroninedev.common.data.repository.NetworkRepositoryImpl
-import com.zeroninedev.common.domain.NetworkRepository
+import com.zeroninedev.common.data.repository.MangaRepositoryImpl
+import com.zeroninedev.common.domain.MangaRepository
 import dagger.Binds
 import dagger.Module
 
@@ -13,5 +13,5 @@ import dagger.Module
 interface FeatureMangaModule {
 
     @Binds
-    fun bindNetworkRepository(repository: NetworkRepositoryImpl): NetworkRepository
+    fun bindNetworkRepository(repository: MangaRepositoryImpl): MangaRepository
 }

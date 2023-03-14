@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
  * Interface of repository for request in manga service
  *
  */
-interface NetworkRepository {
+interface MangaRepository {
 
     /**
      * Get last updated manga
@@ -42,4 +42,19 @@ interface NetworkRepository {
      * @param chapterId chapter id
      */
     suspend fun mangaChapter(mangaId: String, chapterId: String): List<String>
+
+    /**
+     * Save information about status manga
+     *
+     * @param manga manga
+     */
+    suspend fun updateMangaStatus(manga: Manga)
+
+    /**
+     * Save information about read status chapter
+     *
+     * @param mangaId manga id
+     * @param chapterId chapter id
+     */
+    suspend fun saveWasReadPage(mangaId: String, chapterId: String)
 }

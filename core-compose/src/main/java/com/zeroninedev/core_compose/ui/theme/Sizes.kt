@@ -9,4 +9,5 @@ val SmallSize = 8.dp
 val NormalMediumSize = 12.dp
 val MediumSize = 16.dp
 val BigSize = 24.dp
+val FiftySize = 50.dp
 val ExtraSize = 240.dp

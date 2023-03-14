@@ -35,6 +35,10 @@ dependencies {
 
     implementation(Dependencies.Lifecycle.viewModelCompose)
 
+    implementation(Dependencies.Room.ktx)
+    api(Dependencies.Room.api)
+    kapt(Dependencies.Room.compiler)
+
     implementation(Dependencies.Dagger.core)
     kapt(Dependencies.Dagger.compiler)
 }
