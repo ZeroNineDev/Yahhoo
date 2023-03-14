@@ -1,5 +1,6 @@
 package com.zeroninedev.manga.presentation.saved.screen
 
+import com.zeroninedev.common.domain.models.MangaReadStatus
 import com.zeroninedev.common.domain.models.UpdatedManga
 
 /**
@@ -16,7 +17,7 @@ internal sealed class SavedScreenState {
      *
      * @property data screen info
      */
-    data class Success(val data: List<UpdatedManga>) : SavedScreenState()
+    data class Success(val data: List<UpdatedManga>, val sortedStatus: MangaReadStatus) : SavedScreenState()
 
     /**
      * State when info was`t loaded

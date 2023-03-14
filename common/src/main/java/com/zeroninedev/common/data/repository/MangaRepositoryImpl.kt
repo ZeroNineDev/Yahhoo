@@ -3,6 +3,7 @@ package com.zeroninedev.common.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.zeroninedev.common.data.api.CategoryDataSource
 import com.zeroninedev.common.di.IoDispatcher
 import com.zeroninedev.common.data.api.MangaApi
 import com.zeroninedev.common.data.api.MangaDatabase
@@ -46,6 +47,8 @@ class MangaRepositoryImpl @Inject constructor(
 
     override fun popularManga(): Flow<PagingData<UpdatedManga>> = paging()
 
+    override fun categoryManga(categoryId: String): Flow<PagingData<UpdatedManga>> = categoryPaging(categoryId)
+
     override suspend fun mangaDetail(mangaId: String): Manga = withContext(dispatcher) {
         val dbData = dao.getManga(mangaId)
         val chapters = dao.getChapters(mangaId)
@@ -81,6 +84,11 @@ class MangaRepositoryImpl @Inject constructor(
     private fun paging() = Pager(
         config = PagingConfig(100),
         pagingSourceFactory = { PagingDataSource(api = api) }
+    ).flow
+
+    private fun categoryPaging(categoryId: String) = Pager(
+        config = PagingConfig(100),
+        pagingSourceFactory = { CategoryDataSource(api = api, category = categoryId) }
     ).flow
 
     private fun compareMangaIdAndChapterIdToKey(mangaId: String, chapterId: String) = "${mangaId}_${chapterId}"

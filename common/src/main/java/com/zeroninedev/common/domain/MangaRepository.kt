@@ -29,6 +29,11 @@ interface MangaRepository {
     fun popularManga(): Flow<PagingData<UpdatedManga>>
 
     /**
+     * Get manga by category
+     */
+    fun categoryManga(categoryId: String): Flow<PagingData<UpdatedManga>>
+
+    /**
      * Get manga with detail information
      *
      * @param mangaId manga id

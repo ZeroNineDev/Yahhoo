@@ -28,9 +28,12 @@ internal fun SavedMangaScreen(
             LoadingScreen()
         }
         is SavedScreenState.Success -> {
-            SavedMangaView(items = result.data) { item ->
-                mainNavigation.navigate("${MangaDetailScreen.ROUTE}/${item.id}")
-            }
+            SavedMangaView(
+                items = result.data,
+                currentFilter = result.sortedStatus,
+                onMangaClick = { item -> mainNavigation.navigate("${MangaDetailScreen.ROUTE}/${item.id}") },
+                onChangeStatus = { viewModel.updateSortStatus(it) }
+            )
         }
         is SavedScreenState.Empty -> {
             ErrorScreen(

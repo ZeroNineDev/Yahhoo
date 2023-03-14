@@ -51,47 +51,46 @@ internal fun MangaStatusBottomSheetView(
     onDismiss: () -> Unit
 ) {
     BoxWithBottomSheet(
-        onDismiss = onDismiss,
-        sheetContent = {
+        onDismiss = onDismiss
+    ) {
 
-            LazyColumn(
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .fillMaxWidth()
-            ) {
+        LazyColumn(
+            modifier = Modifier
+                .wrapContentHeight()
+                .fillMaxWidth()
+        ) {
 
-                items(items = allMangaStatuses().map { it.toUiStatus() }) { item ->
+            items(items = allMangaStatuses().map { it.toUiStatus() }) { item ->
 
-                    val currentState = currentMangaStatus.toUiStatus() == item
+                val currentState = currentMangaStatus.toUiStatus() == item
 
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(FiftySize)
-                            .padding(start = NormalMediumSize, top = TinySize, bottom = TinySize)
-                            .background(color = if (currentState) item.toBackgroundColor() else Color.Transparent)
-                            .clickable { onChangeStatus(item.toDomainStatus()) },
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start
-                    ) {
-                        Icon(
-                            modifier = Modifier.padding(start = NormalMediumSize),
-                            painter = painterResource(id = item.toDrawable()),
-                            contentDescription = null,
-                            tint = if (currentState) item.toColor() else MaterialTheme.colors.primaryVariant
-                        )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(FiftySize)
+                        .padding(start = NormalMediumSize, top = TinySize, bottom = TinySize)
+                        .background(color = if (currentState) item.toBackgroundColor() else Color.Transparent)
+                        .clickable { onChangeStatus(item.toDomainStatus()) },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Icon(
+                        modifier = Modifier.padding(start = NormalMediumSize),
+                        painter = painterResource(id = item.toDrawable()),
+                        contentDescription = null,
+                        tint = if (currentState) item.toColor() else MaterialTheme.colors.primaryVariant
+                    )
 
-                        Text(
-                            modifier = Modifier.padding(start = SmallSize),
-                            text = item.toMangaPresentationString(),
-                            textAlign = TextAlign.Center,
-                            color = if (currentState) item.toColor() else MaterialTheme.colors.primaryVariant
-                        )
-                    }
+                    Text(
+                        modifier = Modifier.padding(start = SmallSize),
+                        text = item.toMangaPresentationString(),
+                        textAlign = TextAlign.Center,
+                        color = if (currentState) item.toColor() else MaterialTheme.colors.primaryVariant
+                    )
                 }
             }
         }
-    )
+    }
 }
 
 /**
@@ -107,65 +106,64 @@ internal fun MangaStatusBottomSheetView(
     onDismiss: () -> Unit
 ) {
     BoxWithBottomSheet(
-        onDismiss = onDismiss,
-        sheetContent = {
+        onDismiss = onDismiss
+    ) {
 
-            Column(
+        Column(
+            modifier = Modifier
+                .wrapContentHeight()
+                .fillMaxWidth()
+        ) {
+
+            Row(
                 modifier = Modifier
-                    .wrapContentHeight()
                     .fillMaxWidth()
+                    .height(FiftySize)
+                    .padding(start = NormalMediumSize, top = TinySize, bottom = TinySize)
+                    .background(color = Color.Transparent)
+                    .clickable { onChangeStatus(true) },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
             ) {
+                Icon(
+                    modifier = Modifier.padding(start = NormalMediumSize),
+                    painter = painterResource(id = com.zeroninedev.core_compose.R.drawable.ic_check),
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.primaryVariant
+                )
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(FiftySize)
-                        .padding(start = NormalMediumSize, top = TinySize, bottom = TinySize)
-                        .background(color = Color.Transparent)
-                        .clickable { onChangeStatus(true) },
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    Icon(
-                        modifier = Modifier.padding(start = NormalMediumSize),
-                        painter = painterResource(id = com.zeroninedev.core_compose.R.drawable.ic_check),
-                        contentDescription = null,
-                        tint = MaterialTheme.colors.primaryVariant
-                    )
+                Text(
+                    modifier = Modifier.padding(start = SmallSize),
+                    text = stringResource(id = com.zeroninedev.core_compose.R.string.manga_state_ui_was_read),
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colors.primaryVariant
+                )
+            }
 
-                    Text(
-                        modifier = Modifier.padding(start = SmallSize),
-                        text = stringResource(id = com.zeroninedev.core_compose.R.string.manga_state_ui_was_read),
-                        textAlign = TextAlign.Center,
-                        color = MaterialTheme.colors.primaryVariant
-                    )
-                }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(FiftySize)
+                    .padding(start = NormalMediumSize, top = TinySize, bottom = TinySize)
+                    .background(color = Color.Transparent)
+                    .clickable { onChangeStatus(false) },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Icon(
+                    modifier = Modifier.padding(start = NormalMediumSize),
+                    painter = painterResource(id = com.zeroninedev.core_compose.R.drawable.ic_close),
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.primaryVariant
+                )
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(FiftySize)
-                        .padding(start = NormalMediumSize, top = TinySize, bottom = TinySize)
-                        .background(color = Color.Transparent)
-                        .clickable { onChangeStatus(false) },
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    Icon(
-                        modifier = Modifier.padding(start = NormalMediumSize),
-                        painter = painterResource(id = com.zeroninedev.core_compose.R.drawable.ic_close),
-                        contentDescription = null,
-                        tint = MaterialTheme.colors.primaryVariant
-                    )
-
-                    Text(
-                        modifier = Modifier.padding(start = SmallSize),
-                        text = stringResource(id = com.zeroninedev.core_compose.R.string.manga_state_ui_none),
-                        textAlign = TextAlign.Center,
-                        color = MaterialTheme.colors.primaryVariant
-                    )
-                }
+                Text(
+                    modifier = Modifier.padding(start = SmallSize),
+                    text = stringResource(id = com.zeroninedev.core_compose.R.string.manga_state_ui_none),
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colors.primaryVariant
+                )
             }
         }
-    )
+    }
 }

@@ -5,6 +5,7 @@ import com.zeroninedev.common.di.CoreNetworkModule
 import com.zeroninedev.common.di.CoroutineModule
 import com.zeroninedev.common.di.FeatureMangaModule
 import com.zeroninedev.common.di.StorageModule
+import com.zeroninedev.manga.presentation.category.viewmodelfactory.CategoryMangaFactory
 import com.zeroninedev.manga.presentation.detail.viewmodelfactory.DetailMangaFactory
 import com.zeroninedev.manga.presentation.lastupdated.viewmodelfactory.LastUpdatedMangaFactory
 import com.zeroninedev.manga.presentation.mangachapter.viewmodelfactory.MangaChapterFactory
@@ -48,6 +49,8 @@ internal interface FeatureMangaComponent {
     fun provideDetailMangaFactory(): DetailMangaFactory
 
     fun provideMangaChapterFactory(): MangaChapterFactory
+
+    fun provideCategoryMangaFactory(): CategoryMangaFactory
 
     fun provideSavedMangaFactory(): SavedMangaFactory
 }

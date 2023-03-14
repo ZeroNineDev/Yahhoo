@@ -11,6 +11,7 @@ import com.zeroninedev.manga.presentation.detail.view.DetailMangaView
 import com.zeroninedev.manga.presentation.detail.view.MangaStatusBottomSheetView
 import com.zeroninedev.manga.presentation.detail.viewmodel.DetailMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
+import com.zeroninedev.navigation.destination.Screen.CategoryScreen
 import com.zeroninedev.navigation.destination.Screen.MangaChapterScreen
 
 /**
@@ -43,7 +44,8 @@ internal fun DetailMangaScreen(
                         viewModel.saveChapters(result.data.chapters.map { it.id.orEmpty() })
                         navigator.navigate("${MangaChapterScreen.ROUTE}/${result.data.id}/${chapterId}")
                     },
-                    onChangeStatus = { viewModel.showMangaStatusBottomSheet() }
+                    onChangeStatus = { viewModel.showMangaStatusBottomSheet() },
+                    onChipClick = { navigator.navigate("${CategoryScreen.ROUTE}/${it.name}/${it.id}") }
                 )
             }
         }

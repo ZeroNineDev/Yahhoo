@@ -54,12 +54,12 @@ import com.zeroninedev.core_compose.ui.theme.ZeroSize
 @Composable
 fun BoxWithBottomSheet(
     onDismiss: () -> Unit,
-    sheetContent: @Composable ColumnScope.() -> Unit,
     modifier: Modifier = Modifier,
     isBottomSheetOpen: Boolean = true,
     sheetElevation: Dp = OneSize,
     sheetBackgroundColor: Color = MaterialTheme.colors.background,
     sheetBorderStrokeColor: Color = Color.White.copy(alpha = 0.3f),
+    sheetContent: @Composable ColumnScope.() -> Unit,
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
 

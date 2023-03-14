@@ -91,7 +91,7 @@ fun MangaStatusUi.toMangaPresentationString(): String =
     when (this) {
         MangaStatusUi.READ -> stringResource(id = R.string.manga_state_ui_read)
         MangaStatusUi.IN_PLAN -> stringResource(id = R.string.manga_state_ui_in_plan)
-        MangaStatusUi.REREAD -> stringResource(id = R.string.manga_state_ui_read)
+        MangaStatusUi.REREAD -> stringResource(id = R.string.manga_state_ui_reread)
         MangaStatusUi.WAS_READ -> stringResource(id = R.string.manga_state_ui_was_read)
         MangaStatusUi.ON_HOLD -> stringResource(id = R.string.manga_state_ui_on_hold)
         MangaStatusUi.ABANDONED -> stringResource(id = R.string.manga_state_ui_abandoned)

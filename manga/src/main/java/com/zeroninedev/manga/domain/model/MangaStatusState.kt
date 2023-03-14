@@ -9,6 +9,18 @@ import com.zeroninedev.core_compose.model.MangaStatusUi
 internal fun allMangaStatuses(): List<MangaReadStatus> = MangaReadStatus.values().toList()
 
 /**
+ * @return list of all manga read statuses
+ */
+internal fun allSavedMangaStatuses(): List<MangaReadStatus> = listOf(
+    MangaReadStatus.READ,
+    MangaReadStatus.IN_PLAN,
+    MangaReadStatus.REREAD,
+    MangaReadStatus.WAS_READ,
+    MangaReadStatus.ON_HOLD,
+    MangaReadStatus.ABANDONED
+)
+
+/**
  * Mapper Domain manga read status in Ui status
  */
 internal fun MangaReadStatus.toUiStatus() =
@@ -21,7 +33,6 @@ internal fun MangaReadStatus.toUiStatus() =
         MangaReadStatus.ABANDONED -> MangaStatusUi.ABANDONED
         MangaReadStatus.UNKNOWN -> MangaStatusUi.UNKNOWN
     }
-
 
 /**
  * Mapper Ui manga read status in Domain status

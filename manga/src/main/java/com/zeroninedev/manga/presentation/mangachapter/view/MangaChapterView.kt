@@ -32,9 +32,11 @@ internal fun MangaChapterView(
     chapterPage: List<String>,
     prevPart: () -> Unit,
     nextPart: () -> Unit,
+    afterHalfPart: () -> Unit,
     onErrorAction: (String?) -> Unit
 ) {
     var page by remember { mutableStateOf(0) }
+    if (page > chapterPage.size/2) afterHalfPart()
 
     Box(
         modifier = Modifier
