@@ -12,6 +12,8 @@ import com.zeroninedev.manga.presentation.popular.screen.PopularMangaScreen
 import com.zeroninedev.manga.presentation.search.screen.SearchMangaScreen
 import com.zeroninedev.manga.presentation.lastupdated.viewmodel.LastUpdatedMangaViewModel
 import com.zeroninedev.manga.presentation.popular.viewmodel.PopularMangaViewModel
+import com.zeroninedev.manga.presentation.saved.screen.SavedMangaScreen
+import com.zeroninedev.manga.presentation.saved.viewmodel.SavedMangaViewModel
 import com.zeroninedev.manga.presentation.search.viewmodel.SearchMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
@@ -35,6 +37,7 @@ internal fun MainScreenNavigations(
     val lastViewModel: LastUpdatedMangaViewModel = viewModel(factory = component.provideLastUpdatedMangaFactory())
     val searchViewModel: SearchMangaViewModel = viewModel(factory = component.provideSearchMangaFactory())
     val popularViewModel: PopularMangaViewModel = viewModel(factory = component.providePopularMangaFactory())
+    val savedViewModel: SavedMangaViewModel = viewModel(factory = component.provideSavedMangaFactory())
 
     NavHost(
         navigationController,
@@ -53,5 +56,8 @@ internal fun MainScreenNavigations(
             LastUpdatedMangaScreen(outerNavigator, lastViewModel)
         }
 
+        composable(NavigationItemDrawerScreen.SavedScreen.ROUTE) {
+            SavedMangaScreen(outerNavigator, savedViewModel)
+        }
     }
 }

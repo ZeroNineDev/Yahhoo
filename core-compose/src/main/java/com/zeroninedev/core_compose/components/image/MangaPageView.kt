@@ -65,7 +65,7 @@ fun MangaPageView(
         model = ImageRequest.Builder(LocalContext.current)
             .data(url.drop(1).dropLast(1))
             .listener(listener)
-            .allowHardware(true)
+            .allowHardware(false)
             .size(Size.ORIGINAL)
             .build()
     )

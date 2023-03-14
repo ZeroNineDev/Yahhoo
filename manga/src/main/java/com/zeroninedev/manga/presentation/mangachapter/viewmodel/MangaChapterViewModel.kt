@@ -6,9 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.zeroninedev.common.constants.Constants
 import com.zeroninedev.manga.domain.usecase.GetMangaChapterUseCase
 import com.zeroninedev.manga.domain.usecase.GetNextChapterUseCase
+import com.zeroninedev.manga.domain.usecase.UpdateChapterInfoUseCase
 import com.zeroninedev.manga.presentation.mangachapter.model.ChapterState.NEXT_PAGE
 import com.zeroninedev.manga.presentation.mangachapter.model.ChapterState.PREV_PAGE
 import com.zeroninedev.manga.presentation.mangachapter.screen.MangaScreenState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -22,11 +24,15 @@ import javax.inject.Inject
  */
 internal class MangaChapterViewModel @Inject constructor(
     private val getMangaChapterUseCase: GetMangaChapterUseCase,
+    private val updateChapterInfoUseCase: UpdateChapterInfoUseCase,
     private val getNextChapterUseCase: GetNextChapterUseCase
 ) : ViewModel() {
 
     private val _screenState = MutableStateFlow<MangaScreenState>(MangaScreenState.Loading)
     val screenState = _screenState.asStateFlow()
+
+    private var nextChapterPages: Pair<String, List<String>>? = null
+    private var preloadState: Boolean = false
 
     private var chapterId: String? = null
     private var mangaId: String? = null
@@ -41,9 +47,16 @@ internal class MangaChapterViewModel @Inject constructor(
         _screenState.value = MangaScreenState.Loading
         this.chapterId = chapterId
         this.mangaId = mangaId
-        runCatching { getMangaChapterUseCase(mangaId, chapterId) }
-            .onSuccess { _screenState.value = MangaScreenState.Success(it) }
-            .onFailure { _screenState.value = MangaScreenState.Error(it.message.orEmpty()) }
+
+        if (nextChapterPages != null && nextChapterPages?.first == chapterId) {
+            delay(100)
+            _screenState.value = MangaScreenState.Success(nextChapterPages?.second ?: listOf())
+            nextChapterPages = null
+        } else {
+            runCatching { getMangaChapterUseCase(mangaId, chapterId) }
+                .onSuccess { _screenState.value = MangaScreenState.Success(it) }
+                .onFailure { _screenState.value = MangaScreenState.Error(it.message.orEmpty()) }
+        }
     }
 
     /**
@@ -70,9 +83,27 @@ internal class MangaChapterViewModel @Inject constructor(
     fun loadNextChapter() {
         viewModelScope.launch {
             try {
+                updateChapterInfoUseCase(chapterId.orEmpty(), mangaId.orEmpty())
                 val nextChapterId = getNextChapterUseCase(chapterId.orEmpty(), NEXT_PAGE)
                 loadMangaChapter(mangaId.orEmpty(), nextChapterId)
             } catch (e: Exception) {
+                Log.d(Constants.ERROR_LOG, e.message.toString())
+            }
+        }
+    }
+
+    fun preloadNext() {
+        if (!preloadState && nextChapterPages == null) {
+            preloadState = true
+            try {
+                viewModelScope.launch {
+                    val nextChapterId = getNextChapterUseCase(chapterId.orEmpty(), NEXT_PAGE)
+                    runCatching { getMangaChapterUseCase(mangaId.orEmpty(), nextChapterId) }
+                        .onSuccess { nextChapterPages = nextChapterId to it }
+                        .onFailure { preloadState = false }
+                }
+            } catch (e: Exception) {
+                preloadState = false
                 Log.d(Constants.ERROR_LOG, e.message.toString())
             }
         }

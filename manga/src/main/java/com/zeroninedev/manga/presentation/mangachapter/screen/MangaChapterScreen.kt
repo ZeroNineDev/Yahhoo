@@ -31,6 +31,7 @@ internal fun MangaChapterScreen(
                 chapterPage = result.data,
                 prevPart = { viewModel.loadPrevChapter() },
                 nextPart = { viewModel.loadNextChapter() },
+                afterHalfPart = { viewModel.preloadNext() },
                 onErrorAction = { viewModel.sendImageError(it) }
             )
         }

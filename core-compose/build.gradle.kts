@@ -39,6 +39,7 @@ dependencies {
     implementation(project(Dependencies.Project.navigation))
 
     implementation(Dependencies.Coil.coil)
+    implementation(Dependencies.Coil.gif)
 
     implementation(Dependencies.Compose.ui)
     implementation(Dependencies.Compose.material)

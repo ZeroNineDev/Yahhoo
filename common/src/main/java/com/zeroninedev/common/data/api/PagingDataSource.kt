@@ -6,14 +6,13 @@ import androidx.paging.PagingState
 import com.zeroninedev.common.constants.Constants.PAGING_LOG
 import com.zeroninedev.common.data.models.toDomain
 import com.zeroninedev.common.domain.models.UpdatedManga
-import javax.inject.Inject
 
 /**
  * Realization of pagination to load all mangas
  *
  * @property api interface for manga
  */
-class PagingDataSource @Inject constructor(
+class PagingDataSource(
     private val api: MangaApi
 ) : PagingSource<Int, UpdatedManga>() {
 

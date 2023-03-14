@@ -3,5 +3,6 @@
     <string name="search_text">Search</string>
     <string name="popular_text">Popular</string>
     <string name="updated_text">Last updated</string>
+    <string name="saved_text">Saved manga</string>
     <string name="manga_drawer_title">Manga</string>
 </resources>

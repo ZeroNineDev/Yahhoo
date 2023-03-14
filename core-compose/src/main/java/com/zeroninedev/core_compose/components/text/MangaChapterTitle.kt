@@ -1,9 +1,10 @@
 package com.zeroninedev.core_compose.components.text
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,18 +29,23 @@ import com.zeroninedev.core_compose.ui.theme.yahhooTypography
  * @param chapterTitle title of manga
  * @param onChapterClick callback on manga chapter click
  */
+@ExperimentalFoundationApi
 @Composable
 fun MangaChapterTitle(
     modifier: Modifier = Modifier,
-    isWatched: Boolean = true,
+    isWatched: Boolean = false,
     chapterTitle: String,
+    onChapterLongClick: () -> Unit,
     onChapterClick: () -> Unit
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = TinySize, horizontal = MediumSize)
-            .clickable { onChapterClick() }
+            .combinedClickable(
+                onClick = onChapterClick,
+                onLongClick = onChapterLongClick,
+            )
             .clip(YahhooShapes.small)
             .border(
                 border = BorderStroke(
@@ -47,7 +53,7 @@ fun MangaChapterTitle(
                     color = MaterialTheme.colors.primaryVariant
                 )
             )
-            .background(if (isWatched) MaterialTheme.colors.primary else Color.Transparent),
+            .background(if (isWatched) Color.Transparent else MaterialTheme.colors.primary),
     ) {
         Text(
             text = chapterTitle,

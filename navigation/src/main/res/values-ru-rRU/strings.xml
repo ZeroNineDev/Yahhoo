@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_text">Поиск</string>
+    <string name="popular_text">Популярное</string>
+    <string name="updated_text">Последнее обновленное</string>
+    <string name="manga_drawer_title">Манга</string>
+    <string name="saved_text">Сохраненые манги</string>
+</resources>

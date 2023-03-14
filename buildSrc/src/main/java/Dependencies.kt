@@ -59,10 +59,18 @@ object Dependencies {
     object Coil {
         private const val version = "2.2.2"
         const val coil = "io.coil-kt:coil-compose:$version"
+        const val gif = "io.coil-kt:coil-gif:$version"
     }
 
     object Paging {
         const val runtime = "androidx.paging:paging-runtime:3.1.0"
         const val compose = "androidx.paging:paging-compose:1.0.0-alpha13"
+    }
+
+    object Room {
+        private const val room_version = "2.3.0"
+        const val ktx = "androidx.room:room-ktx:$room_version"
+        const val compiler = "androidx.room:room-compiler:$room_version"
+        const val api = "androidx.room:room-runtime:$room_version"
     }
 }
