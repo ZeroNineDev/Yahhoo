@@ -54,8 +54,7 @@ class MangaRepositoryImpl @Inject constructor(
         val chapters = dao.getChapters(mangaId)
         val apiData = api.mangaDetail(mangaId).toDomain()
 
-        if (dbData != null && chapters != null) apiData.enrichDbData(dbData, chapters)
-        else apiData
+        apiData.enrichDbData(dbData, chapters)
     }
 
     override suspend fun mangaChapter(mangaId: String, chapterId: String): List<String> = withContext(dispatcher) {
