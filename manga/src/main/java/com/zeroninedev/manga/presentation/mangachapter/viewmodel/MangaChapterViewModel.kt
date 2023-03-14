@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.zeroninedev.common.constants.Constants
 import com.zeroninedev.manga.domain.usecase.GetMangaChapterUseCase
 import com.zeroninedev.manga.domain.usecase.GetNextChapterUseCase
+import com.zeroninedev.manga.domain.usecase.UpdateChapterInfoUseCase
 import com.zeroninedev.manga.presentation.mangachapter.model.ChapterState.NEXT_PAGE
 import com.zeroninedev.manga.presentation.mangachapter.model.ChapterState.PREV_PAGE
 import com.zeroninedev.manga.presentation.mangachapter.screen.MangaScreenState
@@ -22,6 +23,7 @@ import javax.inject.Inject
  */
 internal class MangaChapterViewModel @Inject constructor(
     private val getMangaChapterUseCase: GetMangaChapterUseCase,
+    private val updateChapterInfoUseCase: UpdateChapterInfoUseCase,
     private val getNextChapterUseCase: GetNextChapterUseCase
 ) : ViewModel() {
 
@@ -70,6 +72,7 @@ internal class MangaChapterViewModel @Inject constructor(
     fun loadNextChapter() {
         viewModelScope.launch {
             try {
+                updateChapterInfoUseCase(chapterId.orEmpty(), mangaId.orEmpty())
                 val nextChapterId = getNextChapterUseCase(chapterId.orEmpty(), NEXT_PAGE)
                 loadMangaChapter(mangaId.orEmpty(), nextChapterId)
             } catch (e: Exception) {

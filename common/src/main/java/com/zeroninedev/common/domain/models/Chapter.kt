@@ -21,7 +21,18 @@ data class Chapter(
  * @param dbChapters chapters info from database
  */
 internal fun List<Chapter>.enrichDbData(dbChapters: List<ChaptersModel>): List<Chapter> {
-    var outputList = zip(dbChapters) { api, db -> Chapter(id = api.id, title = api.title, wasRead = db.wasRead) }
-    if (outputList.size != size) outputList = outputList.plus(subList(outputList.size, size))
-    return outputList
+
+    val dbMap = mutableMapOf<String, Int>()
+    dbChapters.forEachIndexed { index, chapter -> dbMap[chapter.idWithoutMangaName] = index }
+
+    return map { chapter ->
+        val ind = dbMap[chapter.id]
+        if (ind != null)
+            Chapter(
+                id = chapter.id,
+                title = chapter.title,
+                wasRead = dbChapters[ind].wasRead
+            )
+        else chapter
+    }
 }

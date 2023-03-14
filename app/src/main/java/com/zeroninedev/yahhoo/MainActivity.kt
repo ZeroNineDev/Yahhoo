@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.runtime.ExperimentalComposeApi
@@ -15,6 +16,7 @@ import com.zeroninedev.yahhoo.navigation.MainNavigationGraph
 
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
+@ExperimentalFoundationApi
 @ExperimentalComposeApi
 class MainActivity : ComponentActivity() {
 

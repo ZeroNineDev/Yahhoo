@@ -1,10 +1,10 @@
 package com.zeroninedev.manga.presentation.detail.screen
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
-import com.zeroninedev.common.domain.models.MangaReadStatus
 import com.zeroninedev.core_compose.components.screen.ErrorScreen
 import com.zeroninedev.core_compose.components.screen.LoadingScreen
 import com.zeroninedev.manga.presentation.detail.view.DetailMangaView
@@ -21,13 +21,13 @@ import com.zeroninedev.navigation.destination.Screen.MangaChapterScreen
  */
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
+@ExperimentalFoundationApi
 @Composable
 internal fun DetailMangaScreen(
     navigator: Navigator,
     viewModel: DetailMangaViewModel,
 ) {
-    val result = viewModel.screenState.collectAsState().value
-    when (result) {
+    when (val result = viewModel.screenState.collectAsState().value) {
         is DetailScreenState.Error -> {
             ErrorScreen(errorMessage = result.exception) { viewModel.updateRequest() }
         }
@@ -38,6 +38,7 @@ internal fun DetailMangaScreen(
             if (result.data != null) {
                 DetailMangaView(
                     manga = result.data,
+                    onChapterLongClick = { viewModel.showWasReadStateBottomSheet(it) },
                     onChapterClick = { chapterId ->
                         viewModel.saveChapters(result.data.chapters.map { it.id.orEmpty() })
                         navigator.navigate("${MangaChapterScreen.ROUTE}/${result.data.id}/${chapterId}")
@@ -48,14 +49,20 @@ internal fun DetailMangaScreen(
         }
     }
 
-    when (viewModel.bottomSheet.collectAsState().value) {
-        true -> {
+    when (val result = viewModel.bottomSheet.collectAsState().value) {
+        is BottomSheetState.None -> Unit
+        is BottomSheetState.ReadStatus -> {
             MangaStatusBottomSheetView(
-                (result as? DetailScreenState.Success)?.data?.mangaStatus ?: MangaReadStatus.UNKNOWN,
+                currentMangaStatus = result.data,
                 onChangeStatus = { viewModel.saveUpdatedInfo(it) },
-                onDismiss = { viewModel.hideMangaStatusBottomSheet() }
+                onDismiss = { viewModel.hideBottomSheet() }
             )
         }
-        false -> Unit
+        is BottomSheetState.WasReadState -> {
+            MangaStatusBottomSheetView(
+                onChangeStatus = { viewModel.saveUpdatedChapter(result.data, it) },
+                onDismiss = { viewModel.hideBottomSheet() }
+            )
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.zeroninedev.manga.presentation.detail.view
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -48,9 +49,11 @@ import com.zeroninedev.manga.domain.model.toUiStatus
  * @param onChapterClick callback on chapter click
  */
 @ExperimentalAnimationApi
+@ExperimentalFoundationApi
 @Composable
 internal fun DetailMangaView(
     manga: Manga,
+    onChapterLongClick: (String) -> Unit,
     onChapterClick: (String) -> Unit,
     onChangeStatus: () -> Unit
 ) {
@@ -168,7 +171,14 @@ internal fun DetailMangaView(
                 )
             )
         }
-        items(manga.chapters) { MangaChapterTitle(chapterTitle = it.title.orEmpty()) { onChapterClick(it.id.orEmpty()) } }
+        items(manga.chapters) {
+            MangaChapterTitle(
+                isWatched = it.wasRead,
+                chapterTitle = it.title.orEmpty(),
+                onChapterClick = { onChapterClick(it.id.orEmpty()) },
+                onChapterLongClick = { onChapterLongClick(it.id.orEmpty()) }
+            )
+        }
 
         item { Spacer(modifier = Modifier.height(80.dp)) }
     }

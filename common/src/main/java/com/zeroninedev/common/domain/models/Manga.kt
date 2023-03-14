@@ -30,5 +30,7 @@ internal fun Manga.enrichDbData(dbData: MangaModel, dbChapters: List<ChaptersMod
 
 internal fun Manga.toDatabaseModel(): MangaModel = MangaModel(
     id = id.orEmpty(),
+    title = title.orEmpty(),
+    imageUrl = image.orEmpty(),
     status = mangaStatus.name,
 )

@@ -1,5 +1,7 @@
 package com.zeroninedev.common.domain.models
 
+import com.zeroninedev.common.domain.models.MangaReadStatus.UNKNOWN
+
 /**
  * Domain manga in simple list requests
  *
@@ -11,4 +13,5 @@ data class UpdatedManga(
     val id: String,
     val title: String,
     val imageUrl: String,
+    val status: MangaReadStatus = UNKNOWN
 )

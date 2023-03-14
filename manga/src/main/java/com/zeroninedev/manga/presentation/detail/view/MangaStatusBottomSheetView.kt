@@ -3,6 +3,7 @@ package com.zeroninedev.manga.presentation.detail.view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,6 +20,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.zeroninedev.common.domain.models.MangaReadStatus
 import com.zeroninedev.core_compose.components.layout.BoxWithBottomSheet
@@ -86,6 +88,82 @@ internal fun MangaStatusBottomSheetView(
                             color = if (currentState) item.toColor() else MaterialTheme.colors.primaryVariant
                         )
                     }
+                }
+            }
+        }
+    )
+}
+
+/**
+ * View of bottom sheet with read status
+ *
+ * @param onChangeStatus callback on change read state
+ * @param onDismiss callback on dismiss bottom sheet
+ */
+@ExperimentalComposeUiApi
+@Composable
+internal fun MangaStatusBottomSheetView(
+    onChangeStatus: (Boolean) -> Unit,
+    onDismiss: () -> Unit
+) {
+    BoxWithBottomSheet(
+        onDismiss = onDismiss,
+        sheetContent = {
+
+            Column(
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .fillMaxWidth()
+            ) {
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(FiftySize)
+                        .padding(start = NormalMediumSize, top = TinySize, bottom = TinySize)
+                        .background(color = Color.Transparent)
+                        .clickable { onChangeStatus(true) },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Icon(
+                        modifier = Modifier.padding(start = NormalMediumSize),
+                        painter = painterResource(id = com.zeroninedev.core_compose.R.drawable.ic_check),
+                        contentDescription = null,
+                        tint = MaterialTheme.colors.primaryVariant
+                    )
+
+                    Text(
+                        modifier = Modifier.padding(start = SmallSize),
+                        text = stringResource(id = com.zeroninedev.core_compose.R.string.manga_state_ui_was_read),
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colors.primaryVariant
+                    )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(FiftySize)
+                        .padding(start = NormalMediumSize, top = TinySize, bottom = TinySize)
+                        .background(color = Color.Transparent)
+                        .clickable { onChangeStatus(false) },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Icon(
+                        modifier = Modifier.padding(start = NormalMediumSize),
+                        painter = painterResource(id = com.zeroninedev.core_compose.R.drawable.ic_close),
+                        contentDescription = null,
+                        tint = MaterialTheme.colors.primaryVariant
+                    )
+
+                    Text(
+                        modifier = Modifier.padding(start = SmallSize),
+                        text = stringResource(id = com.zeroninedev.core_compose.R.string.manga_state_ui_none),
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colors.primaryVariant
+                    )
                 }
             }
         }

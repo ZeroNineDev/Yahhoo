@@ -2,6 +2,7 @@ package com.zeroninedev.manga.presentation.navigation
 
 import android.content.Context
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -25,6 +26,7 @@ import com.zeroninedev.navigation.destination.Screen
  */
 @ExperimentalComposeUiApi
 @ExperimentalComposeApi
+@ExperimentalFoundationApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator, appContext: Context) {
 

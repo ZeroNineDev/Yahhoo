@@ -8,6 +8,7 @@ import com.zeroninedev.common.data.api.MangaApi
 import com.zeroninedev.common.data.api.MangaDatabase
 import com.zeroninedev.common.data.api.PagingDataSource
 import com.zeroninedev.common.data.dbmodels.ChaptersModel
+import com.zeroninedev.common.data.dbmodels.toDomain
 import com.zeroninedev.common.data.models.toDomain
 import com.zeroninedev.common.domain.MangaRepository
 import com.zeroninedev.common.domain.models.Manga
@@ -48,7 +49,6 @@ class MangaRepositoryImpl @Inject constructor(
     override suspend fun mangaDetail(mangaId: String): Manga = withContext(dispatcher) {
         val dbData = dao.getManga(mangaId)
         val chapters = dao.getChapters(mangaId)
-
         val apiData = api.mangaDetail(mangaId).toDomain()
 
         if (dbData != null && chapters != null) apiData.enrichDbData(dbData, chapters)
@@ -63,13 +63,17 @@ class MangaRepositoryImpl @Inject constructor(
         dao.putManga(manga.toDatabaseModel())
     }
 
-    override suspend fun saveWasReadPage(mangaId: String, chapterId: String) = withContext(dispatcher) {
+    override suspend fun loadSavedMangas(): List<UpdatedManga> = withContext(dispatcher) {
+        dao.getMangas()?.map { it.toDomain() } ?: listOf()
+    }
+
+    override suspend fun saveChapterInfo(mangaId: String, chapterId: String, wasRead: Boolean) = withContext(dispatcher) {
         dao.putChapter(
             ChaptersModel(
                 id = compareMangaIdAndChapterIdToKey(mangaId, chapterId),
                 mangaKey = mangaId,
                 idWithoutMangaName = chapterId,
-                wasRead = true
+                wasRead = wasRead
             )
         )
     }

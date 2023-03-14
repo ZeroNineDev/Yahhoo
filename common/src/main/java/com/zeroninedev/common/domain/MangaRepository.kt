@@ -51,10 +51,15 @@ interface MangaRepository {
     suspend fun updateMangaStatus(manga: Manga)
 
     /**
+     * Get saved mangas
+     */
+    suspend fun loadSavedMangas(): List<UpdatedManga>
+
+    /**
      * Save information about read status chapter
      *
      * @param mangaId manga id
      * @param chapterId chapter id
      */
-    suspend fun saveWasReadPage(mangaId: String, chapterId: String)
+    suspend fun saveChapterInfo(mangaId: String, chapterId: String, wasRead: Boolean)
 }

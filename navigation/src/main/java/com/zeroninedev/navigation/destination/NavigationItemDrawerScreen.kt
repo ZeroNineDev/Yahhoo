@@ -44,6 +44,17 @@ sealed class NavigationItemDrawerScreen(var route: String, var icon: Int, @Strin
             const val ROUTE = "updated_screen"
         }
     }
+
+    /**
+     * Saved manga screen
+     *
+     */
+    class SavedScreen :
+        NavigationItemDrawerScreen(ROUTE, R.drawable.saved_icon, R.string.saved_text) {
+        companion object {
+            const val ROUTE = "saved_screen"
+        }
+    }
 }
 
 /**
@@ -52,5 +63,6 @@ sealed class NavigationItemDrawerScreen(var route: String, var icon: Int, @Strin
 fun navigationItemDrawerList(): List<NavigationItemDrawerScreen> = listOf(
     NavigationItemDrawerScreen.LastUpdatedScreen(),
     NavigationItemDrawerScreen.SearchScreen(),
-    NavigationItemDrawerScreen.PopularScreen()
+    NavigationItemDrawerScreen.PopularScreen(),
+    NavigationItemDrawerScreen.SavedScreen()
 )

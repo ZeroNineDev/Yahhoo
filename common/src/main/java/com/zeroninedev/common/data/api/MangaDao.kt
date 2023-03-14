@@ -16,6 +16,9 @@ interface MangaDao {
     @Query("SELECT * FROM manga WHERE id = :id")
     suspend fun getManga(id: String): MangaModel?
 
+    @Query("SELECT * FROM manga")
+    suspend fun getMangas(): List<MangaModel>?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun putChapter(chapter: ChaptersModel)
 

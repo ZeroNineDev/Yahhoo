@@ -9,6 +9,7 @@ import com.zeroninedev.manga.presentation.detail.viewmodelfactory.DetailMangaFac
 import com.zeroninedev.manga.presentation.lastupdated.viewmodelfactory.LastUpdatedMangaFactory
 import com.zeroninedev.manga.presentation.mangachapter.viewmodelfactory.MangaChapterFactory
 import com.zeroninedev.manga.presentation.popular.viewmodelfactory.PopularMangaFactory
+import com.zeroninedev.manga.presentation.saved.viewmodelfactory.SavedMangaFactory
 import com.zeroninedev.manga.presentation.search.viewmodelfactory.SearchMangaFactory
 import dagger.BindsInstance
 import dagger.Component
@@ -47,4 +48,6 @@ internal interface FeatureMangaComponent {
     fun provideDetailMangaFactory(): DetailMangaFactory
 
     fun provideMangaChapterFactory(): MangaChapterFactory
+
+    fun provideSavedMangaFactory(): SavedMangaFactory
 }

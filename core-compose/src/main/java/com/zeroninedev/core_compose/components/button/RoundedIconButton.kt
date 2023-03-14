@@ -23,7 +23,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import com.zeroninedev.core_compose.ui.theme.BackgroundLightGray
+import com.zeroninedev.core_compose.ui.theme.BackgroundUnselectedColor
 import com.zeroninedev.core_compose.ui.theme.FiftySize
 import com.zeroninedev.core_compose.ui.theme.SmallSize
 
@@ -47,7 +47,7 @@ fun RoundedIconButton(
     icon: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = BackgroundLightGray,
+    backgroundColor: Color = BackgroundUnselectedColor,
     isIconRotate: Boolean = false,
     rotateValue: Float = 0f,
     contentDescription: String = String(),

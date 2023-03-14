@@ -3,6 +3,7 @@ package com.zeroninedev.core_compose.model
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import com.zeroninedev.core_compose.R
 import com.zeroninedev.core_compose.ui.theme.BackgroundCompletedColor
 import com.zeroninedev.core_compose.ui.theme.BackgroundAbandonedColor
@@ -85,13 +86,14 @@ fun MangaStatusUi.toColor(): Color =
 /**
  * Mapper read status to string performance
  */
+@Composable
 fun MangaStatusUi.toMangaPresentationString(): String =
     when (this) {
-        MangaStatusUi.READ -> "Читаю"
-        MangaStatusUi.IN_PLAN -> "Запланировано"
-        MangaStatusUi.REREAD -> "Перечитываю"
-        MangaStatusUi.WAS_READ -> "Прочитано"
-        MangaStatusUi.ON_HOLD -> "Отложено"
-        MangaStatusUi.ABANDONED -> "Брошено"
-        else -> "Убрать статус"
+        MangaStatusUi.READ -> stringResource(id = R.string.manga_state_ui_read)
+        MangaStatusUi.IN_PLAN -> stringResource(id = R.string.manga_state_ui_in_plan)
+        MangaStatusUi.REREAD -> stringResource(id = R.string.manga_state_ui_read)
+        MangaStatusUi.WAS_READ -> stringResource(id = R.string.manga_state_ui_was_read)
+        MangaStatusUi.ON_HOLD -> stringResource(id = R.string.manga_state_ui_on_hold)
+        MangaStatusUi.ABANDONED -> stringResource(id = R.string.manga_state_ui_abandoned)
+        else -> stringResource(id = R.string.manga_state_ui_none)
     }
