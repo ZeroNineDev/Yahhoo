@@ -17,4 +17,8 @@
 
     <string name="saved_mangas_empty">You aren`t save anything</string>
 
+    <string name="manga_switch_swipe_text">Choice switch manga page variant</string>
+    <string name="manga_switch_by_tap">Swich manga pages by tap</string>
+    <string name="manga_switch_by_swipe">Swich manga pages by swipe</string>
+
 </resources>

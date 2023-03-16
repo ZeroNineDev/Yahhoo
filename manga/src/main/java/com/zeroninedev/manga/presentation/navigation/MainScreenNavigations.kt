@@ -11,12 +11,15 @@ import com.zeroninedev.manga.presentation.lastupdated.screen.LastUpdatedMangaScr
 import com.zeroninedev.manga.presentation.popular.screen.PopularMangaScreen
 import com.zeroninedev.manga.presentation.search.screen.SearchMangaScreen
 import com.zeroninedev.manga.presentation.lastupdated.viewmodel.LastUpdatedMangaViewModel
+import com.zeroninedev.manga.presentation.mangasetting.screen.SettingMangaScreen
+import com.zeroninedev.manga.presentation.mangasetting.viewmodel.SettingMangaViewModel
 import com.zeroninedev.manga.presentation.popular.viewmodel.PopularMangaViewModel
 import com.zeroninedev.manga.presentation.saved.screen.SavedMangaScreen
 import com.zeroninedev.manga.presentation.saved.viewmodel.SavedMangaViewModel
 import com.zeroninedev.manga.presentation.search.viewmodel.SearchMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
+import com.zeroninedev.navigation.destination.Screen.SettingScreen
 
 /**
  * Navigation for graph in main screen with toolbar
@@ -38,6 +41,7 @@ internal fun MainScreenNavigations(
     val searchViewModel: SearchMangaViewModel = viewModel(factory = component.provideSearchMangaFactory())
     val popularViewModel: PopularMangaViewModel = viewModel(factory = component.providePopularMangaFactory())
     val savedViewModel: SavedMangaViewModel = viewModel(factory = component.provideSavedMangaFactory())
+    val settingViewModel: SettingMangaViewModel = viewModel(factory = component.provideSettingMangaFactory())
 
     NavHost(
         navigationController,
@@ -58,6 +62,10 @@ internal fun MainScreenNavigations(
 
         composable(NavigationItemDrawerScreen.SavedScreen.ROUTE) {
             SavedMangaScreen(outerNavigator, savedViewModel)
+        }
+
+        composable(SettingScreen.ROUTE) {
+            SettingMangaScreen(settingViewModel)
         }
     }
 }

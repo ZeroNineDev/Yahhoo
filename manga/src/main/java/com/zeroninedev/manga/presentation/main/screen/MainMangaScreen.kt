@@ -11,6 +11,7 @@ import com.zeroninedev.manga.presentation.main.view.MainMangaView
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.actions.NavigatorImpl
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
+import com.zeroninedev.navigation.destination.Screen.SettingScreen
 import kotlinx.coroutines.launch
 
 /**
@@ -38,6 +39,12 @@ internal fun MainMangaScreen(navigator: Navigator, component: FeatureMangaCompon
         onMenuPress = {
             scope.launch {
                 scaffoldState.drawerState.open()
+            }
+        },
+        onSettingClick = {
+            internalNavigator.navigateAndReplaceStartRoute(SettingScreen.ROUTE)
+            scope.launch {
+                scaffoldState.drawerState.close()
             }
         },
         onNavigationDrawer = {

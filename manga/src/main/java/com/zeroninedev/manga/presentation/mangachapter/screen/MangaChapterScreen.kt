@@ -19,6 +19,7 @@ internal fun MangaChapterScreen(
     navigator: Navigator,
     viewModel: MangaChapterViewModel,
 ) {
+    viewModel.setNavigator(navigator)
     when (val result = viewModel.screenState.collectAsState().value) {
         is MangaScreenState.Error -> {
             ErrorScreen(errorMessage = result.exception) { viewModel.updateRequest() }
@@ -29,6 +30,7 @@ internal fun MangaChapterScreen(
         is MangaScreenState.Success -> {
             MangaChapterView(
                 chapterPage = result.data,
+                isSwipeEnabled = result.isMangaSwitchSwipe,
                 prevPart = { viewModel.loadPrevChapter() },
                 nextPart = { viewModel.loadNextChapter() },
                 afterHalfPart = { viewModel.preloadNext() },

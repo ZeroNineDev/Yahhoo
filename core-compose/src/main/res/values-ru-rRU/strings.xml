@@ -15,4 +15,7 @@
     <string name="manga_state_ui_none">Убрать статус</string>
 
     <string name="saved_mangas_empty">Вы ничего не сохранили</string>
+    <string name="manga_switch_swipe_text">Выбери тип смены страниц манги</string>
+    <string name="manga_switch_by_tap">Смена страниц по тапу</string>
+    <string name="manga_switch_by_swipe">Смена страниц по свайпу</string>
 </resources>

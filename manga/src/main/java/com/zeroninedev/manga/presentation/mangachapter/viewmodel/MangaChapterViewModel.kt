@@ -1,15 +1,16 @@
 package com.zeroninedev.manga.presentation.mangachapter.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zeroninedev.common.constants.Constants
+import com.zeroninedev.manga.domain.setting.GetMangaSwitchSettingUseCase
 import com.zeroninedev.manga.domain.usecase.GetMangaChapterUseCase
 import com.zeroninedev.manga.domain.usecase.GetNextChapterUseCase
 import com.zeroninedev.manga.domain.usecase.UpdateChapterInfoUseCase
 import com.zeroninedev.manga.presentation.mangachapter.model.ChapterState.NEXT_PAGE
 import com.zeroninedev.manga.presentation.mangachapter.model.ChapterState.PREV_PAGE
 import com.zeroninedev.manga.presentation.mangachapter.screen.MangaScreenState
+import com.zeroninedev.navigation.actions.Navigator
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,18 +22,23 @@ import javax.inject.Inject
  *
  * @property getMangaChapterUseCase use case for load pages of chapter
  * @property getNextChapterUseCase use case for get next page
+ * @property updateChapterInfoUseCase use case for get next page
+ * @property getMangaSwitchSettingUseCase use case for load swich manga setting
  */
 internal class MangaChapterViewModel @Inject constructor(
     private val getMangaChapterUseCase: GetMangaChapterUseCase,
     private val updateChapterInfoUseCase: UpdateChapterInfoUseCase,
+    private val getMangaSwitchSettingUseCase: GetMangaSwitchSettingUseCase,
     private val getNextChapterUseCase: GetNextChapterUseCase
 ) : ViewModel() {
+
+    private var navigator: Navigator? = null
 
     private val _screenState = MutableStateFlow<MangaScreenState>(MangaScreenState.Loading)
     val screenState = _screenState.asStateFlow()
 
-    private var nextChapterPages: Pair<String, List<String>>? = null
-    private var preloadState: Boolean = false
+    private var nextChapterState: MangaScreenState? = null
+    private var loadingPageJob: Job? = null
 
     private var chapterId: String? = null
     private var mangaId: String? = null
@@ -48,13 +54,18 @@ internal class MangaChapterViewModel @Inject constructor(
         this.chapterId = chapterId
         this.mangaId = mangaId
 
-        if (nextChapterPages != null && nextChapterPages?.first == chapterId) {
+        if (loadingPageJob != null || nextChapterState != null) {
             delay(100)
-            _screenState.value = MangaScreenState.Success(nextChapterPages?.second ?: listOf())
-            nextChapterPages = null
+            if (loadingPageJob?.isActive == true) {
+                loadingPageJob?.invokeOnCompletion {
+                    setScreen()
+                }
+            }else {
+                setScreen()
+            }
         } else {
             runCatching { getMangaChapterUseCase(mangaId, chapterId) }
-                .onSuccess { _screenState.value = MangaScreenState.Success(it) }
+                .onSuccess { _screenState.value = MangaScreenState.Success(it, getMangaSwitchSettingUseCase()) }
                 .onFailure { _screenState.value = MangaScreenState.Error(it.message.orEmpty()) }
         }
     }
@@ -66,6 +77,15 @@ internal class MangaChapterViewModel @Inject constructor(
         viewModelScope.launch {
             loadMangaChapter(mangaId.orEmpty(), chapterId.orEmpty())
         }
+    }
+
+    /**
+     * Set navigator for back stack when end of manga chapters
+     *
+     * @param navigator navigator
+     */
+    fun setNavigator(navigator: Navigator) {
+        this.navigator = navigator
     }
 
     /**
@@ -87,25 +107,20 @@ internal class MangaChapterViewModel @Inject constructor(
                 val nextChapterId = getNextChapterUseCase(chapterId.orEmpty(), NEXT_PAGE)
                 loadMangaChapter(mangaId.orEmpty(), nextChapterId)
             } catch (e: Exception) {
-                Log.d(Constants.ERROR_LOG, e.message.toString())
+                navigator?.goBackStack()
             }
         }
     }
 
+    /**
+     * Start preloading next page if half part ended
+     */
     fun preloadNext() {
-        if (!preloadState && nextChapterPages == null) {
-            preloadState = true
+        if (loadingPageJob == null && nextChapterState == null) {
             try {
-                viewModelScope.launch {
-                    val nextChapterId = getNextChapterUseCase(chapterId.orEmpty(), NEXT_PAGE)
-                    runCatching { getMangaChapterUseCase(mangaId.orEmpty(), nextChapterId) }
-                        .onSuccess { nextChapterPages = nextChapterId to it }
-                        .onFailure { preloadState = false }
-                }
-            } catch (e: Exception) {
-                preloadState = false
-                Log.d(Constants.ERROR_LOG, e.message.toString())
-            }
+                val nextChapterId = getNextChapterUseCase(chapterId.orEmpty(), NEXT_PAGE)
+                startLoadPageJob(mangaId.orEmpty(), nextChapterId)
+            } catch (_: Exception) { }
         }
     }
 
@@ -119,8 +134,22 @@ internal class MangaChapterViewModel @Inject constructor(
                 val prevChapterId = getNextChapterUseCase(chapterId.orEmpty(), PREV_PAGE)
                 loadMangaChapter(mangaId.orEmpty(), prevChapterId)
             } catch (e: Exception) {
-                Log.d(Constants.ERROR_LOG, e.message.toString())
+                navigator?.goBackStack()
             }
         }
+    }
+
+    private fun startLoadPageJob(mangaId: String, chapterId: String) {
+        loadingPageJob = viewModelScope.launch {
+            runCatching { getMangaChapterUseCase(mangaId, chapterId) }
+                .onSuccess { nextChapterState = MangaScreenState.Success(it, getMangaSwitchSettingUseCase()) }
+                .onFailure { nextChapterState = MangaScreenState.Error(it.message.orEmpty()) }
+            loadingPageJob = null
+        }
+    }
+
+    private fun setScreen() {
+        _screenState.value = nextChapterState ?: MangaScreenState.Error("Shit happens")
+        nextChapterState = null
     }
 }

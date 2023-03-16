@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.zeroninedev.core_compose.components.button.RoundedIconButton
 import com.zeroninedev.core_compose.ui.theme.MediumSize
 import com.zeroninedev.core_compose.ui.theme.NormalMediumSize
 import com.zeroninedev.core_compose.ui.theme.SmallSize
@@ -35,12 +36,14 @@ import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
  * @param modifier entered modifier from other scope
  * @param itemsList list of main routs
  * @param onDestinationClicked callback on destination which user click
+ * @param onSettingClick callback on setting button click
  */
 @Composable
 fun NavigationDrawer(
     modifier: Modifier = Modifier,
     itemsList: List<NavigationItemDrawerScreen>,
-    onDestinationClicked: (NavigationItemDrawerScreen) -> Unit
+    onDestinationClicked: (NavigationItemDrawerScreen) -> Unit,
+    onSettingClick: () -> Unit
 ) {
     Column(
         modifier
@@ -83,5 +86,8 @@ fun NavigationDrawer(
                 )
             }
         }
+        Spacer(modifier = Modifier.weight(1F))
+
+        RoundedIconButton(icon = com.zeroninedev.core_compose.R.drawable.settings_icon, onClick = onSettingClick)
     }
 }

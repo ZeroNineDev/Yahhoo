@@ -27,6 +27,7 @@ import com.zeroninedev.navigation.destination.navigationItemDrawerList
  * @param navigator main navigation controller
  * @param component component provider
  * @param onMenuPress callback on menu press
+ * @param onSettingClick callback on setting click
  * @param onNavigationDrawer callback on select item in drawer
  */
 @ExperimentalComposeApi
@@ -38,6 +39,7 @@ internal fun MainMangaView(
     navigator: Navigator,
     component: FeatureMangaComponent,
     onMenuPress: () -> Unit,
+    onSettingClick: () -> Unit,
     onNavigationDrawer: (NavigationItemDrawerScreen) -> Unit
 ) {
     var text by remember { mutableStateOf(startScreen.title) }
@@ -50,10 +52,17 @@ internal fun MainMangaView(
         },
         scaffoldState = scaffoldState,
         drawerContent = {
-            NavigationDrawer(itemsList = navigationItemDrawerList()) {
-                text = it.title
-                onNavigationDrawer(it)
-            }
+            NavigationDrawer(
+                itemsList = navigationItemDrawerList(),
+                onSettingClick = {
+                    text = com.zeroninedev.navigation.R.string.setting_text
+                    onSettingClick()
+                },
+                onDestinationClicked = {
+                    text = it.title
+                    onNavigationDrawer(it)
+                }
+            )
         }
     ) {
         MainScreenNavigations(

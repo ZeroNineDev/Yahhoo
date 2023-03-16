@@ -10,5 +10,7 @@ object Constants {
 
     const val PAGING_LOG = "PagingDataSource"
 
+    const val MANGA_PAGES_SWITCHING = "MANGA_PAGES_SWITCHING"
+
     const val LOG = "YahhoAppLog"
 }
