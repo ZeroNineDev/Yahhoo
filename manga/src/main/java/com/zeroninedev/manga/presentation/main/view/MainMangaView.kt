@@ -12,7 +12,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.zeroninedev.core_compose.components.drawer.NavigationDrawer
 import com.zeroninedev.core_compose.components.toolbar.TopToolbar
-import com.zeroninedev.manga.di.FeatureMangaComponent
 import com.zeroninedev.manga.presentation.navigation.MainScreenNavigations
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
@@ -25,7 +24,6 @@ import com.zeroninedev.navigation.destination.navigationItemDrawerList
  * @param startScreen started screen
  * @param navigationController internal navigation controller
  * @param navigator main navigation controller
- * @param component component provider
  * @param onMenuPress callback on menu press
  * @param onSettingClick callback on setting click
  * @param onNavigationDrawer callback on select item in drawer
@@ -37,7 +35,6 @@ internal fun MainMangaView(
     startScreen: NavigationItemDrawerScreen,
     navigationController: NavHostController,
     navigator: Navigator,
-    component: FeatureMangaComponent,
     onMenuPress: () -> Unit,
     onSettingClick: () -> Unit,
     onNavigationDrawer: (NavigationItemDrawerScreen) -> Unit
@@ -68,8 +65,7 @@ internal fun MainMangaView(
         MainScreenNavigations(
             navigationController = navigationController,
             outerNavigator = navigator,
-            startDestinationRoute = startScreen.route,
-            component = component
+            startDestinationRoute = startScreen.route
         )
     }
 }

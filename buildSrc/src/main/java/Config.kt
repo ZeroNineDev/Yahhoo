@@ -7,7 +7,7 @@ object Config {
     const val minSdk = 23
 
     const val applicationId = "com.zeroninedev.yahhoo"
-    const val versionName = "0.1-alpha-for-vasya"
+    const val versionName = "0.2-alpha-for-vasya"
     const val versionCode = 1
 
     const val jvmTarget = "1.8"

@@ -8,20 +8,24 @@ import com.zeroninedev.common.data.sharedprefs.SharedPreferencesProvider
 import com.zeroninedev.common.data.sharedprefs.SharedPreferencesProviderImpl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 class StorageModule {
 
     @Singleton
     @Provides
-    fun provideMangaDatabase(context: Context): MangaDatabase =
+    fun provideMangaDatabase(@ApplicationContext context: Context): MangaDatabase =
         Room.databaseBuilder(context, MangaDatabase::class.java, MANGA_DATABASE_NAME)
             .fallbackToDestructiveMigration().build()
 
     @Provides
     @Singleton
-    fun provideSharedPrefs(context: Context): SharedPreferencesProvider {
+    fun provideSharedPrefs(@ApplicationContext context: Context): SharedPreferencesProvider {
         return SharedPreferencesProviderImpl(context = context)
     }
 }

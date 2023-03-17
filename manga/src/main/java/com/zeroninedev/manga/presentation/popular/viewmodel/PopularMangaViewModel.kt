@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.zeroninedev.manga.domain.usecase.GetPopularMangaUseCase
 import com.zeroninedev.manga.presentation.popular.screen.PopularScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -15,6 +16,7 @@ import javax.inject.Inject
  *
  * @property getPopularMangaUseCase use case for load popular mangas
  */
+@HiltViewModel
 internal class PopularMangaViewModel @Inject constructor(
     private val getPopularMangaUseCase: GetPopularMangaUseCase
 ) : ViewModel() {

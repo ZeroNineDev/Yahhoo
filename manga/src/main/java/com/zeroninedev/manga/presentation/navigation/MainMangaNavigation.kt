@@ -1,16 +1,14 @@
 package com.zeroninedev.manga.presentation.navigation
 
-import android.content.Context
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.zeroninedev.manga.di.DaggerFeatureMangaComponent
 import com.zeroninedev.manga.presentation.category.screen.CategoryMangaScreen
 import com.zeroninedev.manga.presentation.category.viewmodel.CategoryMangaViewModel
 import com.zeroninedev.manga.presentation.detail.screen.DetailMangaScreen
@@ -30,16 +28,14 @@ import com.zeroninedev.navigation.destination.Screen
 @ExperimentalComposeApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
-fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator, appContext: Context) {
-
-    val component = DaggerFeatureMangaComponent.builder().context(appContext).build()
+fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator) {
 
     composable(Screen.MainScreen.ROUTE) {
-        MainMangaScreen(navigator, component)
+        MainMangaScreen(navigator)
     }
 
     composable("${Screen.MangaDetailScreen.ROUTE}/{mangaId}") {
-        val detailViewModel: DetailMangaViewModel = viewModel(factory = component.provideDetailMangaFactory())
+        val detailViewModel: DetailMangaViewModel = hiltViewModel()
         val mangaId = remember { it.arguments?.getString("mangaId").orEmpty() }
 
         LaunchedEffect(key1 = mangaId) {
@@ -51,7 +47,7 @@ fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator, appContext: Contex
     }
 
     composable("${Screen.MangaChapterScreen.ROUTE}/{mangaId}/{chapterId}") {
-        val mangaChapterViewModel: MangaChapterViewModel = viewModel(factory = component.provideMangaChapterFactory())
+        val mangaChapterViewModel: MangaChapterViewModel = hiltViewModel()
         val mangaId = remember { it.arguments?.getString("mangaId").orEmpty() }
         val chapterId = remember { it.arguments?.getString("chapterId").orEmpty() }
         LaunchedEffect(key1 = mangaId, key2 = chapterId) {
@@ -62,7 +58,7 @@ fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator, appContext: Contex
     }
 
     composable("${Screen.CategoryScreen.ROUTE}/{categoryName}/{categoryId}") {
-        val categoryViewModel: CategoryMangaViewModel = viewModel(factory = component.provideCategoryMangaFactory())
+        val categoryViewModel: CategoryMangaViewModel = hiltViewModel()
         val categoryName = remember { it.arguments?.getString("categoryName").orEmpty() }
         val categoryId = remember { it.arguments?.getString("categoryId").orEmpty() }
         LaunchedEffect(key1 = categoryName, key2 = categoryId) {

@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import com.zeroninedev.core_compose.ui.theme.YahhooTheme
 import com.zeroninedev.yahhoo.navigation.MainNavigationGraph
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi

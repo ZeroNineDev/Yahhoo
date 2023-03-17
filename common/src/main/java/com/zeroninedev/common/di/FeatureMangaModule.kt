@@ -6,12 +6,15 @@ import com.zeroninedev.common.domain.MangaRepository
 import com.zeroninedev.common.domain.SettingRepository
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 /**
  * Module which provide manga repository
  *
  */
 @Module
+@InstallIn(SingletonComponent::class)
 interface FeatureMangaModule {
 
     @Binds

@@ -6,7 +6,6 @@ import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.rememberNavController
-import com.zeroninedev.manga.di.FeatureMangaComponent
 import com.zeroninedev.manga.presentation.main.view.MainMangaView
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.actions.NavigatorImpl
@@ -18,11 +17,10 @@ import kotlinx.coroutines.launch
  * Main manga screen with drawer
  *
  * @param navigator main navigation
- * @param component component provider
  */
 @ExperimentalComposeApi
 @Composable
-internal fun MainMangaScreen(navigator: Navigator, component: FeatureMangaComponent) {
+internal fun MainMangaScreen(navigator: Navigator) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val startScreen = NavigationItemDrawerScreen.LastUpdatedScreen()
@@ -35,7 +33,6 @@ internal fun MainMangaScreen(navigator: Navigator, component: FeatureMangaCompon
         startScreen,
         navigationController,
         navigator,
-        component,
         onMenuPress = {
             scope.launch {
                 scaffoldState.drawerState.open()

@@ -10,6 +10,7 @@ import com.zeroninedev.manga.presentation.mangachapter.model.ChapterState.NEXT_P
 import com.zeroninedev.manga.presentation.mangachapter.model.ChapterState.PREV_PAGE
 import com.zeroninedev.manga.presentation.mangachapter.screen.MangaScreenState
 import com.zeroninedev.navigation.actions.Navigator
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,6 +26,7 @@ import javax.inject.Inject
  * @property updateChapterInfoUseCase use case for get next page
  * @property getMangaSwitchSettingUseCase use case for load swich manga setting
  */
+@HiltViewModel
 internal class MangaChapterViewModel @Inject constructor(
     private val getMangaChapterUseCase: GetMangaChapterUseCase,
     private val updateChapterInfoUseCase: UpdateChapterInfoUseCase,

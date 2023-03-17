@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
 }
@@ -80,6 +81,6 @@ dependencies {
     androidTestImplementation(Dependencies.Compose.composeJUnit)
     debugImplementation(Dependencies.Compose.composeUITooling)
 
-    implementation(Dependencies.Dagger.core)
-    kapt(Dependencies.Dagger.compiler)
+    implementation(Dependencies.Hilt.android)
+    kapt(Dependencies.Hilt.compiler)
 }

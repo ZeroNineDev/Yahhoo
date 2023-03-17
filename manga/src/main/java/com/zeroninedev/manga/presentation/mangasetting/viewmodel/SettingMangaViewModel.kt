@@ -5,10 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.zeroninedev.manga.domain.setting.GetMangaSwitchSettingUseCase
 import com.zeroninedev.manga.domain.setting.SetMangaSwitchSettingUseCase
 import com.zeroninedev.manga.presentation.mangasetting.screen.SettingScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * View Model for last updated screen
@@ -16,7 +18,8 @@ import kotlinx.coroutines.launch
  * @property setMangaSwitchSettingUseCase
  * @property getMangaSwitchSettingUseCase
  */
-internal class SettingMangaViewModel(
+@HiltViewModel
+internal class SettingMangaViewModel @Inject constructor(
     private val setMangaSwitchSettingUseCase: SetMangaSwitchSettingUseCase,
     private val getMangaSwitchSettingUseCase: GetMangaSwitchSettingUseCase
 ) : ViewModel() {

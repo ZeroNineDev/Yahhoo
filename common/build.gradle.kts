@@ -1,5 +1,6 @@
 plugins {
     id("com.android.library")
+    id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
 }
@@ -39,6 +40,6 @@ dependencies {
     api(Dependencies.Room.api)
     kapt(Dependencies.Room.compiler)
 
-    implementation(Dependencies.Dagger.core)
-    kapt(Dependencies.Dagger.compiler)
+    implementation(Dependencies.Hilt.android)
+    kapt(Dependencies.Hilt.compiler)
 }
