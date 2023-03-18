@@ -1,4 +1,4 @@
-package com.zeroninedev.manga.presentation.main.view
+package com.zeroninedev.yahhoo.main.view
 
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
@@ -12,7 +12,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.zeroninedev.core_compose.components.drawer.NavigationDrawer
 import com.zeroninedev.core_compose.components.toolbar.TopToolbar
-import com.zeroninedev.manga.presentation.navigation.MainScreenNavigations
+import com.zeroninedev.manga.presentation.navigation.MainMangaScreenNavigations
+import com.zeroninedev.navigation.R.string
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.NavigationItemDrawerScreen
 import com.zeroninedev.navigation.destination.navigationItemDrawerList
@@ -30,7 +31,7 @@ import com.zeroninedev.navigation.destination.navigationItemDrawerList
  */
 @ExperimentalComposeApi
 @Composable
-internal fun MainMangaView(
+internal fun MainView(
     scaffoldState: ScaffoldState,
     startScreen: NavigationItemDrawerScreen,
     navigationController: NavHostController,
@@ -52,7 +53,7 @@ internal fun MainMangaView(
             NavigationDrawer(
                 itemsList = navigationItemDrawerList(),
                 onSettingClick = {
-                    text = com.zeroninedev.navigation.R.string.setting_text
+                    text = string.setting_text
                     onSettingClick()
                 },
                 onDestinationClicked = {
@@ -62,7 +63,7 @@ internal fun MainMangaView(
             )
         }
     ) {
-        MainScreenNavigations(
+        MainMangaScreenNavigations(
             navigationController = navigationController,
             outerNavigator = navigator,
             startDestinationRoute = startScreen.route

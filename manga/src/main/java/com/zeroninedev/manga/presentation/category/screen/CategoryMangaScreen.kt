@@ -36,7 +36,7 @@ internal fun CategoryMangaScreen(
         is Success -> {
             val screen = result.data.collectAsLazyPagingItems()
             CategoryMangaView(items = screen, title = result.name) { item ->
-                mainNavigation.navigate("${MangaDetailScreen.ROUTE}/${item.id}")
+                mainNavigation.navigate(MangaDetailScreen.getRoute(item.id))
             }
         }
     }

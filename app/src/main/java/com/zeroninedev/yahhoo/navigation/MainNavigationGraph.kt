@@ -7,10 +7,11 @@ import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.zeroninedev.manga.presentation.navigation.mainMangaNavigation
 import com.zeroninedev.navigation.actions.NavigatorImpl
-import com.zeroninedev.navigation.destination.Screen
+import com.zeroninedev.yahhoo.main.screen.MainScreen
 
 /**
  * Main navigation graph.
@@ -28,8 +29,14 @@ fun MainNavigationGraph() {
 
     NavHost(
         navigationController,
-        startDestination = Screen.MainScreen.ROUTE
+        startDestination = MainScreenRoute.ROUTE
     ) {
+
+        composable(MainScreenRoute.ROUTE) {
+            MainScreen(navigator)
+        }
+
+
         mainMangaNavigation(navigator)
     }
 }

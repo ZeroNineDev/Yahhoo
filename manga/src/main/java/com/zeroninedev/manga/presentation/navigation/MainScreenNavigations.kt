@@ -29,7 +29,7 @@ import com.zeroninedev.navigation.destination.Screen.SettingScreen
  */
 @ExperimentalComposeApi
 @Composable
-internal fun MainScreenNavigations(
+fun MainMangaScreenNavigations(
     navigationController: NavHostController,
     outerNavigator: Navigator,
     startDestinationRoute: String,

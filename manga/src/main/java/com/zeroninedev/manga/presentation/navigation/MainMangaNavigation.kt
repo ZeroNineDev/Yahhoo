@@ -12,7 +12,6 @@ import androidx.navigation.compose.composable
 import com.zeroninedev.manga.presentation.category.screen.CategoryMangaScreen
 import com.zeroninedev.manga.presentation.category.viewmodel.CategoryMangaViewModel
 import com.zeroninedev.manga.presentation.detail.screen.DetailMangaScreen
-import com.zeroninedev.manga.presentation.main.screen.MainMangaScreen
 import com.zeroninedev.manga.presentation.mangachapter.screen.MangaChapterScreen
 import com.zeroninedev.manga.presentation.detail.viewmodel.DetailMangaViewModel
 import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterViewModel
@@ -30,11 +29,7 @@ import com.zeroninedev.navigation.destination.Screen
 @ExperimentalAnimationApi
 fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator) {
 
-    composable(Screen.MainScreen.ROUTE) {
-        MainMangaScreen(navigator)
-    }
-
-    composable("${Screen.MangaDetailScreen.ROUTE}/{mangaId}") {
+    composable(Screen.MangaDetailScreen.ROUTE) {
         val detailViewModel: DetailMangaViewModel = hiltViewModel()
         val mangaId = remember { it.arguments?.getString("mangaId").orEmpty() }
 
@@ -46,7 +41,7 @@ fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator) {
         DetailMangaScreen(navigator, detailViewModel)
     }
 
-    composable("${Screen.MangaChapterScreen.ROUTE}/{mangaId}/{chapterId}") {
+    composable(Screen.MangaChapterScreen.ROUTE) {
         val mangaChapterViewModel: MangaChapterViewModel = hiltViewModel()
         val mangaId = remember { it.arguments?.getString("mangaId").orEmpty() }
         val chapterId = remember { it.arguments?.getString("chapterId").orEmpty() }
@@ -57,7 +52,7 @@ fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator) {
         MangaChapterScreen(navigator, mangaChapterViewModel)
     }
 
-    composable("${Screen.CategoryScreen.ROUTE}/{categoryName}/{categoryId}") {
+    composable(Screen.CategoryScreen.ROUTE) {
         val categoryViewModel: CategoryMangaViewModel = hiltViewModel()
         val categoryName = remember { it.arguments?.getString("categoryName").orEmpty() }
         val categoryId = remember { it.arguments?.getString("categoryId").orEmpty() }
