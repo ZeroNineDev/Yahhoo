@@ -1,6 +1,10 @@
-
-
+/**
+ * Main info object for configuration app
+ */
 object Config {
+
+    const val appName = "Yahhoo"
+    const val appNameDebug = "Yahhoo Debug"
 
     const val compileSdk = 32
     const val targetSdk = 32
@@ -11,5 +15,4 @@ object Config {
     const val versionCode = 1
 
     const val jvmTarget = "1.8"
-
 }
