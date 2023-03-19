@@ -39,7 +39,7 @@ internal fun SearchMangaScreen(
             is SearchScreenState.Empty -> {}
             is SearchScreenState.Success -> {
                 SearchMangaViewList(items = result.data) { item ->
-                    mainNavigation.navigate("${MangaDetailScreen.ROUTE}/${item.id}")
+                    mainNavigation.navigate(MangaDetailScreen.getRoute(item.id))
                 }
             }
         }

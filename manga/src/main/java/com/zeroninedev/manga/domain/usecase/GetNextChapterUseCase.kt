@@ -17,9 +17,9 @@ internal class GetNextChapterUseCase @Inject constructor(private val repository:
      * @return next chapter id
      */
     operator fun invoke(
-        chapter: String,
+        chapter: Pair<String, String>,
         chapterToLoad: ChapterState
-    ): String {
+    ): Pair<String, String> {
         val chapters = repository.chapters
         return chapters[chapters.indexOf(chapter) + chapterToLoad.value]
     }

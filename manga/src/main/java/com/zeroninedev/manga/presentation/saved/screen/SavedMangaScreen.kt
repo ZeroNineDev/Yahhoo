@@ -31,7 +31,7 @@ internal fun SavedMangaScreen(
             SavedMangaView(
                 items = result.data,
                 currentFilter = result.sortedStatus,
-                onMangaClick = { item -> mainNavigation.navigate("${MangaDetailScreen.ROUTE}/${item.id}") },
+                onMangaClick = { item -> mainNavigation.navigate(MangaDetailScreen.getRoute(item.id)) },
                 onChangeStatus = { viewModel.updateSortStatus(it) }
             )
         }

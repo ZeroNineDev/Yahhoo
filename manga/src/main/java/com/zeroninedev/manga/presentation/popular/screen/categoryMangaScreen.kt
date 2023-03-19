@@ -33,7 +33,7 @@ internal fun PopularMangaScreen(
         is PopularScreenState.Success -> {
             val screen = result.data.collectAsLazyPagingItems()
             PopularMangaView(items = screen) { item ->
-                mainNavigation.navigate("${MangaDetailScreen.ROUTE}/${item.id}")
+                mainNavigation.navigate(MangaDetailScreen.getRoute(item.id))
             }
         }
     }

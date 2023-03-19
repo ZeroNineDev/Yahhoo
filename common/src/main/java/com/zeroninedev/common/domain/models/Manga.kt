@@ -23,9 +23,9 @@ data class Manga(
     val chapters: List<Chapter> = listOf(),
 )
 
-internal fun Manga.enrichDbData(dbData: MangaModel, dbChapters: List<ChaptersModel>) = copy(
-    mangaStatus = valueOf(dbData.status),
-    chapters = chapters.enrichDbData(dbChapters)
+internal fun Manga.enrichDbData(dbData: MangaModel?, dbChapters: List<ChaptersModel>?) = copy(
+    mangaStatus = dbData?.status?.let { valueOf(it) } ?: UNKNOWN,
+    chapters = dbChapters?.let { chapters.enrichDbData(it) } ?: chapters
 )
 
 internal fun Manga.toDatabaseModel(): MangaModel = MangaModel(

@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
 }
@@ -24,6 +25,17 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+
+        applicationVariants.all {
+            val variant = this
+            outputs
+                .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+                .forEach { output ->
+                    val outputFileName = "Yahhoo - ${variant.baseName} - ${variant.versionName} ${variant.versionCode}.apk"
+                    println("OutputFileName: $outputFileName")
+                    output.outputFileName = outputFileName
+                }
         }
     }
     compileOptions {
@@ -69,6 +81,6 @@ dependencies {
     androidTestImplementation(Dependencies.Compose.composeJUnit)
     debugImplementation(Dependencies.Compose.composeUITooling)
 
-    implementation(Dependencies.Dagger.core)
-    kapt(Dependencies.Dagger.compiler)
+    implementation(Dependencies.Hilt.android)
+    kapt(Dependencies.Hilt.compiler)
 }

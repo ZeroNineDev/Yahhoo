@@ -1,5 +1,6 @@
 plugins {
     id("com.android.library")
+    id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
 }
@@ -49,8 +50,9 @@ dependencies {
 
     implementation(Dependencies.Paging.compose)
 
-    implementation(Dependencies.Dagger.core)
-    kapt(Dependencies.Dagger.compiler)
+    implementation(Dependencies.Hilt.android)
+    implementation(Dependencies.Hilt.navigation)
+    kapt(Dependencies.Hilt.compiler)
 
     implementation(Dependencies.Compose.ui)
     implementation(Dependencies.Compose.material)

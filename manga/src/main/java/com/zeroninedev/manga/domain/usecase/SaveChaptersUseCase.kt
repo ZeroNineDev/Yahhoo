@@ -13,7 +13,7 @@ internal class SaveChaptersUseCase @Inject constructor(private val repository: S
      /**
       * @param chapters list of chapters
       */
-     operator fun invoke(chapters: List<String>) {
+     operator fun invoke(chapters: List<Pair<String,String>>) {
           repository.chapters = chapters
      }
 }

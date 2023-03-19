@@ -30,7 +30,7 @@ internal fun LastUpdatedMangaScreen(
         }
         is LastUpdatedScreenState.Success -> {
             LastUpdatedMangaView(items = result.data) { item ->
-                mainNavigation.navigate("${MangaDetailScreen.ROUTE}/${item.id}")
+                mainNavigation.navigate(MangaDetailScreen.getRoute(item.id))
             }
         }
     }

@@ -40,12 +40,12 @@ internal fun DetailMangaScreen(
                 DetailMangaView(
                     manga = result.data,
                     onChapterLongClick = { viewModel.showWasReadStateBottomSheet(it) },
-                    onChapterClick = { chapterId ->
-                        viewModel.saveChapters(result.data.chapters.map { it.id.orEmpty() })
-                        navigator.navigate("${MangaChapterScreen.ROUTE}/${result.data.id}/${chapterId}")
+                    onChapterClick = { chapterId ,chapterName ->
+                        viewModel.saveChapters(result.data.chapters.map { it.id.orEmpty() to it.title.orEmpty() })
+                        navigator.navigate(MangaChapterScreen.getRoute(result.data.id.orEmpty(), chapterId, chapterName))
                     },
                     onChangeStatus = { viewModel.showMangaStatusBottomSheet() },
-                    onChipClick = { navigator.navigate("${CategoryScreen.ROUTE}/${it.name}/${it.id}") }
+                    onChipClick = { navigator.navigate(CategoryScreen.getRoute(it.name.orEmpty(), it.id.orEmpty())) }
                 )
             }
         }

@@ -6,6 +6,7 @@
     <string name="search_icon_content_description">Иконка поиска</string>
     <string name="clear_icon_content_description">Иконка очистить</string>
     <string name="arrow_down_icon_content_description">Развернуть текст</string>
+
     <string name="manga_state_ui_read">Читаю</string>
     <string name="manga_state_ui_in_plan">Запланировано</string>
     <string name="manga_state_ui_reread">Перечитываю</string>
@@ -15,4 +16,11 @@
     <string name="manga_state_ui_none">Убрать статус</string>
 
     <string name="saved_mangas_empty">Вы ничего не сохранили</string>
+    <string name="manga_switch_swipe_text">Выбери тип смены страниц манги</string>
+    <string name="manga_switch_by_tap">Смена страниц по тапу</string>
+    <string name="manga_switch_by_swipe">Смена страниц по свайпу</string>
+    <string name="manga_switch_by_scroll">Страницы сшиты в вертикальный список</string>
+
+    <string name="text_previous_button">Назад</string>
+    <string name="text_next_button">Вперед</string>
 </resources>

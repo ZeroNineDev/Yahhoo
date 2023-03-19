@@ -5,18 +5,20 @@ import androidx.lifecycle.viewModelScope
 import com.zeroninedev.common.domain.models.MangaReadStatus
 import com.zeroninedev.common.domain.models.UpdatedManga
 import com.zeroninedev.manga.domain.usecase.GetSavedMangasUseCase
-import com.zeroninedev.manga.presentation.lastupdated.screen.LastUpdatedScreenState
 import com.zeroninedev.manga.presentation.saved.screen.SavedScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * View Model for popular manga screen
  *
  * @property getSavedMangasUseCase use case for load popular mangas
  */
-internal class SavedMangaViewModel(
+@HiltViewModel
+internal class SavedMangaViewModel @Inject constructor(
     private val getSavedMangasUseCase: GetSavedMangasUseCase
 ) : ViewModel() {
 
@@ -48,9 +50,8 @@ internal class SavedMangaViewModel(
                         list = mangas
                         _screenState.value = SavedScreenState.Success(mangas.filter { it.status == status }, status)
                     }
-
                 }
-                .onFailure { LastUpdatedScreenState.Error(it.message.orEmpty()) }
+                .onFailure { SavedScreenState.Error(it.message.orEmpty()) }
         }
     }
 }

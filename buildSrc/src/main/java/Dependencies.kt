@@ -50,10 +50,13 @@ object Dependencies {
         const val httpInterceptor = "com.squareup.okhttp3:logging-interceptor:4.10.0"
     }
 
-    object Dagger {
-        const val version = "2.41"
-        const val core = "com.google.dagger:dagger:$version"
-        const val compiler = "com.google.dagger:dagger-compiler:$version"
+    object Hilt {
+        const val version = "2.40.5"
+        const val versionNavigation = "1.0.0"
+
+        const val android = "com.google.dagger:hilt-android:$version"
+        const val compiler = "com.google.dagger:hilt-android-compiler:$version"
+        const val navigation = "androidx.hilt:hilt-navigation-compose:$versionNavigation"
     }
 
     object Coil {

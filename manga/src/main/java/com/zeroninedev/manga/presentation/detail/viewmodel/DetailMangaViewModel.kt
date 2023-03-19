@@ -11,6 +11,7 @@ import com.zeroninedev.manga.domain.usecase.UpdateChapterInfoUseCase
 import com.zeroninedev.manga.domain.usecase.UpdateMangaInfoUseCase
 import com.zeroninedev.manga.presentation.detail.screen.BottomSheetState
 import com.zeroninedev.manga.presentation.detail.screen.DetailScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -23,6 +24,7 @@ import javax.inject.Inject
  * @property updateMangaUseCase use case for update info in db about manga
  * @property saveChaptersUseCase use case for save all chapters in current manga
  */
+@HiltViewModel
 internal class DetailMangaViewModel @Inject constructor(
     private val getDetailMangaUseCase: GetDetailMangaUseCase,
     private val updateMangaUseCase: UpdateMangaInfoUseCase,
@@ -68,7 +70,7 @@ internal class DetailMangaViewModel @Inject constructor(
      *
      * @param chapterId list of chapters
      */
-    fun saveChapters(chapterId: List<String>) {
+    fun saveChapters(chapterId: List<Pair<String, String>>) {
         saveChaptersUseCase(chapterId)
     }
 

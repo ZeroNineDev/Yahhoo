@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.zeroninedev.manga.domain.usecase.GetCategoryMangaUseCase
 import com.zeroninedev.manga.presentation.category.screen.CategoryScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ import javax.inject.Inject
  *
  * @property getCategoryMangaUseCase use case for load popular mangas
  */
+@HiltViewModel
 internal class CategoryMangaViewModel @Inject constructor(
     private val getCategoryMangaUseCase: GetCategoryMangaUseCase
 ) : ViewModel() {

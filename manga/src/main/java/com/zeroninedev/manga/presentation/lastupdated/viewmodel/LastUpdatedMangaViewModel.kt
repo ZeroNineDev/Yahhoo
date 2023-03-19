@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zeroninedev.manga.domain.usecase.GetLastUpdatedMangaUseCase
 import com.zeroninedev.manga.presentation.lastupdated.screen.LastUpdatedScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ import javax.inject.Inject
  *
  * @property getLastUpdatedMangaUseCase use case for load last updated manga
  */
+@HiltViewModel
 internal class LastUpdatedMangaViewModel @Inject constructor(
     private val getLastUpdatedMangaUseCase: GetLastUpdatedMangaUseCase
 ) : ViewModel() {

@@ -8,7 +8,7 @@ import javax.inject.Inject
  * Realization of [StateRepository]
  *
  */
-internal class StateRepositoryImpl @Inject constructor(): StateRepository {
+internal class StateRepositoryImpl @Inject constructor() : StateRepository {
 
-    override var chapters: List<String> = listOf()
+    override var chapters: List<Pair<String, String>> = listOf()
 }

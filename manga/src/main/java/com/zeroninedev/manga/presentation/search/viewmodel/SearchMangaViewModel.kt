@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.zeroninedev.common.constants.Constants
 import com.zeroninedev.manga.domain.usecase.GetSearchedMangaUseCase
 import com.zeroninedev.manga.presentation.search.screen.SearchScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -19,6 +20,7 @@ import javax.inject.Inject
  *
  * @property getSearchedMangaUseCase use case for search manga
  */
+@HiltViewModel
 internal class SearchMangaViewModel @Inject constructor(
     private val getSearchedMangaUseCase: GetSearchedMangaUseCase
 ) : ViewModel() {

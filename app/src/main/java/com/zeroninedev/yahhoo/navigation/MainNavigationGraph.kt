@@ -6,12 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.zeroninedev.manga.presentation.navigation.mainMangaNavigation
 import com.zeroninedev.navigation.actions.NavigatorImpl
-import com.zeroninedev.navigation.destination.Screen
+import com.zeroninedev.yahhoo.main.screen.MainScreen
 
 /**
  * Main navigation graph.
@@ -26,12 +26,17 @@ import com.zeroninedev.navigation.destination.Screen
 fun MainNavigationGraph() {
     val navigationController = rememberNavController()
     val navigator = remember(navigationController) { NavigatorImpl(navigationController) }
-    val appContext = LocalContext.current.applicationContext
 
     NavHost(
         navigationController,
-        startDestination = Screen.MainScreen.ROUTE
+        startDestination = MainScreenRoute.ROUTE
     ) {
-        mainMangaNavigation(navigator, appContext)
+
+        composable(MainScreenRoute.ROUTE) {
+            MainScreen(navigator)
+        }
+
+
+        mainMangaNavigation(navigator)
     }
 }
