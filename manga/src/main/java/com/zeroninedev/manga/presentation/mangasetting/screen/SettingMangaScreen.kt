@@ -30,7 +30,7 @@ internal fun SettingMangaScreen(
             LoadingScreen()
         }
         is Success -> {
-            SettingMangaView(isMangaSwitchBySwipe = result.isMangaSwitchSwipe) {
+            SettingMangaView(mangaSwitch = result.mangaSwitch) {
                 viewModel.onChangeMangaSwitch(it)
             }
         }

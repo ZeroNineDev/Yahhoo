@@ -63,7 +63,7 @@ import kotlinx.coroutines.launch
 internal fun DetailMangaView(
     manga: Manga,
     onChapterLongClick: (String) -> Unit,
-    onChapterClick: (String) -> Unit,
+    onChapterClick: (String, String) -> Unit,
     onChangeStatus: () -> Unit,
     onChipClick: (Category) -> Unit
 ) {
@@ -215,7 +215,7 @@ internal fun DetailMangaView(
             MangaChapterTitle(
                 isWatched = it.wasRead,
                 chapterTitle = it.title.orEmpty(),
-                onChapterClick = { onChapterClick(it.id.orEmpty()) },
+                onChapterClick = { onChapterClick(it.id.orEmpty(), it.title.orEmpty()) },
                 onChapterLongClick = { onChapterLongClick(it.id.orEmpty()) }
             )
         }

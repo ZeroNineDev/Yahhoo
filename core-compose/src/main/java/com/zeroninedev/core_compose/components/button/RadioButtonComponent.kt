@@ -20,15 +20,15 @@ import com.zeroninedev.core_compose.ui.theme.SmallSize
 /**
  * Radio button with text
  *
- * @param list list of pair key and items
+ * @param items list of pair key and items
  * @param selectedItem selected item
  * @param modifier modifier
  * @param onOptionSelect callback on click with key
  */
 @Composable
 fun RadioButtonComponent(
-    list: List<Pair<Int, String>>,
-    selectedItem: String,
+    items: Map<Int, String>,
+    selectedItem: Int,
     modifier: Modifier = Modifier,
     onOptionSelect: (Int) -> Unit
 ) {
@@ -39,27 +39,27 @@ fun RadioButtonComponent(
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
-        list.forEach { item ->
-            val text = item.second
+        items.forEach { item ->
+            val key = item.key
             Row(
                 Modifier
                     .fillMaxWidth()
                     .selectable(
-                        selected = (text == selectedOption),
+                        selected = (key == selectedOption),
                         onClick = {
-                            selectedOption = text
-                            onOptionSelect(item.first)
+                            selectedOption = key
+                            onOptionSelect(key)
                         }
                     )
                     .padding(horizontal = MediumSize)
             ) {
                 RadioButton(
-                    selected = (text == selectedOption),
+                    selected = (key == selectedOption),
                     modifier = Modifier.padding(SmallSize),
                     onClick = null
                 )
                 Text(
-                    text = text,
+                    text = item.value,
                     modifier = Modifier.padding(start = MediumSize)
                 )
             }

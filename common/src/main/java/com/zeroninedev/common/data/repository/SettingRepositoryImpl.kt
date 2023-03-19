@@ -3,6 +3,7 @@ package com.zeroninedev.common.data.repository
 import com.zeroninedev.common.constants.Constants
 import com.zeroninedev.common.data.sharedprefs.SharedPreferencesProvider
 import com.zeroninedev.common.domain.SettingRepository
+import com.zeroninedev.common.settingsmodel.SwitchPages
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,12 +17,9 @@ class SettingRepositoryImpl @Inject constructor(
     private val sharedPreferencesProvider: SharedPreferencesProvider
 ) : SettingRepository {
 
-    private var isMangaFlip: Boolean = sharedPreferencesProvider.getBoolean(Constants.MANGA_PAGES_SWITCHING)
-
-    override fun getIsMangaFlipThrough(): Boolean = isMangaFlip
-
-    override fun setMangaFlipThrough(state: Boolean) {
-        isMangaFlip = state
-        sharedPreferencesProvider.putBoolean(Constants.MANGA_PAGES_SWITCHING, state)
-    }
+    override var mangaSwitchPages: SwitchPages = SwitchPages.valueOf(sharedPreferencesProvider.getString(Constants.MANGA_PAGES_SWITCHING, SwitchPages.TAP_TO_NEXT.name))
+        set(value) {
+            field = value
+            sharedPreferencesProvider.putString(Constants.MANGA_PAGES_SWITCHING, value.name)
+        }
 }

@@ -1,5 +1,7 @@
 package com.zeroninedev.manga.presentation.mangasetting.screen
 
+import com.zeroninedev.common.settingsmodel.SwitchPages
+
 /**
  * States of last updated manga screen
  *
@@ -12,9 +14,9 @@ internal sealed class SettingScreenState {
     /**
      * State when info was successful loaded
      *
-     * @property isMangaSwitchSwipe screen info
+     * @property mangaSwitch screen info
      */
-    data class Success(val isMangaSwitchSwipe: Boolean) : SettingScreenState()
+    data class Success(val mangaSwitch: SwitchPages) : SettingScreenState()
 
     /**
      * State when info was`t loaded

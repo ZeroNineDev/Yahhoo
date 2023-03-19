@@ -20,5 +20,9 @@
     <string name="manga_switch_swipe_text">Choice switch manga page variant</string>
     <string name="manga_switch_by_tap">Swich manga pages by tap</string>
     <string name="manga_switch_by_swipe">Swich manga pages by swipe</string>
+    <string name="manga_switch_by_scroll">Pages combined to vertical list</string>
+
+    <string name="text_next_button">Next</string>
+    <string name="text_previous_button">Previous</string>
 
 </resources>

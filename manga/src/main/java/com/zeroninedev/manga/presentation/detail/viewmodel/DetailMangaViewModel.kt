@@ -70,7 +70,7 @@ internal class DetailMangaViewModel @Inject constructor(
      *
      * @param chapterId list of chapters
      */
-    fun saveChapters(chapterId: List<String>) {
+    fun saveChapters(chapterId: List<Pair<String, String>>) {
         saveChaptersUseCase(chapterId)
     }
 

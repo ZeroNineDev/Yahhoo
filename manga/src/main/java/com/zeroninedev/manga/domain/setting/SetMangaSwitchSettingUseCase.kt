@@ -1,6 +1,7 @@
 package com.zeroninedev.manga.domain.setting
 
 import com.zeroninedev.common.domain.SettingRepository
+import com.zeroninedev.common.settingsmodel.SwitchPages
 import javax.inject.Inject
 
 /**
@@ -12,5 +13,7 @@ internal class SetMangaSwitchSettingUseCase @Inject constructor(
     private val settingRepository: SettingRepository
 ) {
 
-    operator fun invoke(isSwipe: Boolean) = settingRepository.setMangaFlipThrough(isSwipe)
+    operator fun invoke(mangaSwitchPages: SwitchPages) {
+        settingRepository.mangaSwitchPages = mangaSwitchPages
+    }
 }

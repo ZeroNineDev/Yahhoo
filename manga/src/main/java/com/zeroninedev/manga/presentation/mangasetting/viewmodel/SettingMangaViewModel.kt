@@ -2,6 +2,7 @@ package com.zeroninedev.manga.presentation.mangasetting.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zeroninedev.common.settingsmodel.SwitchPages
 import com.zeroninedev.manga.domain.setting.GetMangaSwitchSettingUseCase
 import com.zeroninedev.manga.domain.setting.SetMangaSwitchSettingUseCase
 import com.zeroninedev.manga.presentation.mangasetting.screen.SettingScreenState
@@ -42,12 +43,12 @@ internal class SettingMangaViewModel @Inject constructor(
             _screenState.value = SettingScreenState.Loading
             delay(100)
             _screenState.value = SettingScreenState.Success(
-                isMangaSwitchSwipe = getMangaSwitchSettingUseCase()
+                mangaSwitch = getMangaSwitchSettingUseCase()
             )
         }
     }
 
-    fun onChangeMangaSwitch(state: Boolean) {
+    fun onChangeMangaSwitch(state: SwitchPages) {
         setMangaSwitchSettingUseCase(state)
     }
 }

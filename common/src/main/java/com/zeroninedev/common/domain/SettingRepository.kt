@@ -1,20 +1,13 @@
 package com.zeroninedev.common.domain
 
+import com.zeroninedev.common.settingsmodel.SwitchPages
+
 /**
  * Repository for work with settings
  *
  */
 interface SettingRepository {
 
-    /**
-     * @return is manga swipe available
-     */
-    fun getIsMangaFlipThrough(): Boolean
 
-    /**
-     * Set swipe available
-     *
-     * @param state state
-     */
-    fun setMangaFlipThrough(state: Boolean)
+    var mangaSwitchPages: SwitchPages
 }

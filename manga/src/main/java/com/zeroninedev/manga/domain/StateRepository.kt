@@ -9,5 +9,5 @@ internal interface StateRepository {
     /**
      * Chapters list of current manga
      */
-    var chapters: List<String>
+    var chapters: List<Pair<String, String>>
 }

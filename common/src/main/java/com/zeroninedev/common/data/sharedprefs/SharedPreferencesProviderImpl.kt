@@ -68,8 +68,8 @@ class SharedPreferencesProviderImpl(context: Context) : SharedPreferencesProvide
             .apply()
     }
 
-    override fun getString(key: String, default: String?): String? =
-        prefs.getString(key, default)
+    override fun getString(key: String, default: String): String =
+        prefs.getString(key, default) ?: default
 
     override fun getInt(key: String, default: Int): Int =
         prefs.getInt(key, default)

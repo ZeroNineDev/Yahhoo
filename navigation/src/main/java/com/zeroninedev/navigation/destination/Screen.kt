@@ -1,6 +1,5 @@
 package com.zeroninedev.navigation.destination
 
-
 /**
  * Class with manga destination
  *
@@ -12,7 +11,9 @@ sealed class Screen(val route: String) {
      * Screen with detail about manga
      */
     class MangaDetailScreen : Screen(ROUTE) {
+
         companion object {
+
             /**
              * View route
              */
@@ -26,13 +27,16 @@ sealed class Screen(val route: String) {
      * Screen with detail about manga
      */
     class MangaChapterScreen : Screen(ROUTE) {
+
         companion object {
+
             /**
              * View route
              */
-            const val ROUTE = "chapter_screen/{mangaId}/{chapterId}"
+            const val ROUTE = "chapter_screen/{mangaId}/{chapterId}/{chapterName}"
 
-            fun getRoute(mangaId: String, chapterId: String): String = "chapter_screen/$mangaId/$chapterId"
+            fun getRoute(mangaId: String, chapterId: String, chapterName: String): String =
+                "chapter_screen/$mangaId/$chapterId/$chapterName"
         }
     }
 
@@ -40,13 +44,16 @@ sealed class Screen(val route: String) {
      * Screen with manga by category
      */
     class CategoryScreen : Screen(ROUTE) {
+
         companion object {
+
             /**
              * View route
              */
             const val ROUTE = "category_screen/{categoryName}/{categoryId}"
 
-            fun getRoute(categoryName: String, categoryId: String): String = "category_screen/$categoryName/$categoryId"
+            fun getRoute(categoryName: String, categoryId: String): String =
+                "category_screen/$categoryName/$categoryId"
         }
     }
 
@@ -54,7 +61,9 @@ sealed class Screen(val route: String) {
      * Screen with manga settings
      */
     class SettingScreen : Screen(ROUTE) {
+
         companion object {
+
             /**
              * View route
              */

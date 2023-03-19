@@ -18,7 +18,7 @@ interface SharedPreferencesProvider {
 
     fun putStringSet(key: String, set: Set<String>)
 
-    fun getString(key: String, default: String? = ""): String?
+    fun getString(key: String, default: String = ""): String
 
     fun getInt(key: String, default: Int = 0): Int
 

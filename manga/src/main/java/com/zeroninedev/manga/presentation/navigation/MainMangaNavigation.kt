@@ -14,7 +14,8 @@ import com.zeroninedev.manga.presentation.category.viewmodel.CategoryMangaViewMo
 import com.zeroninedev.manga.presentation.detail.screen.DetailMangaScreen
 import com.zeroninedev.manga.presentation.mangachapter.screen.MangaChapterScreen
 import com.zeroninedev.manga.presentation.detail.viewmodel.DetailMangaViewModel
-import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterViewModel
+import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent
+import com.zeroninedev.manga.presentation.mangachapter.viewmodel.NewMangaChapterViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen
 
@@ -42,14 +43,18 @@ fun NavGraphBuilder.mainMangaNavigation(navigator: Navigator) {
     }
 
     composable(Screen.MangaChapterScreen.ROUTE) {
-        val mangaChapterViewModel: MangaChapterViewModel = hiltViewModel()
+        val mangaChapterViewModel: NewMangaChapterViewModel = hiltViewModel()
+
         val mangaId = remember { it.arguments?.getString("mangaId").orEmpty() }
         val chapterId = remember { it.arguments?.getString("chapterId").orEmpty() }
+        val chapterName = remember { it.arguments?.getString("chapterName").orEmpty() }
+
         LaunchedEffect(key1 = mangaId, key2 = chapterId) {
-            mangaChapterViewModel.loadMangaChapter(mangaId, chapterId)
+            mangaChapterViewModel.processIntent(MangaChapterIntent.LoadMangaChapters(mangaId, chapterId, chapterName))
+            mangaChapterViewModel.processIntent(MangaChapterIntent.SetNavigator(navigator))
         }
 
-        MangaChapterScreen(navigator, mangaChapterViewModel)
+        MangaChapterScreen(mangaChapterViewModel)
     }
 
     composable(Screen.CategoryScreen.ROUTE) {

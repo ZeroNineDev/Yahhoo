@@ -1,7 +1,6 @@
 package com.zeroninedev.core_compose.components.image
 
 import android.graphics.drawable.Drawable
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -22,14 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ErrorResult
-import coil.request.ImageRequest
 import coil.request.ImageRequest.Listener
-import coil.request.SuccessResult
-import coil.size.Size
 import com.zeroninedev.core_compose.model.SwipeDirection
 import com.zeroninedev.core_compose.model.SwipeDirection.LEFT
 import com.zeroninedev.core_compose.model.SwipeDirection.RIGHT
@@ -54,38 +46,21 @@ fun MangaPageView(
     url: String,
     onErrorResult: (String?) -> Unit,
     onSuccessResult: (Drawable) -> Unit,
-    onSwipeListener: (SwipeDirection) -> Unit,
     modifier: Modifier = Modifier,
-    isSwipeSet: Boolean = true,
+    onSwipeListener: ((SwipeDirection) -> Unit)? = null,
+    isSwipeSet: Boolean = false,
 ) {
     val scrollableState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
 
     var listener by remember {
         mutableStateOf<Listener?>(
-            object : Listener {
-
-                override fun onError(request: ImageRequest, result: ErrorResult) {
-                    super.onError(request, result)
-                    onErrorResult(result.throwable.message)
-                }
-
-                override fun onSuccess(request: ImageRequest, result: SuccessResult) {
-                    super.onSuccess(request, result)
-                    onSuccessResult(result.drawable)
-                }
-            }
+            ImageListener(
+                onErrorResult = onErrorResult,
+                onSuccessResult = onSuccessResult
+            )
         )
     }
-
-    val painter = rememberAsyncImagePainter(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(url.drop(1).dropLast(1))
-            .listener(listener)
-            .allowHardware(false)
-            .size(Size.ORIGINAL)
-            .build()
-    )
 
     var scale by remember { mutableStateOf(START_SCALE) }
     var translationX by remember { mutableStateOf(START_TRANSLATION_COORDINATION) }
@@ -117,7 +92,9 @@ fun MangaPageView(
             }
             .wrapContentSize(align = Alignment.Center),
     ) {
-        Image(
+        BaseImageLoader(
+            url = url,
+            listener = listener,
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(scrollableState)
@@ -135,14 +112,11 @@ fun MangaPageView(
                             scroll(coroutineScope, scrollableState, deltaY)
 
                             if (isSwipeSet && (abs(deltaY) < abs(deltaX))) {
-                                swipeCalc(coroutineScope, deltaX) { onSwipeListener(it) }
+                                swipeCalc(coroutineScope, deltaX) { onSwipeListener?.invoke(it) }
                             }
                         },
                     )
-                },
-            contentScale = ContentScale.FillWidth,
-            painter = painter,
-            contentDescription = url,
+                }
         )
     }
 }

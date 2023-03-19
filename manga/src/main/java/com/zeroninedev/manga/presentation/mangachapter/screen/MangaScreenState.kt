@@ -14,7 +14,21 @@ internal sealed class MangaScreenState {
      *
      * @property data screen info
      */
-    data class Success(val data: List<String>, val isMangaSwitchSwipe: Boolean) : MangaScreenState()
+    data class ScrollSuccess(val data: List<String>, val chapterName: String) : MangaScreenState()
+
+    /**
+     * State when info was successful loaded
+     *
+     * @property data screen info
+     */
+    data class TapSuccess(val data: String, val currentPage: Int, val maxPage: Int, val chapterName: String) : MangaScreenState()
+
+    /**
+     * State when info was successful loaded
+     *
+     * @property data screen info
+     */
+    data class SwitchSuccess(val data: String, val currentPage: Int, val maxPage: Int, val chapterName: String) : MangaScreenState()
 
     /**
      * State when info was`t loaded
