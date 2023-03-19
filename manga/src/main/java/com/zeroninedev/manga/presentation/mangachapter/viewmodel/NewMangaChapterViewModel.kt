@@ -8,25 +8,34 @@ import com.zeroninedev.common.settingsmodel.SwitchPages.SCROLL_TO_NEXT
 import com.zeroninedev.common.settingsmodel.SwitchPages.SWIPE_TO_NEXT
 import com.zeroninedev.common.settingsmodel.SwitchPages.TAP_TO_NEXT
 import com.zeroninedev.manga.domain.setting.GetMangaSwitchSettingUseCase
+import com.zeroninedev.manga.domain.usecase.GetAllChaptersUseCase
 import com.zeroninedev.manga.domain.usecase.GetMangaChapterUseCase
 import com.zeroninedev.manga.domain.usecase.GetNextChapterUseCase
 import com.zeroninedev.manga.domain.usecase.UpdateChapterInfoUseCase
 import com.zeroninedev.manga.presentation.mangachapter.model.ChapterState.NEXT_PAGE
 import com.zeroninedev.manga.presentation.mangachapter.model.ChapterState.PREV_PAGE
+import com.zeroninedev.manga.presentation.mangachapter.screen.ChapterBottomSheet
 import com.zeroninedev.manga.presentation.mangachapter.screen.MangaScreenState
 import com.zeroninedev.manga.presentation.mangachapter.screen.MangaScreenState.Loading
+import com.zeroninedev.manga.presentation.mangachapter.viewmodel.ChapterBottomSheetIntent.DismissBottomSheet
+import com.zeroninedev.manga.presentation.mangachapter.viewmodel.ChapterBottomSheetIntent.SelectChapter
+import com.zeroninedev.manga.presentation.mangachapter.viewmodel.ChapterBottomSheetIntent.SelectPage
+import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent.ChapterChangeIntent
 import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent.HalfPagesScrolled
 import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent.LoadMangaChapters
 import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent.LoadNextChapter
 import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent.LoadNextPage
 import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent.LoadPreviousChapter
 import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent.LoadPreviousPage
+import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent.PageChangeIntent
 import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent.SendErrorMessage
 import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent.SetNavigator
 import com.zeroninedev.manga.presentation.mangachapter.viewmodel.MangaChapterIntent.UpdateResponse
 import com.zeroninedev.navigation.actions.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,8 +44,12 @@ internal class NewMangaChapterViewModel @Inject constructor(
     getMangaSwitchSettingUseCase: GetMangaSwitchSettingUseCase,
     private val getMangaChapterUseCase: GetMangaChapterUseCase,
     private val updateChapterInfoUseCase: UpdateChapterInfoUseCase,
+    private val getAllChaptersUseCase: GetAllChaptersUseCase,
     private val getNextChapterUseCase: GetNextChapterUseCase
 ) : BaseViewModel<MangaScreenState>(Loading) {
+
+    private val _bottomSheet = MutableStateFlow<ChapterBottomSheet>(ChapterBottomSheet.None)
+    val bottomSheet = _bottomSheet.asStateFlow()
 
     private var navigator: Navigator? = null
 
@@ -51,7 +64,7 @@ internal class NewMangaChapterViewModel @Inject constructor(
     private var currentChapterId: String = ""
     private var currentChapterName: String = ""
 
-    fun processIntent(intent: MangaChapterIntent): Unit = when (intent) {
+    fun processIntent(intent: MangaChapterIntent) = when (intent) {
         HalfPagesScrolled -> startLoadNextChapter()
         UpdateResponse -> startLoadPage()
         LoadNextChapter -> loadNextChapter()
@@ -61,6 +74,26 @@ internal class NewMangaChapterViewModel @Inject constructor(
         is SendErrorMessage -> processError(intent.message)
         is LoadMangaChapters -> loadMangaChapters(intent.mangaId, intent.chapterId to intent.chapterName)
         is SetNavigator -> setNavigator(intent.navigator)
+        ChapterChangeIntent -> showChangeSheet()
+        PageChangeIntent -> showPageSheet()
+    }
+
+    fun processBottomSheetIntent(intent: ChapterBottomSheetIntent) = when (intent) {
+        DismissBottomSheet -> Unit
+        is SelectChapter -> selectChapter(intent.data)
+        is SelectPage -> selectPage(intent.page)
+    }.also { dismissBottomSheet() }
+
+    private fun showPageSheet() {
+        _bottomSheet.value = currentPages?.size?.let {
+            ChapterBottomSheet.ChoicePage(it)
+        } ?: ChapterBottomSheet.None
+    }
+
+    private fun showChangeSheet() {
+        _bottomSheet.value = currentPages?.size?.let {
+            ChapterBottomSheet.ChoiceChapter(getAllChaptersUseCase())
+        } ?: ChapterBottomSheet.None
     }
 
     private fun startLoadNextChapter() {
@@ -196,6 +229,22 @@ internal class NewMangaChapterViewModel @Inject constructor(
 
     private fun backStack() {
         navigator?.goBackStack()
+    }
+
+    private fun selectChapter(data: Pair<String, String>) {
+        _screenState.value = Loading
+        closeJob()
+        currentPage = START_PAGE
+        loadMangaChapters(currentMangaId, data)
+    }
+
+    private fun selectPage(page: Int) {
+        currentPage = page
+        processMangaType(currentPages)
+    }
+
+    private fun dismissBottomSheet() {
+        _bottomSheet.value = ChapterBottomSheet.None
     }
 
     private companion object {

@@ -16,6 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.zeroninedev.core_compose.ui.theme.NormalMediumSize
+import com.zeroninedev.core_compose.ui.theme.OneSize
+import com.zeroninedev.core_compose.ui.theme.SmallSize
 import com.zeroninedev.core_compose.ui.theme.TinySize
 
 @Composable
@@ -53,7 +55,7 @@ fun RoundedButton(
             .clickable { onButtonClick() },
     ) {
         Text(
-            modifier = Modifier.padding(horizontal = TinySize),
+            modifier = Modifier.padding(horizontal = SmallSize, vertical = OneSize),
             text = text,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.body2,

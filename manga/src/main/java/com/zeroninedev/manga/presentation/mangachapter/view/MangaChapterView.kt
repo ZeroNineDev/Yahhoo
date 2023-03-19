@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.zeroninedev.core_compose.components.button.RoundedButton
@@ -48,7 +47,9 @@ internal fun MangaChapterScrollView(
     nextPart: () -> Unit,
     chapterName: String,
     afterHalfPart: () -> Unit,
-    onErrorAction: (String?) -> Unit
+    onErrorAction: (String?) -> Unit,
+    onChapterClick: () -> Unit,
+    onPageClick: () -> Unit
 ) {
     val listState = rememberLazyListState()
     val currentItem = remember { derivedStateOf { listState.firstVisibleItemIndex } }
@@ -90,8 +91,10 @@ internal fun MangaChapterScrollView(
             chapterName = chapterName,
             currentPage = currentItem.value,
             maxPage = chapterPage.size,
-            modifier = Modifier.padding(start = SmallSize, bottom = horizontalAnim)
-        ) { }
+            modifier = Modifier.padding(start = SmallSize, bottom = horizontalAnim),
+            onPageClick = onPageClick,
+            onChapterClick = onChapterClick
+        )
     }
 }
 
@@ -103,6 +106,8 @@ fun MangaChapterTapView(
     chapterName: String,
     prevPart: () -> Unit,
     nextPart: () -> Unit,
+    onPageClick: () -> Unit,
+    onChapterClick: () -> Unit,
     onErrorAction: (String?) -> Unit
 ) {
     Box(
@@ -118,8 +123,10 @@ fun MangaChapterTapView(
         LayoutWithButtonInBottom(
             chapterName = chapterName,
             currentPage = currentPage,
-            maxPage = maxPage
-        ) { }
+            maxPage = maxPage,
+            onPageClick = onPageClick,
+            onChapterClick = onChapterClick
+        )
     }
 }
 
@@ -131,11 +138,12 @@ fun MangaChapterSwipeView(
     chapterName: String,
     prevPart: () -> Unit,
     nextPart: () -> Unit,
+    onPageClick: () -> Unit,
+    onChapterClick: () -> Unit,
     onErrorAction: (String?) -> Unit
 ) {
     Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        modifier = Modifier.fillMaxSize()
     ) {
         MangaPageView(
             url = chapterPageUrl,
@@ -150,8 +158,10 @@ fun MangaChapterSwipeView(
         LayoutWithButtonInBottom(
             chapterName = chapterName,
             currentPage = currentPage,
-            maxPage = maxPage
-        ) { }
+            maxPage = maxPage,
+            onPageClick = onPageClick,
+            onChapterClick = onChapterClick
+        )
     }
 }
 
@@ -161,7 +171,8 @@ private fun LayoutWithButtonInBottom(
     maxPage: Int,
     chapterName: String,
     modifier: Modifier = Modifier,
-    onButtonClick: () -> Unit
+    onChapterClick: () -> Unit,
+    onPageClick: () -> Unit,
 ) {
     Column {
         RoundedButton(
@@ -171,13 +182,13 @@ private fun LayoutWithButtonInBottom(
                     .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
                     .asPaddingValues()
             ),
-            onButtonClick = onButtonClick
+            onButtonClick = onChapterClick
         )
         Spacer(modifier = Modifier.weight(1f))
         RoundedButton(
             text = "${currentPage + 1} / $maxPage",
             modifier = modifier.padding(SmallSize),
-            onButtonClick = onButtonClick
+            onButtonClick = onPageClick
         )
     }
 }

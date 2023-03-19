@@ -16,6 +16,10 @@ internal sealed class MangaChapterIntent {
 
     object UpdateResponse: MangaChapterIntent()
 
+    object PageChangeIntent: MangaChapterIntent()
+
+    object ChapterChangeIntent: MangaChapterIntent()
+
     data class SendErrorMessage(val message: String?): MangaChapterIntent()
 
     data class SetNavigator(val navigator: Navigator): MangaChapterIntent()
