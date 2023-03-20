@@ -40,6 +40,10 @@ dependencies {
     api(Dependencies.Room.api)
     kapt(Dependencies.Room.compiler)
 
+    implementation(platform(Dependencies.Firebase.bom))
+    implementation(Dependencies.Firebase.analytic)
+    implementation(Dependencies.Firebase.crashlytics)
+
     implementation(Dependencies.Hilt.android)
     kapt(Dependencies.Hilt.compiler)
 }

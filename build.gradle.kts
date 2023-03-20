@@ -5,3 +5,11 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.6.10" apply false
     id("com.google.dagger.hilt.android") version "2.41" apply false
 }
+
+buildscript {
+
+    dependencies {
+        classpath(Dependencies.Firebase.classpath)
+        classpath(Dependencies.Firebase.crashlyticsClassPath)
+    }
+}
