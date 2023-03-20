@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "419487774107",
+    "project_id": "yahhoo-5ecfc",
+    "storage_bucket": "yahhoo-5ecfc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:419487774107:android:efd67784e5823fa464dd3e",
+        "android_client_info": {
+          "package_name": "com.zeroninedev.yahhoo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "419487774107-eeajthlrdgs3v1nve75d1f787eot3oh3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zeroninedev.yahhoo",
+            "certificate_hash": "fe64cb7e2a8cb6c143db98b1408100489a94fb0d"
+          }
+        },
+        {
+          "client_id": "419487774107-dmkdb24drt1ku1sbctrlvingrhe6qi35.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXkxb-r_1UPB9ljYKJcLPCX2_DLZR_luU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "419487774107-7hsetumealnk5sok6bqsqi4hcgsh57i9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

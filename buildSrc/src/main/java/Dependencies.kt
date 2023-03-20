@@ -65,6 +65,15 @@ object Dependencies {
         const val gif = "io.coil-kt:coil-gif:$version"
     }
 
+    object Firebase {
+        private const val version = "4.3.15"
+        const val classpath = "com.google.gms:google-services:$version"
+        const val bom = "com.google.firebase:firebase-bom:31.2.3"
+        const val analytic = "com.google.firebase:firebase-analytics-ktx"
+        const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
+        const val crashlyticsClassPath = "com.google.firebase:firebase-crashlytics-gradle:2.9.4"
+    }
+
     object Paging {
         const val runtime = "androidx.paging:paging-runtime:3.1.0"
         const val compose = "androidx.paging:paging-compose:1.0.0-alpha13"

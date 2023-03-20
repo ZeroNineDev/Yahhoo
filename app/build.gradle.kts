@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     kotlin("kapt")
 }
 
@@ -94,6 +96,10 @@ dependencies {
     androidTestImplementation(Dependencies.Test.espresso)
     androidTestImplementation(Dependencies.Compose.composeJUnit)
     debugImplementation(Dependencies.Compose.composeUITooling)
+
+    implementation(platform(Dependencies.Firebase.bom))
+    implementation(Dependencies.Firebase.analytic)
+    implementation(Dependencies.Firebase.crashlytics)
 
     implementation(Dependencies.Hilt.android)
     kapt(Dependencies.Hilt.compiler)
