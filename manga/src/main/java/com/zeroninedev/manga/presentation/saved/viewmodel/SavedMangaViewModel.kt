@@ -1,14 +1,15 @@
 package com.zeroninedev.manga.presentation.saved.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zeroninedev.common.base.BaseViewModel
 import com.zeroninedev.common.domain.models.MangaReadStatus
 import com.zeroninedev.common.domain.models.UpdatedManga
 import com.zeroninedev.manga.domain.usecase.GetSavedMangasUseCase
 import com.zeroninedev.manga.presentation.saved.screen.SavedScreenState
+import com.zeroninedev.manga.presentation.saved.viewmodel.SavedMangaIntent.ChangeFilterStatus
+import com.zeroninedev.manga.presentation.saved.viewmodel.SavedMangaIntent.LoadManga
+import com.zeroninedev.manga.presentation.saved.viewmodel.SavedMangaIntent.UpdateResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,23 +21,19 @@ import javax.inject.Inject
 @HiltViewModel
 internal class SavedMangaViewModel @Inject constructor(
     private val getSavedMangasUseCase: GetSavedMangasUseCase
-) : ViewModel() {
-
-    private val _screenState = MutableStateFlow<SavedScreenState>(SavedScreenState.Loading)
-    val screenState = _screenState.asStateFlow()
+) : BaseViewModel<SavedScreenState>(SavedScreenState.Loading) {
 
     private var list: List<UpdatedManga> = listOf()
 
     private var status = MangaReadStatus.READ
 
-    /**
-     * Reload info about manga when error
-     */
-    fun updateRequest() {
-        loadMangas()
+    fun processIntent(intent: SavedMangaIntent) = when (intent) {
+        is ChangeFilterStatus -> updateSortStatus(intent.status)
+        LoadManga -> loadMangas()
+        UpdateResponse -> loadMangas()
     }
 
-    fun updateSortStatus(status: MangaReadStatus) {
+    private fun updateSortStatus(status: MangaReadStatus) {
         this.status = status
         _screenState.value = SavedScreenState.Success(list.filter { it.status == status }, status)
     }

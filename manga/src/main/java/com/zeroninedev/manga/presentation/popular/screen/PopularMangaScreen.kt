@@ -7,6 +7,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.zeroninedev.core_compose.components.screen.ErrorScreen
 import com.zeroninedev.core_compose.components.screen.LoadingScreen
 import com.zeroninedev.manga.presentation.popular.view.PopularMangaView
+import com.zeroninedev.manga.presentation.popular.viewmodel.PopularMangaIntent
 import com.zeroninedev.manga.presentation.popular.viewmodel.PopularMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen.MangaDetailScreen
@@ -25,7 +26,9 @@ internal fun PopularMangaScreen(
 ) {
     when (val result = viewModel.screenState.collectAsState().value) {
         is PopularScreenState.Error -> {
-            ErrorScreen(errorMessage = result.exception) { viewModel.updateRequest() }
+            ErrorScreen(errorMessage = result.exception) {
+                viewModel.processIntent(PopularMangaIntent.UpdateResponse)
+            }
         }
         is PopularScreenState.Loading -> {
             LoadingScreen()

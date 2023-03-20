@@ -8,6 +8,9 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        create("release") {}
+    }
     compileSdk = Config.compileSdk
 
     defaultConfig {
@@ -21,12 +24,22 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        signingConfig = signingConfigs.getByName("debug")
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            resValue(type = "string", name = "app_name", value = Config.appName)
+        }
+
+        debug {
+            applicationIdSuffix = ".debug"
+            resValue(type = "string", name = "app_name", value = Config.appNameDebug)
         }
 
         applicationVariants.all {
@@ -34,7 +47,8 @@ android {
             outputs
                 .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
                 .forEach { output ->
-                    val outputFileName = "Yahhoo - ${variant.baseName} - ${variant.versionName} ${variant.versionCode}.apk"
+                    val outputFileName =
+                        "Yahhoo - ${variant.baseName} - ${variant.versionName} ${variant.versionCode}.apk"
                     println("OutputFileName: $outputFileName")
                     output.outputFileName = outputFileName
                 }
