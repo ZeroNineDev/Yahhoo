@@ -9,6 +9,8 @@ import com.zeroninedev.core_compose.components.screen.ErrorScreen
 import com.zeroninedev.core_compose.components.screen.LoadingScreen
 import com.zeroninedev.manga.presentation.detail.view.DetailMangaView
 import com.zeroninedev.manga.presentation.detail.view.MangaStatusBottomSheetView
+import com.zeroninedev.manga.presentation.detail.viewmodel.DetailBottomSheetIntent
+import com.zeroninedev.manga.presentation.detail.viewmodel.DetailMangaIntent
 import com.zeroninedev.manga.presentation.detail.viewmodel.DetailMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen.CategoryScreen
@@ -30,7 +32,7 @@ internal fun DetailMangaScreen(
 ) {
     when (val result = viewModel.screenState.collectAsState().value) {
         is DetailScreenState.Error -> {
-            ErrorScreen(errorMessage = result.exception) { viewModel.updateRequest() }
+            ErrorScreen(errorMessage = result.exception) { viewModel.processIntent(DetailMangaIntent.UpdateRequest) }
         }
         is DetailScreenState.Loading -> {
             LoadingScreen()
@@ -39,12 +41,18 @@ internal fun DetailMangaScreen(
             if (result.data != null) {
                 DetailMangaView(
                     manga = result.data,
-                    onChapterLongClick = { viewModel.showWasReadStateBottomSheet(it) },
-                    onChapterClick = { chapterId ,chapterName ->
-                        viewModel.saveChapters(result.data.chapters.map { it.id.orEmpty() to it.title.orEmpty() })
-                        navigator.navigate(MangaChapterScreen.getRoute(result.data.id.orEmpty(), chapterId, chapterName))
+                    onChapterLongClick = { viewModel.processIntent(DetailMangaIntent.ShowChapterDetailInfo(it)) },
+                    onChapterClick = { chapterId, chapterName ->
+                        viewModel.processIntent(DetailMangaIntent.SaveSelectedManga)
+                        navigator.navigate(
+                            MangaChapterScreen.getRoute(
+                                result.data.id.orEmpty(),
+                                chapterId,
+                                chapterName
+                            )
+                        )
                     },
-                    onChangeStatus = { viewModel.showMangaStatusBottomSheet() },
+                    onChangeStatus = { viewModel.processIntent(DetailMangaIntent.ShowMangaReadStatus) },
                     onChipClick = { navigator.navigate(CategoryScreen.getRoute(it.name.orEmpty(), it.id.orEmpty())) }
                 )
             }
@@ -56,14 +64,21 @@ internal fun DetailMangaScreen(
         is BottomSheetState.ReadStatus -> {
             MangaStatusBottomSheetView(
                 currentMangaStatus = result.data,
-                onChangeStatus = { viewModel.saveUpdatedInfo(it) },
-                onDismiss = { viewModel.hideBottomSheet() }
+                onChangeStatus = { viewModel.processBottomSheetIntent(DetailBottomSheetIntent.SelectMangaStatus(it)) },
+                onDismiss = { viewModel.processBottomSheetIntent(DetailBottomSheetIntent.DismissBottomSheet) }
             )
         }
         is BottomSheetState.WasReadState -> {
             MangaStatusBottomSheetView(
-                onChangeStatus = { viewModel.saveUpdatedChapter(result.data, it) },
-                onDismiss = { viewModel.hideBottomSheet() }
+                onChangeStatus = {
+                    viewModel.processBottomSheetIntent(
+                        DetailBottomSheetIntent.ProcessMangaChapter(
+                            chapterId = result.data,
+                            state = it
+                        )
+                    )
+                },
+                onDismiss = { viewModel.processBottomSheetIntent(DetailBottomSheetIntent.DismissBottomSheet) }
             )
         }
     }

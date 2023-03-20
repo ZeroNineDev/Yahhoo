@@ -10,6 +10,7 @@ import com.zeroninedev.manga.presentation.category.screen.CategoryScreenState.Er
 import com.zeroninedev.manga.presentation.category.screen.CategoryScreenState.Loading
 import com.zeroninedev.manga.presentation.category.screen.CategoryScreenState.Success
 import com.zeroninedev.manga.presentation.category.view.CategoryMangaView
+import com.zeroninedev.manga.presentation.category.viewmodel.CategoryMangaIntent
 import com.zeroninedev.manga.presentation.category.viewmodel.CategoryMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen.MangaDetailScreen
@@ -28,7 +29,7 @@ internal fun CategoryMangaScreen(
 ) {
     when (val result = viewModel.screenState.collectAsState().value) {
         is Error -> {
-            ErrorScreen(errorMessage = result.exception) { viewModel.updateRequest() }
+            ErrorScreen(errorMessage = result.exception) { viewModel.processIntent(CategoryMangaIntent.UpdateResponse) }
         }
         is Loading -> {
             LoadingScreen()

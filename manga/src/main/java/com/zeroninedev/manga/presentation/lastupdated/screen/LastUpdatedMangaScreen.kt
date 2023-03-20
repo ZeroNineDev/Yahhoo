@@ -5,10 +5,10 @@ import androidx.compose.runtime.collectAsState
 import com.zeroninedev.core_compose.components.screen.ErrorScreen
 import com.zeroninedev.core_compose.components.screen.LoadingScreen
 import com.zeroninedev.manga.presentation.lastupdated.view.LastUpdatedMangaView
+import com.zeroninedev.manga.presentation.lastupdated.viewmodel.LastUpdatedMangaIntent
 import com.zeroninedev.manga.presentation.lastupdated.viewmodel.LastUpdatedMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen.MangaDetailScreen
-
 
 /**
  * Detail manga screen
@@ -23,7 +23,9 @@ internal fun LastUpdatedMangaScreen(
 ) {
     when (val result = viewModel.screenState.collectAsState().value) {
         is LastUpdatedScreenState.Error -> {
-            ErrorScreen(errorMessage = result.exception) { viewModel.updateRequest() }
+            ErrorScreen(errorMessage = result.exception) {
+                viewModel.processIntent(LastUpdatedMangaIntent.UpdateResponse)
+            }
         }
         is LastUpdatedScreenState.Loading -> {
             LoadingScreen()

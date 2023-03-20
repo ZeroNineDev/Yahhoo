@@ -1,14 +1,13 @@
 package com.zeroninedev.manga.presentation.popular.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.zeroninedev.common.base.BaseViewModel
 import com.zeroninedev.manga.domain.usecase.GetPopularMangaUseCase
 import com.zeroninedev.manga.presentation.popular.screen.PopularScreenState
+import com.zeroninedev.manga.presentation.popular.viewmodel.PopularMangaIntent.LoadManga
+import com.zeroninedev.manga.presentation.popular.viewmodel.PopularMangaIntent.UpdateResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -19,30 +18,23 @@ import javax.inject.Inject
 @HiltViewModel
 internal class PopularMangaViewModel @Inject constructor(
     private val getPopularMangaUseCase: GetPopularMangaUseCase
-) : ViewModel() {
-
-    private val _screenState = MutableStateFlow<PopularScreenState>(PopularScreenState.Loading)
-    val screenState = _screenState.asStateFlow()
+) : BaseViewModel<PopularScreenState>(PopularScreenState.Loading) {
 
     init {
         loadMangas()
     }
 
-    /**
-     * Reload info about manga when error
-     */
-    fun updateRequest() {
-        loadMangas()
+    fun processIntent(intent: PopularMangaIntent) = when(intent) {
+        LoadManga -> loadMangas()
+        UpdateResponse -> loadMangas()
     }
 
     /**
      * Load list of popular mangas
      */
     private fun loadMangas() {
-        viewModelScope.launch {
-            runCatching { getPopularMangaUseCase().cachedIn(viewModelScope) }
-                .onSuccess { _screenState.value = PopularScreenState.Success(it) }
-                .onFailure { _screenState.value = PopularScreenState.Error(it.message.orEmpty()) }
-        }
+        runCatching { getPopularMangaUseCase().cachedIn(viewModelScope) }
+            .onSuccess { _screenState.value = PopularScreenState.Success(it) }
+            .onFailure { _screenState.value = PopularScreenState.Error(it.message.orEmpty()) }
     }
 }

@@ -7,6 +7,7 @@ import androidx.compose.ui.res.stringResource
 import com.zeroninedev.core_compose.components.screen.ErrorScreen
 import com.zeroninedev.core_compose.components.screen.LoadingScreen
 import com.zeroninedev.manga.presentation.saved.view.SavedMangaView
+import com.zeroninedev.manga.presentation.saved.viewmodel.SavedMangaIntent
 import com.zeroninedev.manga.presentation.saved.viewmodel.SavedMangaViewModel
 import com.zeroninedev.navigation.actions.Navigator
 import com.zeroninedev.navigation.destination.Screen.MangaDetailScreen
@@ -17,12 +18,12 @@ internal fun SavedMangaScreen(
     viewModel: SavedMangaViewModel
 ) {
     LaunchedEffect(key1 = null) {
-        viewModel.updateRequest()
+        viewModel.processIntent(SavedMangaIntent.LoadManga)
     }
 
     when (val result = viewModel.screenState.collectAsState().value) {
         is SavedScreenState.Error -> {
-            ErrorScreen(errorMessage = result.exception) { viewModel.updateRequest() }
+            ErrorScreen(errorMessage = result.exception) { viewModel.processIntent(SavedMangaIntent.UpdateResponse) }
         }
         is SavedScreenState.Loading -> {
             LoadingScreen()
@@ -32,14 +33,14 @@ internal fun SavedMangaScreen(
                 items = result.data,
                 currentFilter = result.sortedStatus,
                 onMangaClick = { item -> mainNavigation.navigate(MangaDetailScreen.getRoute(item.id)) },
-                onChangeStatus = { viewModel.updateSortStatus(it) }
+                onChangeStatus = { viewModel.processIntent(SavedMangaIntent.ChangeFilterStatus(it)) }
             )
         }
         is SavedScreenState.Empty -> {
             ErrorScreen(
                 errorMessage = stringResource(id = com.zeroninedev.core_compose.R.string.saved_mangas_empty)
             ) {
-                viewModel.updateRequest()
+                viewModel.processIntent(SavedMangaIntent.UpdateResponse)
             }
         }
     }
