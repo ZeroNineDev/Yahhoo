@@ -1,15 +1,16 @@
 package com.zeroninedev.manga.presentation.mangasetting.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zeroninedev.common.base.BaseViewModel
 import com.zeroninedev.common.settingsmodel.SwitchPages
 import com.zeroninedev.manga.domain.setting.GetMangaSwitchSettingUseCase
 import com.zeroninedev.manga.domain.setting.SetMangaSwitchSettingUseCase
 import com.zeroninedev.manga.presentation.mangasetting.screen.SettingScreenState
+import com.zeroninedev.manga.presentation.mangasetting.viewmodel.SettingIntent.ChangeMangaSwitch
+import com.zeroninedev.manga.presentation.mangasetting.viewmodel.SettingIntent.LoadSettings
+import com.zeroninedev.manga.presentation.mangasetting.viewmodel.SettingIntent.UpdateRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,22 +24,15 @@ import javax.inject.Inject
 internal class SettingMangaViewModel @Inject constructor(
     private val setMangaSwitchSettingUseCase: SetMangaSwitchSettingUseCase,
     private val getMangaSwitchSettingUseCase: GetMangaSwitchSettingUseCase
-) : ViewModel() {
+) : BaseViewModel<SettingScreenState>(SettingScreenState.Loading) {
 
-    private val _screenState = MutableStateFlow<SettingScreenState>(SettingScreenState.Loading)
-    val screenState = _screenState.asStateFlow()
-
-    /**
-     * Reload info about setting
-     */
-    fun updateRequest() {
-        loadSettings()
+    fun processIntent(intent: SettingIntent) = when(intent) {
+        is ChangeMangaSwitch -> onChangeMangaSwitch(intent.param)
+        LoadSettings -> loadSettings()
+        UpdateRequest -> loadSettings()
     }
 
-    /**
-     * Load info about setting
-     */
-    fun loadSettings() {
+    private fun loadSettings() {
         viewModelScope.launch {
             _screenState.value = SettingScreenState.Loading
             delay(100)
@@ -48,7 +42,7 @@ internal class SettingMangaViewModel @Inject constructor(
         }
     }
 
-    fun onChangeMangaSwitch(state: SwitchPages) {
+    private fun onChangeMangaSwitch(state: SwitchPages) {
         setMangaSwitchSettingUseCase(state)
     }
 }

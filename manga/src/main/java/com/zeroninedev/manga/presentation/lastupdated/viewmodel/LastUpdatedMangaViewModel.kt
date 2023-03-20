@@ -1,12 +1,10 @@
 package com.zeroninedev.manga.presentation.lastupdated.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zeroninedev.common.base.BaseViewModel
 import com.zeroninedev.manga.domain.usecase.GetLastUpdatedMangaUseCase
 import com.zeroninedev.manga.presentation.lastupdated.screen.LastUpdatedScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,19 +16,21 @@ import javax.inject.Inject
 @HiltViewModel
 internal class LastUpdatedMangaViewModel @Inject constructor(
     private val getLastUpdatedMangaUseCase: GetLastUpdatedMangaUseCase
-) : ViewModel() {
-
-    private val _screenState = MutableStateFlow<LastUpdatedScreenState>(LastUpdatedScreenState.Loading)
-    val screenState = _screenState.asStateFlow()
+) : BaseViewModel<LastUpdatedScreenState>(LastUpdatedScreenState.Loading) {
 
     init {
         loadMangas()
     }
 
+    fun processIntent(intent: LastUpdatedMangaIntent) = when (intent) {
+        LastUpdatedMangaIntent.LoadManga -> loadMangas()
+        LastUpdatedMangaIntent.UpdateResponse -> updateRequest()
+    }
+
     /**
      * Reload info about manga when error
      */
-    fun updateRequest() {
+    private fun updateRequest() {
         loadMangas()
     }
 

@@ -9,6 +9,7 @@ import com.zeroninedev.manga.presentation.mangasetting.screen.SettingScreenState
 import com.zeroninedev.manga.presentation.mangasetting.screen.SettingScreenState.Loading
 import com.zeroninedev.manga.presentation.mangasetting.screen.SettingScreenState.Success
 import com.zeroninedev.manga.presentation.mangasetting.view.SettingMangaView
+import com.zeroninedev.manga.presentation.mangasetting.viewmodel.SettingIntent
 import com.zeroninedev.manga.presentation.mangasetting.viewmodel.SettingMangaViewModel
 
 /**
@@ -20,18 +21,18 @@ import com.zeroninedev.manga.presentation.mangasetting.viewmodel.SettingMangaVie
 internal fun SettingMangaScreen(
     viewModel: SettingMangaViewModel
 ) {
-    LaunchedEffect(key1 = null) { viewModel.loadSettings() }
+    LaunchedEffect(key1 = null) { viewModel.processIntent(SettingIntent.LoadSettings) }
 
     when (val result = viewModel.screenState.collectAsState().value) {
         is Error -> {
-            ErrorScreen(errorMessage = result.exception) { viewModel.updateRequest() }
+            ErrorScreen(errorMessage = result.exception) { viewModel.processIntent(SettingIntent.UpdateRequest) }
         }
         is Loading -> {
             LoadingScreen()
         }
         is Success -> {
             SettingMangaView(mangaSwitch = result.mangaSwitch) {
-                viewModel.onChangeMangaSwitch(it)
+                viewModel.processIntent(SettingIntent.ChangeMangaSwitch(it))
             }
         }
     }

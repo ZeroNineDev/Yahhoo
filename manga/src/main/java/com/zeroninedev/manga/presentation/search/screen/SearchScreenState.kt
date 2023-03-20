@@ -9,17 +9,17 @@ import com.zeroninedev.common.domain.models.UpdatedManga
 internal sealed class SearchScreenState {
 
     /** State when info loading */
-    object Loading : SearchScreenState()
+    data class Loading(val query: String = "") : SearchScreenState()
 
     /** State when info empty */
-    object Empty : SearchScreenState()
+    data class Empty(val query: String = "") : SearchScreenState()
 
     /**
      * State when info was successful loaded
      *
      * @property data screen info
      */
-    data class Success(val data: List<UpdatedManga>) : SearchScreenState()
+    data class Success(val query: String, val data: List<UpdatedManga>) : SearchScreenState()
 
     /**
      * State when info was`t loaded
@@ -27,5 +27,5 @@ internal sealed class SearchScreenState {
      *
      * @property exception
      */
-    data class Error(val exception: String) : SearchScreenState()
+    data class Error(val query: String, val exception: String) : SearchScreenState()
 }
