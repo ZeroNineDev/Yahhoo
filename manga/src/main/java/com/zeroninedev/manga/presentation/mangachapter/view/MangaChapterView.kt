@@ -187,7 +187,12 @@ private fun LayoutWithButtonInBottom(
         Spacer(modifier = Modifier.weight(1f))
         RoundedButton(
             text = "${currentPage + 1} / $maxPage",
-            modifier = modifier.padding(SmallSize),
+            modifier = modifier
+                .padding(
+                    WindowInsets.systemBars
+                        .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+                        .asPaddingValues()
+                ),
             onButtonClick = onPageClick
         )
     }

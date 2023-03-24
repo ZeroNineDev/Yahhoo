@@ -2,7 +2,7 @@ package com.zeroninedev.common.constants
 
 object Constants {
 
-    const val BASE_URL = "https://yahhoo-back.onrender.com"
+    const val BASE_URL = "https://a16164-c928.k.d-f.pw"
 
     const val MANGA_DATABASE_NAME = "manga_database"
 

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:419487774107:android:efd67784e5823fa464dd3e",
         "android_client_info": {
-          "package_name": "com.zeroninedev.yahhoo"
+          "package_name": "com.zeroninedev.yahhoo.debug"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "419487774107-eeajthlrdgs3v1nve75d1f787eot3oh3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.zeroninedev.yahhoo",
+            "package_name": "com.zeroninedev.yahhoo.debug",
             "certificate_hash": "fe64cb7e2a8cb6c143db98b1408100489a94fb0d"
           }
         },
