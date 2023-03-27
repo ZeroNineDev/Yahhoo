@@ -1,5 +1,6 @@
 package com.zeroninedev.navigation.actions
 
+import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.zeroninedev.navigation.destination.Screen
@@ -40,6 +41,7 @@ class NavigatorImpl(private val navController: NavController) : Navigator {
     }
 
     override fun goBackStack() {
+        Log.d("HETE", navController.currentDestination.toString())
         navController.navigateUp()
     }
 }

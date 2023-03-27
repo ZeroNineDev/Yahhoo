@@ -13,6 +13,7 @@ object Dependencies {
     object Android {
 
         const val coreKtx = "androidx.core:core-ktx:1.7.0"
+        const val google = "com.google.android.gms:play-services-auth:20.4.0"
     }
 
     object Lifecycle {
@@ -41,6 +42,7 @@ object Dependencies {
         const val navigation = ":navigation"
         const val common = ":common"
         const val manga = ":manga"
+        const val auth = ":authentication"
     }
 
     object Retrofit {
@@ -70,6 +72,7 @@ object Dependencies {
         const val classpath = "com.google.gms:google-services:$version"
         const val bom = "com.google.firebase:firebase-bom:31.2.3"
         const val analytic = "com.google.firebase:firebase-analytics-ktx"
+        const val authentication = "com.google.firebase:firebase-auth-ktx"
         const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
         const val crashlyticsClassPath = "com.google.firebase:firebase-crashlytics-gradle:2.9.4"
     }

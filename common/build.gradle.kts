@@ -43,6 +43,7 @@ dependencies {
     implementation(platform(Dependencies.Firebase.bom))
     implementation(Dependencies.Firebase.analytic)
     implementation(Dependencies.Firebase.crashlytics)
+    implementation(Dependencies.Firebase.authentication)
 
     implementation(Dependencies.Hilt.android)
     kapt(Dependencies.Hilt.compiler)

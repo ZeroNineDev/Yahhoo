@@ -9,6 +9,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.zeroninedev.authentication.navigation.mainAuthenticationScreenNavigation
 import com.zeroninedev.manga.presentation.navigation.mainMangaNavigation
 import com.zeroninedev.navigation.actions.NavigatorImpl
 import com.zeroninedev.yahhoo.main.screen.MainScreen
@@ -27,16 +28,27 @@ fun MainNavigationGraph() {
     val navigationController = rememberNavController()
     val navigator = remember(navigationController) { NavigatorImpl(navigationController) }
 
+    val navigationControllerWithToolbar = rememberNavController()
+    val navigatorWithToolbar = remember(navigationControllerWithToolbar) {
+        NavigatorImpl(navigationControllerWithToolbar)
+    }
+
     NavHost(
         navigationController,
         startDestination = MainScreenRoute.ROUTE
     ) {
 
         composable(MainScreenRoute.ROUTE) {
-            MainScreen(navigator)
+            MainScreen(
+                navigator = navigator,
+                navigationControllerWithoutToolbar = navigationControllerWithToolbar,
+                navigatorWithoutToolbar = navigatorWithToolbar
+            )
         }
 
 
         mainMangaNavigation(navigator)
+
+        mainAuthenticationScreenNavigation(navigator = navigator)
     }
 }

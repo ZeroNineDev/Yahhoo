@@ -23,4 +23,7 @@
 
     <string name="text_previous_button">Назад</string>
     <string name="text_next_button">Вперед</string>
+    <string name="success_text">Успешно</string>
+    <string name="register_text">Зарегистрироваться</string>
+    <string name="sign_in_text">Вход</string>
 </resources>

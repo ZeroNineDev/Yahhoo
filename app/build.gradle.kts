@@ -79,6 +79,7 @@ dependencies {
     implementation(project(Dependencies.Project.navigation))
     implementation(project(Dependencies.Project.manga))
     implementation(project(Dependencies.Project.common))
+    implementation(project(Dependencies.Project.auth))
 
     implementation(Dependencies.Android.coreKtx)
 

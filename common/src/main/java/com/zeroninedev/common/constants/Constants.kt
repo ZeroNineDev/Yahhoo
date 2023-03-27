@@ -12,5 +12,7 @@ object Constants {
 
     const val MANGA_PAGES_SWITCHING = "MANGA_PAGES_SWITCH"
 
+    const val SERVICE_ID = "419487774107-dmkdb24drt1ku1sbctrlvingrhe6qi35.apps.googleusercontent.com"
+
     const val LOG = "YahhoAppLog"
 }

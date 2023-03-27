@@ -24,5 +24,10 @@
 
     <string name="text_next_button">Next</string>
     <string name="text_previous_button">Previous</string>
+    <string name="success_text">Success</string>
+    <string name="register_text">Register</string>
+    <string name="sign_in_text">Sign in</string>
+    <string name="email_text" translatable="false">Email</string>
+    <string name="password_text" translatable="false">Passwod</string>
 
 </resources>

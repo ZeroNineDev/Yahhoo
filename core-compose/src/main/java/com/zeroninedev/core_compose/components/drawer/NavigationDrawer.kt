@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.zeroninedev.core_compose.components.button.RoundedIconButton
+import com.zeroninedev.core_compose.components.button.SimpleButton
 import com.zeroninedev.core_compose.ui.theme.MediumSize
 import com.zeroninedev.core_compose.ui.theme.NormalMediumSize
 import com.zeroninedev.core_compose.ui.theme.SmallSize
@@ -43,6 +44,7 @@ fun NavigationDrawer(
     modifier: Modifier = Modifier,
     itemsList: List<NavigationItemDrawerScreen>,
     onDestinationClicked: (NavigationItemDrawerScreen) -> Unit,
+    onUserClicked: () -> Unit,
     onSettingClick: () -> Unit
 ) {
     Column(
@@ -54,6 +56,7 @@ fun NavigationDrawer(
                     .asPaddingValues()
             )
     ) {
+        SimpleButton(text = "Рег", onButtonClick = onUserClicked)
 
         Spacer(modifier = Modifier.height(MediumSize))
         Text(

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -77,11 +78,13 @@ internal fun MangaChapterScrollView(
                 ) {
                     SimpleButton(
                         text = stringResource(id = com.zeroninedev.core_compose.R.string.text_previous_button),
+                        modifier = Modifier.wrapContentSize(),
                         onButtonClick = prevPart
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     SimpleButton(
                         text = stringResource(id = com.zeroninedev.core_compose.R.string.text_next_button),
+                        modifier = Modifier.wrapContentSize(),
                         onButtonClick = nextPart
                     )
                 }

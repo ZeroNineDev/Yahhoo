@@ -6,4 +6,5 @@
     <string name="updated_text">Последнее обновленное</string>
     <string name="manga_drawer_title">Манга</string>
     <string name="saved_text">Сохраненая манга</string>
+    <string name="auth_text">Вход</string>
 </resources>

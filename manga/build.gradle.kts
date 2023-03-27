@@ -45,8 +45,6 @@ dependencies {
     implementation(Dependencies.Accompanist.navigation)
 
     implementation(Dependencies.Android.coreKtx)
-    implementation(Dependencies.Retrofit.core)
-    implementation(Dependencies.Retrofit.gsonConverter)
 
     implementation(Dependencies.Paging.compose)
 
